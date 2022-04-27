@@ -1,17 +1,85 @@
-# Wiredash Example  
+<p align="center">  
+<img src="https://raw.githubusercontent.com/wiredashio/wiredash-sdk/master/.github/logo.svg?sanitize=true" width="512px" alt="Wiredash Logo">
+</p>
+
+# Wiredash SDK for Flutter
+
+[![Pub](https://img.shields.io/pub/v/wiredash.svg)](https://pub.dartlang.org/packages/wiredash)
+[![Build](https://img.shields.io/github/workflow/status/wiredashio/wiredash-sdk/Static%20Analysis)](https://github.com/wiredashio/wiredash-sdk/actions)
+[![Website](https://img.shields.io/badge/website-wiredash.io-blue.svg)](https://wiredash.io/)
+[![likes](https://badges.bar/wiredash/likes)](https://pub.dev/packages/wiredash/score)
+[![popularity](https://badges.bar/wiredash/popularity)](https://pub.dev/packages/wiredash/score)
+[![pub points](https://badges.bar/wiredash/pub%20points)](https://pub.dev/packages/wiredash/score) 
   
-This project uses the default Flutter sample project and adds the Wiredash widget to enable interactive user feedback - luckily that's easy as 1-2-3 🎉
+Wiredash is probably the easiest, and most convenient way to capture in-app user feedback, wishes, ratings and much more. The SDK is completely written in Dart and runs on Android, iOS, Desktop and the Web. For more info, head over to [wiredash.io](https://wiredash.io). 
+  
+## 🚀 Getting Started
 
-## What are the differences from the official Flutter sample?
+> **TIP**  Visit [docs.wiredash.io](https://docs.wiredash.io/guide/#integrating-wiredash-in-your-app) for the in-depth guide and additional info.
 
-Inside `main.dart` the default `MaterialApp` is now a child of `Wiredash`. It's important that Wiredash sits at the root of your application for it to function properly.
+### 1. Create a free account on [wiredash.io](https://console.wiredash.io)
 
-We also added an `IconButton` as the only action to the `AppBar` which serves as the trigger for the feedback routine. In its callback it calls `Wiredash.of(context).startFeedback()` to launch Wiredash.
+Sign in with a valid Google or GitHub account.
 
-## Running the Sample
+### 2. Add wiredash to your pubspec.yaml.
 
-1. Create a new Wiredash project on [wiredash.io](https://wiredash.io).
-2. Make sure to add your own API credentials to the `Wiredash` widget inside `main.dart`.
-3. Run the sample by typing `flutter run` into a console window inside the `example` folder.
-4. Inside the sample app, tap the `?` button on the top right to launch Wiredash.
-5. Get creative and write / draw your first feedback 🖌
+```yaml
+name: your_flutter_app
+dependencies:
+  flutter:
+    sdk: flutter
+  wiredash: ^0.6.0
+```
+
+### 3. Wrap your root widget with Wiredash
+
+Fill in the `projectId` and `secret` from [Wiredash console](https://console.wiredash.io) > Project > Settings
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:wiredash/wiredash.dart';
+
+class MyApp extends StatelessWidget {
+  // It's important that Wiredash and your root Material- / Cupertino- / WidgetsApp
+  // share the same Navigator key.
+  final _navigatorKey = GlobalKey<NavigatorState>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Wiredash(
+      projectId: 'YOUR-PROJECT-ID',
+      secret: 'YOUR-SECRET',
+      navigatorKey: _navigatorKey,
+      child: MaterialApp(
+        navigatorKey: _navigatorKey,
+        title: 'Flutter Demo',
+        home: YourSuperDuperAwesomeApp(),
+      ),
+    );
+  }
+}
+```
+
+### 4. Launch the feedback flow
+
+From anywhere in your app
+
+```dart
+ElevatedButton(
+  // launch wiredash where appropriate in your App 
+  onPressed: () => Wiredash.of(context).show(),
+  child: Text('Give Feedback'),
+),
+```
+
+![bottom sheet](https://deploy-preview-4--wiredash-docs.netlify.app/assets/img/wiredash-sample-app-side-by-side-start.09e3b5f2.png)
+
+## 🎨 Customization
+
+The Wiredash SDK is completely customizable and offers many configuration options!
+
+For all the details, check out the full documentation at [docs.wiredash.io/configuration](https://docs.wiredash.io/configuration/).
+
+## 📃 License  
+  
+The Wiredash SDK is released under the [Attribution Assurance License](https://opensource.org/licenses/AAL). See [LICENSE](https://github.com/wiredashio/wiredash-sdk/blob/master/LICENSE) for details.
