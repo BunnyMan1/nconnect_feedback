@@ -1,4 +1,4 @@
-import 'package:wiredash/src/common/utils/build_info.dart';
+import 'package:ndash/src/common/utils/build_info.dart';
 
 class BuildInfoManager {
   final BuildInfo buildInfo;

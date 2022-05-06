@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:wiredash/src/capture/capture.dart';
-import 'package:wiredash/src/capture/sketcher/sketcher_controller.dart';
+import 'package:ndash/src/capture/capture.dart';
+import 'package:ndash/src/capture/sketcher/sketcher_controller.dart';
 
 class CaptureProvider extends InheritedWidget {
   const CaptureProvider({

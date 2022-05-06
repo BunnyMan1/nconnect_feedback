@@ -1,8 +1,7 @@
-name: wiredash
-description: Wiredash is an interactive user feedback tool for Flutter apps.
-version: 0.7.1
-homepage: https://wiredash.io
-repository: https://github.com/wiredashio/wiredash-sdk
+name: ndash
+description: A new Flutter package project.
+version: 0.0.1
+homepage:
 
 environment:
   sdk: ">=2.12.0-0 <3.0.0"
@@ -18,6 +17,7 @@ dependencies:
   shared_preferences: '>=2.0.0 <3.0.0'
 
 dev_dependencies:
+  change_app_package_name: ^1.0.0
   fake_async: any
   flutter_test:
     sdk: flutter
@@ -27,25 +27,26 @@ dev_dependencies:
 
 flutter:
   assets:
-    - packages/wiredash/assets/images/pen.png
+    - packages/ndash/assets/images/pen.png
 
   plugin:
     platforms:
       android:
-        default_package: wiredash
+        default_package: ndash
       ios:
-        default_package: wiredash
+        default_package: ndash
       linux:
-        default_package: wiredash
+        default_package: ndash
       macos:
-        default_package: wiredash
+        default_package: ndash
       web:
-        default_package: wiredash
+        default_package: ndash
 
   fonts:
     - family: LexendDeca
       fonts:
         - asset: lib/assets/fonts/LexendDeca-Regular.ttf
-    - family: wiredash-icons
+    - family: ndash-icons
       fonts:
-        - asset: lib/assets/fonts/Wiredash-Icons.ttf
+        - asset: lib/assets/fonts/Ndash-Icons.ttf
+

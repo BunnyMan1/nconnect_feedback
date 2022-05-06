@@ -1,5 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:wiredash/src/common/utils/uuid.dart';
+import 'package:ndash/src/common/utils/uuid.dart';
 
 abstract class BuildInfo {
   String? get buildNumber;
@@ -18,7 +18,7 @@ abstract class BuildInfo {
 /// flutter build --dart-define=BUILD_NUMBER=$BUILD_NUMBER --dart-define=BUILD_VERSION=$BUILD_VERSION --dart-define=BUILD_COMMIT=$FCI_COMMIT
 /// ```
 class PlatformBuildInfo extends BuildInfo {
-  static const _prefsDeviceID = '_wiredashDeviceID';
+  static const _prefsDeviceID = '_ndashDeviceID';
 
   PlatformBuildInfo() {
     _loadDeviceID();

@@ -3,13 +3,13 @@ import 'dart:typed_data';
 
 import 'package:file/file.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:wiredash/src/common/utils/error_report.dart';
-import 'package:wiredash/src/common/utils/uuid.dart';
-import 'package:wiredash/src/feedback/data/feedback_item.dart';
-import 'package:wiredash/src/feedback/data/pending_feedback_item.dart';
+import 'package:ndash/src/common/utils/error_report.dart';
+import 'package:ndash/src/common/utils/uuid.dart';
+import 'package:ndash/src/feedback/data/feedback_item.dart';
+import 'package:ndash/src/feedback/data/pending_feedback_item.dart';
 
 /// A temporary place for [FeedbackItem] classes and user-generated screenshot to
-/// sit in until they get sent into the Wiredash console.
+/// sit in until they get sent into the nDash console.
 class PendingFeedbackItemStorage {
   PendingFeedbackItemStorage(
     this._fs,
@@ -21,7 +21,7 @@ class PendingFeedbackItemStorage {
   final Future<SharedPreferences> Function() _sharedPreferences;
   final Future<String> Function() _getScreenshotStorageDirectoryPath;
 
-  static const _feedbackItemsKey = 'io.wiredash.pending_feedback_items';
+  static const _feedbackItemsKey = 'io.ndash.pending_feedback_items';
 
   /// Returns a list of all feedback items and their screenshot paths that are
   /// currently stored in the storage.
@@ -40,7 +40,7 @@ class PendingFeedbackItemStorage {
 
         // The next time addPendingItem is called, the invalid feedbacks get
         // removed automatically
-        reportWiredashError(e, stack, 'Could not parse item from disk $item');
+        reportNdashError(e, stack, 'Could not parse item from disk $item');
         try {
           // Remove the associated screenshot right now.
           final map = json.decode(item) as Map<String, dynamic>;
@@ -49,8 +49,11 @@ class PendingFeedbackItemStorage {
             await screenshot.delete();
           }
         } catch (e) {
-          reportWiredashError(
-              e, stack, 'Could not delete screenshot for invalid item $item');
+          reportNdashError(
+            e,
+            stack,
+            'Could not delete screenshot for invalid item $item',
+          );
         }
       }
     }
@@ -69,9 +72,8 @@ class PendingFeedbackItemStorage {
 
     if (screenshot != null) {
       final directory = await _getScreenshotStorageDirectoryPath();
-      final file = await _fs
-          .file('$directory/${uuidV4.generate()}.png')
-          .writeAsBytes(screenshot);
+      final file =
+          await _fs.file('$directory/${uuidV4.generate()}.png').writeAsBytes(screenshot);
       screenshotPath = file.path;
     }
 
@@ -84,8 +86,10 @@ class PendingFeedbackItemStorage {
     final all = await retrieveAllPendingItems();
     final items = List.of(all)..add(pendingItem);
     final preferences = await _sharedPreferences();
-    preferences.setStringList(_feedbackItemsKey,
-        items.map((it) => json.encode(it.toJson())).toList());
+    preferences.setStringList(
+      _feedbackItemsKey,
+      items.map((it) => json.encode(it.toJson())).toList(),
+    );
 
     return pendingItem;
   }
@@ -107,8 +111,10 @@ class PendingFeedbackItemStorage {
         final updatedItems = List.of(await retrieveAllPendingItems());
         updatedItems.removeWhere((e) => e.id == item.id);
         final preferences = await _sharedPreferences();
-        await preferences.setStringList(_feedbackItemsKey,
-            updatedItems.map((e) => json.encode(e.toJson())).toList());
+        await preferences.setStringList(
+          _feedbackItemsKey,
+          updatedItems.map((e) => json.encode(e.toJson())).toList(),
+        );
         break;
       }
     }

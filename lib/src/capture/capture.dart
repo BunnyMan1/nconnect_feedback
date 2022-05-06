@@ -3,21 +3,21 @@ import 'dart:math' as math;
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
-import 'package:flutter/foundation.dart';
+// import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:wiredash/src/capture/capture_provider.dart';
-import 'package:wiredash/src/capture/drawer/drawer.dart';
-import 'package:wiredash/src/capture/screenshot/screenshot.dart';
-import 'package:wiredash/src/capture/sketcher/sketcher.dart';
-import 'package:wiredash/src/capture/sketcher/sketcher_controller.dart';
-import 'package:wiredash/src/common/theme/wiredash_theme.dart';
-import 'package:wiredash/src/common/translation/wiredash_localizations.dart';
-import 'package:wiredash/src/common/utils/diagonal_shape_painter.dart';
-import 'package:wiredash/src/common/utils/widget_binding_support.dart';
-import 'package:wiredash/src/common/widgets/corner_radius_transition.dart';
-import 'package:wiredash/src/common/widgets/navigation_buttons.dart';
-import 'package:wiredash/src/common/widgets/spotlight.dart';
-import 'package:wiredash/src/common/widgets/wiredash_icons.dart';
+import 'package:ndash/src/capture/capture_provider.dart';
+import 'package:ndash/src/capture/drawer/drawer.dart';
+import 'package:ndash/src/capture/screenshot/screenshot.dart';
+import 'package:ndash/src/capture/sketcher/sketcher.dart';
+import 'package:ndash/src/capture/sketcher/sketcher_controller.dart';
+import 'package:ndash/src/common/theme/ndash_theme.dart';
+import 'package:ndash/src/common/translation/ndash_localizations.dart';
+import 'package:ndash/src/common/utils/diagonal_shape_painter.dart';
+import 'package:ndash/src/common/utils/widget_binding_support.dart';
+import 'package:ndash/src/common/widgets/corner_radius_transition.dart';
+import 'package:ndash/src/common/widgets/navigation_buttons.dart';
+import 'package:ndash/src/common/widgets/spotlight.dart';
+import 'package:ndash/src/common/widgets/ndash_icons.dart';
 
 const int _animationDuration = 350;
 
@@ -173,7 +173,7 @@ class CaptureState extends State<Capture>
         children: <Widget>[
           CustomPaint(
             painter: DiagonalShapePainter(
-              color: WiredashTheme.of(context)!.secondaryBackgroundColor,
+              color: NdashTheme.of(context)!.secondaryBackgroundColor,
               padding: _windowPadding.bottom,
             ),
             child: const SizedBox.expand(),
@@ -222,9 +222,9 @@ class CaptureState extends State<Capture>
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        color: WiredashTheme.of(context)!.secondaryBackgroundColor,
+        color: NdashTheme.of(context)!.secondaryBackgroundColor,
         border: Border.all(
-          color: WiredashTheme.of(context)!.dividerColor,
+          color: NdashTheme.of(context)!.dividerColor,
           width: 2,
         ),
       ),
@@ -277,7 +277,7 @@ class CaptureState extends State<Capture>
               ),
               Expanded(
                 child: NextButton(
-                  key: const ValueKey('wiredash.sdk.next_button'),
+                  key: const ValueKey('ndash.sdk.next_button'),
                   onPressed: _onNextButtonPressed,
                   text: _getNextButtonString(),
                   icon: _getNextButtonIcon(),
@@ -307,9 +307,9 @@ class CaptureState extends State<Capture>
   String _getBackButtonString() {
     switch (_captureUiState.value) {
       case CaptureUiState.navigate:
-        return WiredashLocalizations.of(context)!.captureSkip;
+        return NdashLocalizations.of(context)!.captureSkip;
       case CaptureUiState.draw:
-        return WiredashLocalizations.of(context)!.feedbackBack;
+        return NdashLocalizations.of(context)!.feedbackBack;
       default:
         return '';
     }
@@ -350,11 +350,11 @@ class CaptureState extends State<Capture>
     _animationControllerScreen.forward();
     _animationControllerDrawer.reverse();
     _spotlightKey.currentState!.show(
-      WiredashIcons.spotlightMove,
-      WiredashLocalizations.of(context)!
+      NdashIcons.spotlightMove,
+      NdashLocalizations.of(context)!
           .captureSpotlightNavigateTitle
           .toLowerCase(),
-      WiredashLocalizations.of(context)!.captureSpotlightNavigateMsg,
+      NdashLocalizations.of(context)!.captureSpotlightNavigateMsg,
     );
   }
 
@@ -364,20 +364,20 @@ class CaptureState extends State<Capture>
     _animationControllerScreen.forward();
     _animationControllerDrawer.forward();
     _spotlightKey.currentState!.show(
-      WiredashIcons.spotlightDraw,
-      WiredashLocalizations.of(context)!
+      NdashIcons.spotlightDraw,
+      NdashLocalizations.of(context)!
           .captureSpotlightScreenCapturedTitle
           .toUpperCase(),
-      WiredashLocalizations.of(context)!.captureSpotlightScreenCapturedMsg,
+      NdashLocalizations.of(context)!.captureSpotlightScreenCapturedMsg,
     );
   }
 
   String _getNextButtonString() {
     switch (_captureUiState.value) {
       case CaptureUiState.navigate:
-        return WiredashLocalizations.of(context)!.captureTakeScreenshot;
+        return NdashLocalizations.of(context)!.captureTakeScreenshot;
       case CaptureUiState.draw:
-        return WiredashLocalizations.of(context)!.captureSaveScreenshot;
+        return NdashLocalizations.of(context)!.captureSaveScreenshot;
       default:
         return '';
     }
@@ -387,7 +387,7 @@ class CaptureState extends State<Capture>
     switch (_captureUiState.value) {
       case CaptureUiState.navigate:
       case CaptureUiState.draw:
-        return WiredashIcons.right;
+        return NdashIcons.right;
       default:
         return null;
     }

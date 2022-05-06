@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import 'package:wiredash/src/common/device_info/device_info.dart';
-import 'package:wiredash/src/version.dart';
+import 'package:ndash/src/common/device_info/device_info.dart';
+import 'package:ndash/src/version.dart';
 
 /// Contains all relevant feedback information, both user-provided and automatically
-/// inferred, that will be eventually sent to the Wiredash console.
+/// inferred, that will be eventually sent to the nDash console.
 class FeedbackItem {
   const FeedbackItem({
     required this.deviceInfo,
@@ -12,7 +12,7 @@ class FeedbackItem {
     required this.message,
     required this.type,
     this.user,
-    this.sdkVersion = wiredashSdkVersion,
+    this.sdkVersion = ndashSdkVersion,
     required this.appVersion,
     required this.studentAdmissionNumber,
     required this.token,

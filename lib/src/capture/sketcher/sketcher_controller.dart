@@ -2,9 +2,9 @@ import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/painting.dart';
-import 'package:wiredash/src/capture/sketcher/gesture.dart';
-import 'package:wiredash/src/capture/sketcher/sketch_painter.dart';
+// import 'package:flutter/painting.dart';
+import 'package:ndash/src/capture/sketcher/gesture.dart';
+import 'package:ndash/src/capture/sketcher/sketch_painter.dart';
 
 class SketcherController extends ChangeNotifier {
   SketcherController(Color initialColor) : _color = initialColor;

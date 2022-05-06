@@ -1,8 +1,8 @@
 import 'dart:math' show pi;
 
 import 'package:flutter/widgets.dart';
-import 'package:wiredash/src/common/theme/wiredash_theme.dart';
-import 'package:wiredash/src/common/translation/wiredash_localizations.dart';
+import 'package:ndash/src/common/theme/ndash_theme.dart';
+import 'package:ndash/src/common/translation/ndash_localizations.dart';
 
 class ColorPicker extends StatelessWidget {
   const ColorPicker({Key? key, required this.selectedColor, this.onChanged})
@@ -13,8 +13,8 @@ class ColorPicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = WiredashTheme.of(context)!;
-    final localizations = WiredashLocalizations.of(context)!;
+    final theme = NdashTheme.of(context)!;
+    final localizations = NdashLocalizations.of(context)!;
 
     return Column(
       mainAxisSize: MainAxisSize.min,
