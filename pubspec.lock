@@ -36,6 +36,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  change_app_package_name:
+    dependency: "direct dev"
+    description:
+      name: change_app_package_name
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   characters:
     dependency: transitive
     description:
@@ -91,7 +98,7 @@ packages:
       name: crypto
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.1"
+    version: "3.0.2"
   fake_async:
     dependency: "direct dev"
     description:
@@ -218,7 +225,7 @@ packages:
       name: mime
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.1"
+    version: "1.0.2"
   node_preamble:
     dependency: transitive
     description:
@@ -531,7 +538,7 @@ packages:
       name: webkit_inspection_protocol
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0"
+    version: "1.0.1"
   win32:
     dependency: transitive
     description:

@@ -1,7 +1,7 @@
-import 'package:wiredash/wiredash.dart';
+import 'package:ndash/ndash.dart';
 
-class WiredashLocalizedTranslations extends WiredashTranslations {
-  const WiredashLocalizedTranslations() : super();
+class NdashLocalizedTranslations extends NdashTranslations {
+  const NdashLocalizedTranslations() : super();
   @override
   String get captureSaveScreenshot => "Save screenshot";
   @override
@@ -23,8 +23,7 @@ class WiredashLocalizedTranslations extends WiredashTranslations {
   @override
   String get feedbackCancel => "Cancel";
   @override
-  String get feedbackModeBugMsg =>
-      "Let us know so we can forward this to our bug control.";
+  String get feedbackModeBugMsg => "Let us know so we can forward this to our bug control.";
   @override
   String get feedbackModeBugTitle => "Report a Bug";
   @override
@@ -55,8 +54,7 @@ class WiredashLocalizedTranslations extends WiredashTranslations {
   @override
   String get feedbackStateIntroTitle => "Hi there 👋";
   @override
-  String get feedbackStateSuccessCloseMsg =>
-      "Thanks for submitting your feedback!";
+  String get feedbackStateSuccessCloseMsg => "Thanks for submitting your feedback!";
   @override
   String get feedbackStateSuccessCloseTitle => "Close this Dialog";
   @override
@@ -69,8 +67,7 @@ class WiredashLocalizedTranslations extends WiredashTranslations {
   @override
   String get inputHintFeedback => "Your feedback";
   @override
-  String get validationHintEmail =>
-      "Please enter a valid email or leave this field blank.";
+  String get validationHintEmail => "Please enter a valid email or leave this field blank.";
   @override
   String get validationHintFeedbackEmpty => "Please provide your feedback.";
   @override
@@ -86,7 +83,7 @@ class WiredashLocalizedTranslations extends WiredashTranslations {
   @override
   String get fourthPenLabel => "An orange highlighter";
   @override
-  String get companyLogoLabel => "The Wiredash Logo";
+  String get companyLogoLabel => "The NDash Logo";
   @override
   String get undoButtonLabel => "Undo the last change";
   @override

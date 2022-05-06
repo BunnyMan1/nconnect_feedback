@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wiredash/src/common/theme/wiredash_theme.dart';
+import 'package:ndash/src/common/theme/ndash_theme.dart';
 
 class AnimatedProgress extends StatefulWidget {
   final double value;
@@ -29,8 +29,11 @@ class _AnimatedProgressState extends State<AnimatedProgress>
   void didUpdateWidget(AnimatedProgress oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.value != oldWidget.value) {
-      _progressAnimation.animateTo(widget.value,
-          duration: const Duration(milliseconds: 450), curve: Curves.ease);
+      _progressAnimation.animateTo(
+        widget.value,
+        duration: const Duration(milliseconds: 450),
+        curve: Curves.ease,
+      );
     }
   }
 
@@ -42,10 +45,8 @@ class _AnimatedProgressState extends State<AnimatedProgress>
 
   @override
   Widget build(BuildContext context) {
-    final backgroundColor =
-        WiredashTheme.of(context)!.primaryColor.withAlpha(100);
-    final progressColor =
-        AlwaysStoppedAnimation<Color>(WiredashTheme.of(context)!.primaryColor);
+    final backgroundColor = NdashTheme.of(context)!.primaryColor.withAlpha(100);
+    final progressColor = AlwaysStoppedAnimation<Color>(NdashTheme.of(context)!.primaryColor);
 
     return AnimatedBuilder(
       animation: _progressAnimation,

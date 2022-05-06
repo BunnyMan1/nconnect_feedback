@@ -1,21 +1,19 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:wiredash/src/common/options/wiredash_options.dart';
-import 'package:wiredash/src/common/renderer/renderer.dart';
-import 'package:wiredash/src/common/theme/wiredash_theme.dart';
-import 'package:wiredash/src/common/translation/wiredash_localizations.dart';
-import 'package:wiredash/src/common/widgets/animated_fade_in.dart';
-import 'package:wiredash/src/common/widgets/animated_progress.dart';
-import 'package:wiredash/src/common/widgets/navigation_buttons.dart';
-import 'package:wiredash/src/common/widgets/wiredash_icons.dart';
-import 'package:wiredash/src/feedback/components/error_component.dart';
-import 'package:wiredash/src/feedback/components/input_component.dart';
-import 'package:wiredash/src/feedback/components/intro_component.dart';
-import 'package:wiredash/src/feedback/components/loading_component.dart';
-import 'package:wiredash/src/feedback/components/success_component.dart';
-import 'package:wiredash/src/feedback/feedback_model.dart';
-import 'package:wiredash/src/wiredash_provider.dart';
+import 'package:ndash/src/common/options/ndash_options.dart';
+import 'package:ndash/src/common/renderer/renderer.dart';
+import 'package:ndash/src/common/theme/ndash_theme.dart';
+import 'package:ndash/src/common/translation/ndash_localizations.dart';
+import 'package:ndash/src/common/widgets/animated_fade_in.dart';
+import 'package:ndash/src/common/widgets/animated_progress.dart';
+import 'package:ndash/src/common/widgets/navigation_buttons.dart';
+import 'package:ndash/src/common/widgets/ndash_icons.dart';
+import 'package:ndash/src/feedback/components/error_component.dart';
+import 'package:ndash/src/feedback/components/input_component.dart';
+import 'package:ndash/src/feedback/components/intro_component.dart';
+import 'package:ndash/src/feedback/components/loading_component.dart';
+import 'package:ndash/src/feedback/components/success_component.dart';
+import 'package:ndash/src/feedback/feedback_model.dart';
+import 'package:ndash/src/ndash_provider.dart';
 
 class FeedbackSheet extends StatefulWidget {
   const FeedbackSheet({Key? key}) : super(key: key);
@@ -44,8 +42,8 @@ class _FeedbackSheetState extends State<FeedbackSheet>
     return Align(
       alignment: Alignment.bottomCenter,
       child: Material(
-        color: WiredashTheme.of(context)!.secondaryBackgroundColor,
-        borderRadius: WiredashTheme.of(context)!.sheetBorderRadius,
+        color: NdashTheme.of(context)!.secondaryBackgroundColor,
+        borderRadius: NdashTheme.of(context)!.sheetBorderRadius,
         elevation: 8,
         clipBehavior: Clip.antiAlias,
         child: SafeArea(
@@ -103,8 +101,8 @@ class _FeedbackSheetState extends State<FeedbackSheet>
           begin: AlignmentDirectional.topStart,
           end: AlignmentDirectional.bottomEnd,
           colors: [
-            WiredashTheme.of(context)!.primaryColor,
-            WiredashTheme.of(context)!.secondaryColor
+            NdashTheme.of(context)!.primaryColor,
+            NdashTheme.of(context)!.secondaryColor
           ],
         ),
       ),
@@ -117,7 +115,7 @@ class _FeedbackSheetState extends State<FeedbackSheet>
           Align(
             child: Material(
               shape: const StadiumBorder(),
-              color: WiredashTheme.of(context)!.dividerColor,
+              color: NdashTheme.of(context)!.dividerColor,
               child: const SizedBox(
                 height: 4,
                 width: 56,
@@ -139,12 +137,12 @@ class _FeedbackSheetState extends State<FeedbackSheet>
                   children: <Widget>[
                     Text(
                       _getTitle(),
-                      style: WiredashTheme.of(context)!.titleStyle,
+                      style: NdashTheme.of(context)!.titleStyle,
                     ),
                     const SizedBox(height: 4),
                     Text(
                       _getSubtitle(),
-                      style: WiredashTheme.of(context)!.subtitleStyle,
+                      style: NdashTheme.of(context)!.subtitleStyle,
                     ),
                   ],
                 ),
@@ -167,15 +165,15 @@ class _FeedbackSheetState extends State<FeedbackSheet>
           children: [
             Expanded(
               child: PreviousButton(
-                text: WiredashLocalizations.of(context)!.feedbackCancel,
+                text: NdashLocalizations.of(context)!.feedbackCancel,
                 onPressed: () => state.feedbackUiState = FeedbackUiState.intro,
               ),
             ),
             Expanded(
               child: NextButton(
-                key: const ValueKey('wiredash.sdk.save_feedback_button'),
-                text: WiredashLocalizations.of(context)!.feedbackSave,
-                icon: WiredashIcons.right,
+                key: const ValueKey('ndash.sdk.save_feedback_button'),
+                text: NdashLocalizations.of(context)!.feedbackSave,
+                icon: NdashIcons.right,
                 onPressed: _submitFeedback,
               ),
             ),
@@ -187,16 +185,15 @@ class _FeedbackSheetState extends State<FeedbackSheet>
           children: [
             Expanded(
               child: PreviousButton(
-                text: WiredashLocalizations.of(context)!.feedbackBack,
-                onPressed: () =>
-                    state.feedbackUiState = FeedbackUiState.feedback,
+                text: NdashLocalizations.of(context)!.feedbackBack,
+                onPressed: () => state.feedbackUiState = FeedbackUiState.feedback,
               ),
             ),
             Expanded(
               child: NextButton(
-                key: const ValueKey('wiredash.sdk.send_feedback_button'),
-                text: WiredashLocalizations.of(context)!.feedbackSend,
-                icon: WiredashIcons.right,
+                key: const ValueKey('ndash.sdk.send_feedback_button'),
+                text: NdashLocalizations.of(context)!.feedbackSend,
+                icon: NdashIcons.right,
                 onPressed: _submitEmail,
               ),
             ),
@@ -229,8 +226,7 @@ class _FeedbackSheetState extends State<FeedbackSheet>
       case FeedbackType.bug:
       case FeedbackType.improvement:
         final renderer = getRenderer();
-        if (WiredashOptions.of(context)!.screenshotStep &&
-            renderer != Renderer.html) {
+        if (NdashOptions.of(context)!.screenshotStep && renderer != Renderer.html) {
           // Start the capture process
           Navigator.pop(context);
           feedbackModel.feedbackUiState = FeedbackUiState.capture;
@@ -251,16 +247,16 @@ class _FeedbackSheetState extends State<FeedbackSheet>
   String _getTitle() {
     switch (context.feedbackModel!.feedbackUiState) {
       case FeedbackUiState.intro:
-        return WiredashLocalizations.of(context)!.feedbackStateIntroTitle;
+        return NdashLocalizations.of(context)!.feedbackStateIntroTitle;
       case FeedbackUiState.feedback:
-        return WiredashLocalizations.of(context)!.feedbackStateFeedbackTitle;
+        return NdashLocalizations.of(context)!.feedbackStateFeedbackTitle;
       case FeedbackUiState.email:
-        return WiredashLocalizations.of(context)!.feedbackStateEmailTitle;
+        return NdashLocalizations.of(context)!.feedbackStateEmailTitle;
       case FeedbackUiState.submit:
       case FeedbackUiState.submitted:
-        return WiredashLocalizations.of(context)!.feedbackStateSuccessTitle;
+        return NdashLocalizations.of(context)!.feedbackStateSuccessTitle;
       case FeedbackUiState.submissionError:
-        return WiredashLocalizations.of(context)!.feedbackStateErrorTitle;
+        return NdashLocalizations.of(context)!.feedbackStateErrorTitle;
       default:
         return '';
     }
@@ -269,16 +265,16 @@ class _FeedbackSheetState extends State<FeedbackSheet>
   String _getSubtitle() {
     switch (context.feedbackModel!.feedbackUiState) {
       case FeedbackUiState.intro:
-        return WiredashLocalizations.of(context)!.feedbackStateIntroMsg;
+        return NdashLocalizations.of(context)!.feedbackStateIntroMsg;
       case FeedbackUiState.feedback:
-        return WiredashLocalizations.of(context)!.feedbackStateFeedbackMsg;
+        return NdashLocalizations.of(context)!.feedbackStateFeedbackMsg;
       case FeedbackUiState.email:
-        return WiredashLocalizations.of(context)!.feedbackStateEmailMsg;
+        return NdashLocalizations.of(context)!.feedbackStateEmailMsg;
       case FeedbackUiState.submit:
       case FeedbackUiState.submitted:
-        return WiredashLocalizations.of(context)!.feedbackStateSuccessMsg;
+        return NdashLocalizations.of(context)!.feedbackStateSuccessMsg;
       case FeedbackUiState.submissionError:
-        return WiredashLocalizations.of(context)!.feedbackStateErrorMsg;
+        return NdashLocalizations.of(context)!.feedbackStateErrorMsg;
       default:
         return '';
     }
@@ -308,7 +304,7 @@ class _FeedbackSheetState extends State<FeedbackSheet>
         return IntroComponent(_onFeedbackModeSelected);
       case FeedbackUiState.feedback:
         return InputComponent(
-          key: const ValueKey('wiredash.sdk.feedback_input_field'),
+          key: const ValueKey('ndash.sdk.feedback_input_field'),
           type: InputComponentType.feedback,
           formKey: _feedbackFormKey,
           focusNode: _feedbackFocusNode,
@@ -317,7 +313,7 @@ class _FeedbackSheetState extends State<FeedbackSheet>
         );
       case FeedbackUiState.email:
         return InputComponent(
-          key: const ValueKey('wiredash.sdk.email_input_field'),
+          key: const ValueKey('ndash.sdk.email_input_field'),
           type: InputComponentType.email,
           formKey: _emailFormKey,
           focusNode: _emailFocusNode,

@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:wiredash/src/wiredash_widget.dart';
+import 'package:ndash/src/ndash_widget.dart';
 
 /// Use a [Confidential] widget to hide any widgets containing sensitive info
 /// from being captured inside a feedback screenshot.
@@ -11,7 +11,7 @@ class Confidential extends StatelessWidget {
     required this.child,
   }) : super(key: key);
 
-  /// How the confidential widget will be hidden when Wiredash is active.
+  /// How the confidential widget will be hidden when nDash is active.
   ///
   /// This is ignored when [enabled] is `false`.
   final ConfidentialMode mode;
@@ -21,7 +21,7 @@ class Confidential extends StatelessWidget {
   /// When `false`, the [mode] is ignored and the [child] is always shown.
   final bool enabled;
 
-  /// Child widget affected by confidentiality when Wiredash is active.
+  /// Child widget affected by confidentiality when nDash is active.
   final Widget child;
 
   @override
@@ -29,9 +29,9 @@ class Confidential extends StatelessWidget {
     if (!enabled) return child;
 
     return AnimatedBuilder(
-      animation: Wiredash.of(context)!.visible,
+      animation: Ndash.of(context)!.visible,
       builder: (_, __) {
-        final isVisible = Wiredash.of(context)!.visible.value;
+        final isVisible = Ndash.of(context)!.visible.value;
         return CustomPaint(
           foregroundPainter: isVisible && mode == ConfidentialMode.black
               ? _PaintItBlack()

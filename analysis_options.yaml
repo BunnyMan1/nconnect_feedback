@@ -1,6 +1,4 @@
-include: package:lint/analysis_options_package.yaml
+# include: package:flutter_lints/flutter.yaml
 
-analyzer:
-  exclude:
-    - example/**
-    - lib/src/common/translation/l10n/**
+# Additional information about this file can be found at
+# https://dart.dev/guides/language/analysis-options

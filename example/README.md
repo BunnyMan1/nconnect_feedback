@@ -1,17 +1,16 @@
-# Wiredash Example  
-  
-This project uses the default Flutter sample project and adds the Wiredash widget to enable interactive user feedback - luckily that's easy as 1-2-3 🎉
+# example
 
-## What are the differences from the official Flutter sample?
+A new Flutter project.
 
-Inside `main.dart` the default `MaterialApp` is now a child of `Wiredash`. It's important that Wiredash sits at the root of your application for it to function properly.
+## Getting Started
 
-We also added an `IconButton` as the only action to the `AppBar` which serves as the trigger for the feedback routine. In its callback it calls `Wiredash.of(context).startFeedback()` to launch Wiredash.
+This project is a starting point for a Flutter application.
 
-## Running the Sample
+A few resources to get you started if this is your first Flutter project:
 
-1. Create a new Wiredash project on [wiredash.io](https://wiredash.io).
-2. Make sure to add your own API credentials to the `Wiredash` widget inside `main.dart`.
-3. Run the sample by typing `flutter run` into a console window inside the `example` folder.
-4. Inside the sample app, tap the `?` button on the top right to launch Wiredash.
-5. Get creative and write / draw your first feedback 🖌
+- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+
+For help getting started with Flutter, view our
+[online documentation](https://flutter.dev/docs), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.

@@ -1,85 +1,39 @@
-<p align="center">  
-<img src="https://raw.githubusercontent.com/wiredashio/wiredash-sdk/master/.github/logo.svg?sanitize=true" width="512px" alt="Wiredash Logo">
-</p>
+<!-- 
+This README describes the package. If you publish this package to pub.dev,
+this README's contents appear on the landing page for your package.
 
-# Wiredash SDK for Flutter
+For information about how to write a good package README, see the guide for
+[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
 
-[![Pub](https://img.shields.io/pub/v/wiredash.svg)](https://pub.dartlang.org/packages/wiredash)
-[![Build](https://img.shields.io/github/workflow/status/wiredashio/wiredash-sdk/Static%20Analysis)](https://github.com/wiredashio/wiredash-sdk/actions)
-[![Website](https://img.shields.io/badge/website-wiredash.io-blue.svg)](https://wiredash.io/)
-[![likes](https://badges.bar/wiredash/likes)](https://pub.dev/packages/wiredash/score)
-[![popularity](https://badges.bar/wiredash/popularity)](https://pub.dev/packages/wiredash/score)
-[![pub points](https://badges.bar/wiredash/pub%20points)](https://pub.dev/packages/wiredash/score) 
-  
-Wiredash is probably the easiest, and most convenient way to capture in-app user feedback, wishes, ratings and much more. The SDK is completely written in Dart and runs on Android, iOS, Desktop and the Web. For more info, head over to [wiredash.io](https://wiredash.io). 
-  
-## 🚀 Getting Started
+For general information about developing packages, see the Dart guide for
+[creating packages](https://dart.dev/guides/libraries/create-library-packages)
+and the Flutter guide for
+[developing packages and plugins](https://flutter.dev/developing-packages). 
+-->
 
-> **TIP**  Visit [docs.wiredash.io](https://docs.wiredash.io/guide/#integrating-wiredash-in-your-app) for the in-depth guide and additional info.
+TODO: Put a short description of the package here that helps potential users
+know whether this package might be useful for them.
 
-### 1. Create a free account on [wiredash.io](https://console.wiredash.io)
+## Features
 
-Sign in with a valid Google or GitHub account.
+TODO: List what your package can do. Maybe include images, gifs, or videos.
 
-### 2. Add wiredash to your pubspec.yaml.
+## Getting started
 
-```yaml
-name: your_flutter_app
-dependencies:
-  flutter:
-    sdk: flutter
-  wiredash: ^0.6.0
-```
+TODO: List prerequisites and provide or point to information on how to
+start using the package.
 
-### 3. Wrap your root widget with Wiredash
+## Usage
 
-Fill in the `projectId` and `secret` from [Wiredash console](https://console.wiredash.io) > Project > Settings
+TODO: Include short and useful examples for package users. Add longer examples
+to `/example` folder. 
 
 ```dart
-import 'package:flutter/material.dart';
-import 'package:wiredash/wiredash.dart';
-
-class MyApp extends StatelessWidget {
-  // It's important that Wiredash and your root Material- / Cupertino- / WidgetsApp
-  // share the same Navigator key.
-  final _navigatorKey = GlobalKey<NavigatorState>();
-
-  @override
-  Widget build(BuildContext context) {
-    return Wiredash(
-      projectId: 'YOUR-PROJECT-ID',
-      secret: 'YOUR-SECRET',
-      navigatorKey: _navigatorKey,
-      child: MaterialApp(
-        navigatorKey: _navigatorKey,
-        title: 'Flutter Demo',
-        home: YourSuperDuperAwesomeApp(),
-      ),
-    );
-  }
-}
+const like = 'sample';
 ```
 
-### 4. Launch the feedback flow
+## Additional information
 
-From anywhere in your app
-
-```dart
-ElevatedButton(
-  // launch wiredash where appropriate in your App 
-  onPressed: () => Wiredash.of(context).show(),
-  child: Text('Give Feedback'),
-),
-```
-
-![bottom sheet](https://deploy-preview-4--wiredash-docs.netlify.app/assets/img/wiredash-sample-app-side-by-side-start.09e3b5f2.png)
-
-## 🎨 Customization
-
-The Wiredash SDK is completely customizable and offers many configuration options!
-
-For all the details, check out the full documentation at [docs.wiredash.io/configuration](https://docs.wiredash.io/configuration/).
-
-## 📃 License  
-  
-The Wiredash SDK is released under the [Attribution Assurance License](https://opensource.org/licenses/AAL). See [LICENSE](https://github.com/wiredashio/wiredash-sdk/blob/master/LICENSE) for details.
+TODO: Tell users more about the package: where to find more information, how to 
+contribute to the package, how to file issues, what response they can expect 
+from the package authors, and more.

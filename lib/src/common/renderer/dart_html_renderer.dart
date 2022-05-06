@@ -1,6 +1,6 @@
 import 'dart:js' as js;
 
-import 'package:wiredash/src/common/renderer/renderer.dart';
+import 'package:ndash/src/common/renderer/renderer.dart';
 
 Renderer getRenderer() {
   return isCanvasKitRenderer ? Renderer.canvasKit : Renderer.html;

@@ -1,49 +1,49 @@
 import 'package:flutter/material.dart';
-import 'package:wiredash/wiredash.dart';
+import 'package:ndash/ndash.dart';
 
 void main() {
-  runApp(const WiredashExampleApp());
+  runApp(const NdashExampleApp());
 }
 
-class WiredashExampleApp extends StatefulWidget {
-  const WiredashExampleApp({Key? key}) : super(key: key);
+class NdashExampleApp extends StatefulWidget {
+  const NdashExampleApp({Key? key}) : super(key: key);
 
   @override
-  _WiredashExampleAppState createState() => _WiredashExampleAppState();
+  _NdashExampleAppState createState() => _NdashExampleAppState();
 }
 
-class _WiredashExampleAppState extends State<WiredashExampleApp> {
+class _NdashExampleAppState extends State<NdashExampleApp> {
   final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
 
   @override
   Widget build(BuildContext context) {
-    /// The `Wiredash` widget wraps the top level application widget.
+    /// The `Ndash` widget wraps the top level application widget.
     ///
-    /// `Wiredash` requires the `Project ID` and the `API Key` obtained from the
+    /// `Ndash` requires the `Project ID` and the `API Key` obtained from the
     /// "Settings" tab of the console.
     /// The navigator key is also required to be able to show the overlay.
-    /// `_navigatorKey` is assigned to both `Wiredash` and `MaterialApp`.
+    /// `_navigatorKey` is assigned to both `Ndash` and `MaterialApp`.
     /// Note: you are not required to use `MaterialApp`,
-    /// Wiredash will work just as well with `CupertinoApp` and `WidgetsApp`.
+    /// Ndash will work just as well with `CupertinoApp` and `WidgetsApp`.
     ///
-    /// Wiredash also allows you to set custom themes using `WiredashThemeData`.
+    /// Ndash also allows you to set custom themes using `NdashThemeData`.
     /// The behaviour as well as the locale and translations can be customized
-    /// using `WiredashOptionsData`.
-    /// Both of these are optional but they enable you to make Wiredash your
+    /// using `NdashOptionsData`.
+    /// Both of these are optional but they enable you to make Ndash your
     /// own.
     /// Read more about translations support in the package's README.
-    return Wiredash(
-      projectId: "Project ID from console.wiredash.io",
-      secret: "API Key from console.wiredash.io",
+    return Ndash(
+      projectId: "Project ID from console.Ndash.io",
+      secret: "API Key from console.Ndash.io",
       navigatorKey: _navigatorKey,
       token:
           "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMTE0MDA1NyIsInVzZXJfbnVtYmVyIjoiMTg0Nzc3NSIsInVzZXJfc2VyaWFsX251bWJlciI6IjYxNTU4MDAiLCJkZXZpY2VfaWQiOiI1Y2E3MzQ5MjU4MWQ2ODUyIiwibG9naW5fc3RhdGlzdGljX2lkIjoiMjY2NzIzIiwiYXBwbGljYXRpb25faWQiOiIyIiwiYXBwbGljYXRpb25fcGxhdGZvcm1faWQiOiIyIiwiZXhwIjoxNjUzNzMzODYwLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUwMDAvIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MDAwLyJ9.Fsz10ns9zd-X1VWfBIVeg-H1FuBZjmcQeM5RsujhPAU",
       userAgent: "some user agent",
       appVersion: '1.0.0',
       studentAdmissionNumber: '12345678',
-      options: WiredashOptionsData(
-        /// Change the locale of the Wiredash UI
-        locale: Locale('en'),
+      options: NdashOptionsData(
+        /// Change the locale of the Ndash UI
+        locale: const Locale('en'),
 
         /// Uncomment below to disable the screenshot step
         // screenshotStep: false,
@@ -64,7 +64,7 @@ class _WiredashExampleAppState extends State<WiredashExampleApp> {
         // locale: const Locale('de'),
         // textDirection: TextDirection.rtl,
       ),
-      theme: WiredashThemeData(
+      theme: NdashThemeData(
 
           /// Uncomment below to explore the various theme options:
 
@@ -81,7 +81,7 @@ class _WiredashExampleAppState extends State<WiredashExampleApp> {
 
           /// Customize the Pen Colors
           /// Note: If you change the Pen Colors, please consider providing
-          /// custom translations to the WiredashOptions to ensure the app is
+          /// custom translations to the NdashOptions to ensure the app is
           /// accessible to all. The default translations describe the default
           /// pen colors.
           // firstPenColor: Colors.orange,
@@ -104,7 +104,7 @@ class _HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Wiredash Demo'),
+        title: const Text('Ndash Demo'),
       ),
       body: ListView.builder(
         itemBuilder: (BuildContext context, int index) {
@@ -116,12 +116,12 @@ class _HomePage extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        /// Showing the Wiredash Dialog is as easy as calling:
-        /// Wiredash.of(context).show()
-        /// Since the `Wiredash` widget is at the root of the widget tree this
+        /// Showing the Ndash Dialog is as easy as calling:
+        /// Ndash.of(context).show()
+        /// Since the `Ndash` widget is at the root of the widget tree this
         /// method can be accessed from anywhere in the code.
-        onPressed: Wiredash.of(context)!.show,
-        child: Icon(Icons.feedback_outlined),
+        onPressed: Ndash.of(context)!.show,
+        child: const Icon(Icons.feedback_outlined),
       ),
     );
   }

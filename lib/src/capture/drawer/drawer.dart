@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:wiredash/src/capture/capture_provider.dart';
-import 'package:wiredash/src/capture/drawer/color_picker.dart';
-import 'package:wiredash/src/capture/drawer/pen.dart';
-import 'package:wiredash/src/common/theme/wiredash_theme.dart';
-import 'package:wiredash/src/common/translation/wiredash_localizations.dart';
-import 'package:wiredash/src/common/widgets/wiredash_icons.dart';
+import 'package:ndash/src/capture/capture_provider.dart';
+import 'package:ndash/src/capture/drawer/color_picker.dart';
+import 'package:ndash/src/capture/drawer/pen.dart';
+import 'package:ndash/src/common/theme/ndash_theme.dart';
+import 'package:ndash/src/common/translation/ndash_localizations.dart';
+import 'package:ndash/src/common/widgets/ndash_icons.dart';
 
 // ignore: use_key_in_widget_constructors
 class Drawer extends StatelessWidget {
@@ -61,7 +61,7 @@ class UndoButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Semantics(
-      label: WiredashLocalizations.of(context)!.undoButtonLabel,
+      label: NdashLocalizations.of(context)!.undoButtonLabel,
       button: true,
       child: GestureDetector(
         onTap: onTap,
@@ -71,8 +71,8 @@ class UndoButton extends StatelessWidget {
             vertical: 20,
           ),
           child: Icon(
-            WiredashIcons.undo,
-            color: WiredashTheme.of(context)!.dividerColor,
+            NdashIcons.undo,
+            color: NdashTheme.of(context)!.dividerColor,
           ),
         ),
       ),

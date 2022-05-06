@@ -1,9 +1,9 @@
-import 'package:flutter/gestures.dart';
-import 'package:flutter/rendering.dart';
+// import 'package:flutter/gestures.dart';
+// import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:wiredash/src/capture/sketcher/gesture.dart';
-import 'package:wiredash/src/capture/sketcher/sketch_painter.dart';
-import 'package:wiredash/src/capture/sketcher/sketcher_controller.dart';
+import 'package:ndash/src/capture/sketcher/gesture.dart';
+import 'package:ndash/src/capture/sketcher/sketch_painter.dart';
+import 'package:ndash/src/capture/sketcher/sketcher_controller.dart';
 
 class Sketcher extends StatelessWidget {
   const Sketcher({

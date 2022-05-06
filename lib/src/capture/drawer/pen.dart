@@ -2,8 +2,8 @@ import 'dart:math' show pi;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:wiredash/src/common/theme/wiredash_theme.dart';
-import 'package:wiredash/src/common/translation/wiredash_localizations.dart';
+import 'package:ndash/src/common/theme/ndash_theme.dart';
+import 'package:ndash/src/common/translation/ndash_localizations.dart';
 
 class FeedbackPen extends StatefulWidget {
   const FeedbackPen({
@@ -72,7 +72,7 @@ class _FeedbackPenState extends State<FeedbackPen>
             foregroundPainter: _PenNosePainter(_currentColor),
             child: Image.asset(
               'assets/images/pen.png',
-              package: 'wiredash',
+              package: 'ndash',
               semanticLabel: _buildLabel(context),
             ),
           ),
@@ -82,8 +82,8 @@ class _FeedbackPenState extends State<FeedbackPen>
   }
 
   String _buildLabel(BuildContext context) {
-    final theme = WiredashTheme.of(context)!;
-    final localizations = WiredashLocalizations.of(context)!;
+    final theme = NdashTheme.of(context)!;
+    final localizations = NdashLocalizations.of(context)!;
 
     if (_currentColor == theme.firstPenColor) {
       return localizations.firstPenSelected;
@@ -95,7 +95,7 @@ class _FeedbackPenState extends State<FeedbackPen>
       return localizations.fourthPenSelected;
     }
 
-    throw StateError('Wiredash Error: No Label found for $_currentColor.');
+    throw StateError('Ndash Error: No Label found for $_currentColor.');
   }
 
   @override

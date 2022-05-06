@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/widgets.dart';
-import 'package:wiredash/src/common/theme/wiredash_theme.dart';
-import 'package:wiredash/src/common/theme/wiredash_theme_data.dart';
+import 'package:ndash/src/common/theme/ndash_theme.dart';
+import 'package:ndash/src/common/theme/ndash_theme_data.dart';
 
 class Spotlight extends StatefulWidget {
   final Widget child;
@@ -83,18 +83,18 @@ class SpotlightState extends State<Spotlight>
             Icon(
               _icon,
               size: 80,
-              color: WiredashThemeData.white,
+              color: NdashThemeData.white,
             ),
             const SizedBox(height: 32),
             Text(
               _title?.toUpperCase() ?? "-",
-              style: WiredashTheme.of(context)!.spotlightTitleStyle,
+              style: NdashTheme.of(context)!.spotlightTitleStyle,
             ),
             const SizedBox(height: 12),
             Text(
               _msg ?? "-",
               textAlign: TextAlign.center,
-              style: WiredashTheme.of(context)!.spotlightTextStyle,
+              style: NdashTheme.of(context)!.spotlightTextStyle,
             ),
           ],
         ),

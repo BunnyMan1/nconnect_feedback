@@ -3,12 +3,12 @@ import 'dart:math' as math;
 import 'dart:typed_data';
 
 import 'package:file/file.dart';
-import 'package:wiredash/src/common/network/wiredash_api.dart';
-import 'package:wiredash/src/common/utils/error_report.dart';
-import 'package:wiredash/src/feedback/data/feedback_item.dart';
-import 'package:wiredash/src/feedback/data/feedback_submitter.dart';
-import 'package:wiredash/src/feedback/data/pending_feedback_item.dart';
-import 'package:wiredash/src/feedback/data/pending_feedback_item_storage.dart';
+import 'package:ndash/src/common/network/api.dart';
+import 'package:ndash/src/common/utils/error_report.dart';
+import 'package:ndash/src/feedback/data/feedback_item.dart';
+import 'package:ndash/src/feedback/data/feedback_submitter.dart';
+import 'package:ndash/src/feedback/data/pending_feedback_item.dart';
+import 'package:ndash/src/feedback/data/pending_feedback_item_storage.dart';
 
 /// A class that knows how to "eventually send" a [FeedbackItem] and an associated
 /// screenshot file, retrying appropriately when sending fails.
@@ -21,7 +21,7 @@ class RetryingFeedbackSubmitter implements FeedbackSubmitter {
 
   final FileSystem fs;
   final PendingFeedbackItemStorage _pendingFeedbackItemStorage;
-  final WiredashApi _api;
+  final NdashApi _api;
 
   // Ensures that we're not starting multiple "submitPendingFeedbackItems()" jobs
   // in parallel.
@@ -48,7 +48,7 @@ class RetryingFeedbackSubmitter implements FeedbackSubmitter {
   /// If there are, tries to send all of them.
   ///
   /// Can be called whenever there's a good time to try sending pending feedback
-  /// items, such as in "initState()" of the Wiredash widget, or when network
+  /// items, such as in "initState()" of the nDash widget, or when network
   /// connection comes back online.
   Future<void> submitPendingFeedbackItems() => _submitPendingFeedbackItems();
 
@@ -106,42 +106,51 @@ class RetryingFeedbackSubmitter implements FeedbackSubmitter {
                 ? await fs.file(screenshotPath).readAsBytes()
                 : null;
         await _api.sendFeedback(
-            feedback: item.feedbackItem, screenshot: screenshot);
+          feedback: item.feedbackItem,
+          screenshot: screenshot,
+        );
         // ignore: avoid_print
         print("Feedback submitted ✌️ ${item.feedbackItem.message}");
         await _pendingFeedbackItemStorage.clearPendingItem(item.id);
         break;
-      } on UnauthenticatedWiredashApiException catch (e, stack) {
+      } on UnauthenticatedNdashApiException catch (e, stack) {
         // Project configuration is off, retry at next app start
-        reportWiredashError(e, stack,
-            'Wiredash project configuration is wrong, next retry after next app start');
+        reportNdashError(
+          e,
+          stack,
+          'Ndash project configuration is wrong, next retry after next app start',
+        );
         break;
-      } on WiredashApiException catch (e, stack) {
+      } on NdashApiException catch (e, stack) {
         if (e.message != null &&
             e.message!.contains("fails because") &&
             e.message!.contains("is required")) {
           // some required property is missing. The item will never be delivered
           // to the server, therefore discard it.
-          reportWiredashError(e, stack,
-              'Feedback has missing properties and can not be submitted to server');
+          reportNdashError(
+            e,
+            stack,
+            'Feedback has missing properties and can not be submitted to server',
+          );
           await _pendingFeedbackItemStorage.clearPendingItem(item.id);
           break;
         }
-        reportWiredashError(
-            e, stack, 'Wiredash server error. Will retry after app restart');
+        reportNdashError(e, stack, 'Ndash server error. Will retry after app restart');
         break;
       } catch (e, stack) {
         if (attempt >= _maxAttempts) {
           // Exit after max attempts
-          reportWiredashError(
-              e, stack, 'Could not send feedback after $attempt retries');
+          reportNdashError(e, stack, 'Could not send feedback after $attempt retries');
           break;
         }
 
         // Report error and retry with exponential backoff
-        reportWiredashError(e, stack,
-            'Could not send feedback to server after $attempt retries. Retrying...',
-            debugOnly: true);
+        reportNdashError(
+          e,
+          stack,
+          'Could not send feedback to server after $attempt retries. Retrying...',
+          debugOnly: true,
+        );
         await Future.delayed(_exponentialBackoff(attempt));
       }
     }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:wiredash/src/common/theme/wiredash_theme.dart';
-import 'package:wiredash/src/common/widgets/animated_fade_in.dart';
+import 'package:ndash/src/common/theme/ndash_theme.dart';
+import 'package:ndash/src/common/widgets/animated_fade_in.dart';
 
 class PreviousButton extends StatelessWidget {
   const PreviousButton({
@@ -15,7 +15,7 @@ class PreviousButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = WiredashTheme.of(context)!;
+    final theme = NdashTheme.of(context)!;
 
     return _Wrapper(
       text: text,
@@ -50,7 +50,7 @@ class NextButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = WiredashTheme.of(context)!;
+    final theme = NdashTheme.of(context)!;
 
     return _Wrapper(
       text: text,

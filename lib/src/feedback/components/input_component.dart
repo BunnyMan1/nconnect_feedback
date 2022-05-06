@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
-import 'package:wiredash/src/common/theme/wiredash_theme.dart';
-import 'package:wiredash/src/common/translation/wiredash_localizations.dart';
-import 'package:wiredash/src/common/utils/email_validator.dart';
-import 'package:wiredash/src/common/utils/widget_binding_support.dart';
-import 'package:wiredash/src/common/widgets/wiredash_icons.dart';
-import 'package:wiredash/src/wiredash_provider.dart';
+import 'package:ndash/src/common/theme/ndash_theme.dart';
+import 'package:ndash/src/common/translation/ndash_localizations.dart';
+import 'package:ndash/src/common/utils/email_validator.dart';
+import 'package:ndash/src/common/utils/widget_binding_support.dart';
+import 'package:ndash/src/common/widgets/ndash_icons.dart';
+import 'package:ndash/src/ndash_provider.dart';
 
 enum InputComponentType { feedback, email }
 
@@ -57,55 +55,51 @@ class _InputComponentState extends State<InputComponent> {
   @override
   Widget build(BuildContext context) {
     final interactiveTextSelectionSupported =
-        Localizations.of<MaterialLocalizations>(
-                context, MaterialLocalizations) !=
-            null;
+        Localizations.of<MaterialLocalizations>(context, MaterialLocalizations) != null;
 
-    final wiredashTheme = WiredashTheme.of(context)!;
+    final ndashTheme = NdashTheme.of(context)!;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: Form(
         key: widget.formKey,
         child: TextFormField(
-          key: const ValueKey('wiredash.sdk.text_field'),
+          key: const ValueKey('ndash.sdk.text_field'),
           controller: _textEditingController,
           focusNode: widget.focusNode,
-          style: wiredashTheme.inputTextStyle,
-          cursorColor: wiredashTheme.primaryColor,
+          style: ndashTheme.inputTextStyle,
+          cursorColor: ndashTheme.primaryColor,
           validator: _validateInput,
           onSaved: _handleInput,
           maxLines: widget.type == InputComponentType.email ? 1 : null,
           enableInteractiveSelection: interactiveTextSelectionSupported,
           decoration: InputDecoration(
             errorBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: wiredashTheme.errorColor, width: 2),
+              borderSide: BorderSide(color: ndashTheme.errorColor, width: 2),
             ),
             focusedErrorBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: wiredashTheme.errorColor, width: 2),
+              borderSide: BorderSide(color: ndashTheme.errorColor, width: 2),
             ),
             enabledBorder: UnderlineInputBorder(
-              borderSide:
-                  BorderSide(color: wiredashTheme.dividerColor, width: 2),
+              borderSide: BorderSide(color: ndashTheme.dividerColor, width: 2),
             ),
             focusedBorder: UnderlineInputBorder(
-              borderSide:
-                  BorderSide(color: wiredashTheme.primaryColor, width: 2),
+              borderSide: BorderSide(color: ndashTheme.primaryColor, width: 2),
             ),
             icon: Icon(
               _getIcon(),
-              color: wiredashTheme.dividerColor,
+              color: ndashTheme.dividerColor,
               size: 20,
             ),
             hintText: _getHintText(),
-            hintStyle: wiredashTheme.inputHintStyle,
-            errorStyle: wiredashTheme.inputErrorStyle,
+            hintStyle: ndashTheme.inputHintStyle,
+            errorStyle: ndashTheme.inputErrorStyle,
             errorMaxLines: 2,
           ),
           maxLength: _maxInputLength,
           maxLengthEnforcement: MaxLengthEnforcement.none,
           buildCounter: _getCounterText,
           textCapitalization: _getTextCapitalization(),
-          keyboardAppearance: WiredashTheme.of(context)!.brightness,
+          keyboardAppearance: NdashTheme.of(context)!.brightness,
           keyboardType: _getKeyboardType(),
         ),
       ),
@@ -133,18 +127,18 @@ class _InputComponentState extends State<InputComponent> {
   IconData _getIcon() {
     switch (widget.type) {
       case InputComponentType.feedback:
-        return WiredashIcons.edit;
+        return NdashIcons.edit;
       case InputComponentType.email:
-        return WiredashIcons.email;
+        return NdashIcons.email;
     }
   }
 
   String _getHintText() {
     switch (widget.type) {
       case InputComponentType.feedback:
-        return WiredashLocalizations.of(context)!.inputHintFeedback;
+        return NdashLocalizations.of(context)!.inputHintFeedback;
       case InputComponentType.email:
-        return WiredashLocalizations.of(context)!.inputHintEmail;
+        return NdashLocalizations.of(context)!.inputHintEmail;
     }
   }
 
@@ -162,7 +156,7 @@ class _InputComponentState extends State<InputComponent> {
     /// the [liveRegion] parameter in the [Semantics] widget for accessibility.
     required bool isFocused,
   }) {
-    final theme = WiredashTheme.of(context)!;
+    final theme = NdashTheme.of(context)!;
     final max = maxLength ?? _maxInputLength;
     switch (widget.type) {
       case InputComponentType.feedback:
@@ -185,10 +179,9 @@ class _InputComponentState extends State<InputComponent> {
     switch (widget.type) {
       case InputComponentType.feedback:
         if (text.trim().isEmpty) {
-          return WiredashLocalizations.of(context)!.validationHintFeedbackEmpty;
+          return NdashLocalizations.of(context)!.validationHintFeedbackEmpty;
         } else if (text.characters.length > _maxInputLength) {
-          return WiredashLocalizations.of(context)!
-              .validationHintFeedbackLength;
+          return NdashLocalizations.of(context)!.validationHintFeedbackLength;
         }
         break;
       case InputComponentType.email:
@@ -201,7 +194,7 @@ class _InputComponentState extends State<InputComponent> {
         // If the email is non-null, we validate it.
         return debugEmailValidator.validate(text)
             ? null
-            : WiredashLocalizations.of(context)!.validationHintEmail;
+            : NdashLocalizations.of(context)!.validationHintEmail;
     }
 
     return null;

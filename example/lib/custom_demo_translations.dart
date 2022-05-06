@@ -1,6 +1,6 @@
-import 'package:wiredash/wiredash.dart';
+import 'package:ndash/ndash.dart';
 
-class CustomDemoTranslations extends WiredashTranslations {
+class CustomDemoTranslations extends NdashTranslations {
   const CustomDemoTranslations();
 
   @override
@@ -33,8 +33,7 @@ class CustomDemoTranslations extends WiredashTranslations {
   String get feedbackModeBugTitle => 'Report a Bug';
 
   @override
-  String get feedbackModeBugMsg =>
-      'Let us know so we can forward this to our bug control.';
+  String get feedbackModeBugMsg => 'Let us know so we can forward this to our bug control.';
 
   @override
   String get feedbackModeImprovementTitle => 'Request a Feature';
@@ -91,8 +90,7 @@ class CustomDemoTranslations extends WiredashTranslations {
   String get feedbackStateSuccessCloseTitle => 'Close this Dialog';
 
   @override
-  String get feedbackStateSuccessCloseMsg =>
-      'Thanks for submitting your feedback!';
+  String get feedbackStateSuccessCloseMsg => 'Thanks for submitting your feedback!';
 
   @override
   String get inputHintFeedback => 'Your feedback';
@@ -107,8 +105,7 @@ class CustomDemoTranslations extends WiredashTranslations {
   String get validationHintFeedbackLength => 'Your feedback is too long.';
 
   @override
-  String get validationHintEmail =>
-      'Please enter a valid email or leave this field blank.';
+  String get validationHintEmail => 'Please enter a valid email or leave this field blank.';
 
   @override
   String get firstPenLabel => 'A dark brown pen';
@@ -135,8 +132,20 @@ class CustomDemoTranslations extends WiredashTranslations {
   String get fourthPenSelected => 'The orange highlighter is selected';
 
   @override
-  String get companyLogoLabel => 'The Wiredash Logo';
+  String get companyLogoLabel => 'The nDash Logo';
 
   @override
   String get undoButtonLabel => 'Undo the latest change';
+
+  @override
+  String get feedbackStateErrorMsg => "";
+
+  @override
+  String get feedbackStateErrorTitle => "";
+
+  @override
+  String get feedbackSubmitRetryMsg => "";
+
+  @override
+  String get feedbackSubmitRetryTitle => "";
 }

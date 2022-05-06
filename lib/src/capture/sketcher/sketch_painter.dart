@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:wiredash/src/capture/sketcher/sketcher_controller.dart';
+import 'package:ndash/src/capture/sketcher/sketcher_controller.dart';
 
 class SketchPainter extends CustomPainter {
   SketchPainter(this.controller) : super(repaint: controller);

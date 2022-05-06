@@ -2,9 +2,9 @@
 import 'dart:html' as html show window;
 import 'dart:ui' show SingletonFlutterWindow;
 
-import 'package:wiredash/src/common/build_info/build_info_manager.dart';
-import 'package:wiredash/src/common/device_info/device_info.dart';
-import 'package:wiredash/src/common/device_info/device_info_generator.dart';
+import 'package:ndash/src/common/build_info/build_info_manager.dart';
+import 'package:ndash/src/common/device_info/device_info.dart';
+import 'package:ndash/src/common/device_info/device_info_generator.dart';
 
 class _DartHtmlDeviceInfoGenerator implements DeviceInfoGenerator {
   _DartHtmlDeviceInfoGenerator(
