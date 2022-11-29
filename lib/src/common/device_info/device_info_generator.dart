@@ -1,5 +1,3 @@
-import 'dart:ui' show SingletonFlutterWindow;
-
 import 'package:flutter/foundation.dart';
 import 'package:ndash/src/common/build_info/build_info_manager.dart';
 import 'package:ndash/src/common/device_info/device_info.dart';

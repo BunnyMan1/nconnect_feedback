@@ -100,7 +100,7 @@ class FeedbackModel with ChangeNotifier {
       deviceInfo: _deviceInfoGenerator.generate(),
       email: _userManager.userEmail,
       message: feedbackMessage!,
-      type: feedbackType.label,
+      type: feedbackType.id,
       user: _userManager.userId,
       userAgent: userAgent,
       studentAdmissionNumber: studentAdmissionNumber,
@@ -172,6 +172,14 @@ extension FeedbackTypeMembers on FeedbackType {
         FeedbackType.bug: "bug",
         FeedbackType.improvement: "improvement",
         FeedbackType.praise: "praise",
+      }[this]!;
+}
+
+extension FeedbackTypeIds on FeedbackType {
+  int get id => const {
+        FeedbackType.bug: 1,
+        FeedbackType.improvement: 2,
+        FeedbackType.praise: 3,
       }[this]!;
 }
 

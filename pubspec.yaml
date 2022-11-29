@@ -1,7 +1,6 @@
 name: ndash
 description: A new Flutter package project.
 version: 0.0.1
-homepage:
 
 environment:
   sdk: ">=2.12.0-0 <3.0.0"
@@ -12,6 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   http: ">=0.13.0-0 <0.15.0"
+  dio: ^4.0.6
   http_parser: ">=4.0.0-0 <5.0.0"
   path_provider: ">=2.0.0 <3.0.0"
   shared_preferences: '>=2.0.0 <3.0.0'

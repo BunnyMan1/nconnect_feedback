@@ -22,7 +22,7 @@ class FeedbackItem {
   final DeviceInfo deviceInfo;
   final String? email;
   final String message;
-  final String type;
+  final int type;
   final String? user;
   final int sdkVersion;
   final String appVersion;
@@ -31,11 +31,10 @@ class FeedbackItem {
   final String userAgent;
 
   FeedbackItem.fromJson(Map<String, dynamic> json)
-      : deviceInfo =
-            DeviceInfo.fromJson(json['deviceInfo'] as Map<String, dynamic>),
+      : deviceInfo = DeviceInfo.fromJson(json['deviceInfo'] as Map<String, dynamic>),
         email = json['email'] as String?,
         message = json['message'] as String,
-        type = json['type'] as String,
+        type = json['type'] as int,
         user = json['user'] as String?,
         sdkVersion = json['sdkVersion'] as int,
         appVersion = json['appVersion'] as String,
@@ -64,7 +63,7 @@ class FeedbackItem {
       'deviceInfo': json.encode(deviceInfo.toJson()),
       'email': email,
       'message': message,
-      'type': type,
+      'type': type.toString(),
       'user': user,
       'sdkVersion': sdkVersion.toString(),
       'appVersion': appVersion,

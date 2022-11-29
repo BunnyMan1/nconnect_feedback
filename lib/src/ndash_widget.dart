@@ -1,7 +1,6 @@
 import 'package:file/local.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ndash/src/capture/capture.dart';
@@ -125,7 +124,7 @@ class NdashState extends State<Ndash> {
     _updateDependencies();
 
     _api = NdashApi(
-      httpClient: Client(),
+      // httpClient: Client(),
       projectId: widget.projectId,
       secret: "",
     );
