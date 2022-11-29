@@ -37,7 +37,7 @@ class _NdashExampleAppState extends State<NdashExampleApp> {
       secret: "API Key from console.Ndash.io",
       navigatorKey: _navigatorKey,
       token:
-          "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMTE0MDA1NyIsInVzZXJfbnVtYmVyIjoiMTg0Nzc3NSIsInVzZXJfc2VyaWFsX251bWJlciI6IjYxNTU4MDAiLCJkZXZpY2VfaWQiOiI1Y2E3MzQ5MjU4MWQ2ODUyIiwibG9naW5fc3RhdGlzdGljX2lkIjoiMjY2NzIzIiwiYXBwbGljYXRpb25faWQiOiIyIiwiYXBwbGljYXRpb25fcGxhdGZvcm1faWQiOiIyIiwiZXhwIjoxNjUzNzMzODYwLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUwMDAvIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MDAwLyJ9.Fsz10ns9zd-X1VWfBIVeg-H1FuBZjmcQeM5RsujhPAU",
+          "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOTA4MyIsInVzZXJfbnVtYmVyIjoiNTAwODAwNDQ1IiwidXNlcl9zZXJpYWxfbnVtYmVyIjoiNDUwMTcwIiwidW5pcXVlX251bWJlciI6IjQwMTE4OCIsImRldmljZV9pZCI6InZzY29kZSIsImxvZ2luX3N0YXRpc3RpY19pZCI6IjM4MzUyMyIsImFwcGxpY2F0aW9uX2lkIjoiMyIsImFwcGxpY2F0aW9uX3BsYXRmb3JtX2lkIjoiMSIsImV4cCI6MTY3MjA1NTUyMiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDAwLyIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTAwMC8ifQ.okoQR8ckX8hCYvqrmCQCa3q8vHDiG-i4nLrmji8Wh-I",
       userAgent: "some user agent",
       appVersion: '1.0.0',
       studentAdmissionNumber: '12345678',
