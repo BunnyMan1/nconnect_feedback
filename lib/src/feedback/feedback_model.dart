@@ -17,6 +17,7 @@ class FeedbackModel with ChangeNotifier {
     this._userManager,
     this._feedbackSubmitter,
     this._deviceInfoGenerator, {
+    required this.appId,
     required this.appVersion,
     required this.userAgent,
     required this.token,
@@ -32,6 +33,7 @@ class FeedbackModel with ChangeNotifier {
   final String studentAdmissionNumber;
   final String token;
   final String userAgent;
+  final int appId;
 
   FeedbackType feedbackType = FeedbackType.bug;
   String? feedbackMessage;
@@ -79,7 +81,7 @@ class FeedbackModel with ChangeNotifier {
         });
         break;
       case FeedbackUiState.submit:
-        _sendFeedback();
+        _sendFeedback(appId);
         break;
       default:
       // do nothing
@@ -92,7 +94,7 @@ class FeedbackModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> _sendFeedback() async {
+  Future<void> _sendFeedback(int appId) async {
     loading = true;
     notifyListeners();
 
@@ -109,7 +111,7 @@ class FeedbackModel with ChangeNotifier {
     );
 
     try {
-      await _feedbackSubmitter.submit(item, screenshot);
+      await _feedbackSubmitter.submit(item, screenshot, appId);
       _clearFeedback();
       _feedbackUiState = FeedbackUiState.submitted;
     } catch (e) {

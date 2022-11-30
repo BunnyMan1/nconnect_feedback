@@ -12,9 +12,9 @@ class DirectFeedbackSubmitter implements FeedbackSubmitter {
   final NdashApi _api;
 
   @override
-  Future<void> submit(FeedbackItem item, Uint8List? screenshot) async {
+  Future<void> submit(FeedbackItem item, Uint8List? screenshot, int appId) async {
     try {
-      await _api.sendFeedback(feedback: item, screenshot: screenshot);
+      await _api.sendFeedback(feedback: item, screenshot: screenshot, appId: appId);
       // ignore: avoid_print
       print("Feedback submitted ✌️ ${item.message}");
     } on UnauthenticatedNdashApiException catch (e, stack) {

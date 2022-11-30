@@ -29,13 +29,12 @@ class Ndash extends StatefulWidget {
   /// wishes, ratings and much more
   const Ndash({
     Key? key,
-    required this.projectId,
-    required this.secret,
     required this.navigatorKey,
     this.options,
     this.theme,
     required this.child,
     required this.appVersion,
+    required this.appId,
     required this.studentAdmissionNumber,
     required this.token,
     required this.userAgent,
@@ -48,16 +47,13 @@ class Ndash extends StatefulWidget {
 
   final String appVersion;
 
+  /// Application id according to the nconnect database.
+  final int appId;
+
   final String token;
 
   /// Reference to the app [Navigator] to show the nDash bottom sheet
   final GlobalKey<NavigatorState> navigatorKey;
-
-  /// Your nDash projectId
-  final String projectId;
-
-  /// Your nDash project secret
-  final String secret;
 
   /// Customize nDash's behaviour and language
   final NdashOptionsData? options;
@@ -114,21 +110,12 @@ class NdashState extends State<Ndash> {
   @override
   void initState() {
     super.initState();
-    debugProjectCredentialValidator.validate(
-      projectId: widget.projectId,
-    );
-
     captureKey = GlobalKey<CaptureState>();
     navigatorKey = widget.navigatorKey;
 
     _updateDependencies();
 
-    _api = NdashApi(
-      // httpClient: Client(),
-      projectId: widget.projectId,
-      secret: "",
-    );
-
+    _api = NdashApi();
     userManager = UserManager();
     buildInfoManager = BuildInfoManager(PlatformBuildInfo());
 
@@ -141,7 +128,8 @@ class NdashState extends State<Ndash> {
 
     final feedbackSubmitter = kIsWeb
         ? DirectFeedbackSubmitter(_api)
-        : (RetryingFeedbackSubmitter(fileSystem, storage, _api)..submitPendingFeedbackItems());
+        : (RetryingFeedbackSubmitter(fileSystem, storage, _api)
+          ..submitPendingFeedbackItems(widget.appId));
 
     _feedbackModel = FeedbackModel(
       captureKey,
@@ -156,6 +144,7 @@ class NdashState extends State<Ndash> {
       appVersion: widget.appVersion,
       studentAdmissionNumber: widget.studentAdmissionNumber,
       token: widget.token,
+      appId: widget.appId,
     );
   }
 
