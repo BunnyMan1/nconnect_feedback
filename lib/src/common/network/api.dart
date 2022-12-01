@@ -23,7 +23,6 @@ class NdashApi {
   Future<void> sendFeedback({
     required FeedbackItem feedback,
     Uint8List? screenshot,
-    required int appId,
   }) async {
     //TODO: hardcoding the media url, change these to 2 urls and use one after other !
     final String mediaUrl = 'http://172.40.42.57:5000/api/common/v1/media';
@@ -60,7 +59,7 @@ class NdashApi {
             "app_version": feedback.appVersion,
             "auth_token": feedback.token,
             "user_agent": feedback.userAgent,
-            "application_id": appId,
+            "application_id": feedback.appId,
             "application_platform_id": Platform.isIOS ? 3 : 2,
             "device_id": feedback.deviceInfo.deviceId,
             "padding": getCSV(feedback.deviceInfo.padding),

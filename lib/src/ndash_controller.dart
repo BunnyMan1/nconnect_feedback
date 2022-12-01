@@ -21,7 +21,20 @@ class NdashController {
   /// to the feedback. The [userEmail] parameter can be used to prefill the
   /// email input field but it's up to the user to decide if he want's to
   /// include his email with the feedback.
-  void setUserProperties({String? userId, String? userEmail}) {
+  void setUserProperties({
+    String? userId,
+    String? userEmail,
+    required int appId,
+    required String appVersion,
+    required String userAgent,
+    required String sdkVersion,
+    required String token,
+  }) {
+    _state.userManager.appId = appId;
+    _state.userManager.sdkVersion = sdkVersion;
+    _state.userManager.appVersion = appVersion;
+    _state.userManager.userAgent = userAgent;
+    _state.userManager.token = token;
     _state.userManager.userId = userId ?? _state.userManager.userId;
     _state.userManager.userEmail = userEmail ?? _state.userManager.userEmail;
   }
@@ -31,10 +44,8 @@ class NdashController {
   /// If these values are also provided through dart-define during compile time
   /// then they will be overwritten by this method
   void setBuildProperties({String? buildVersion, String? buildNumber}) {
-    _state.buildInfoManager.buildVersion =
-        buildVersion ?? _state.buildInfoManager.buildVersion;
-    _state.buildInfoManager.buildNumber =
-        buildNumber ?? _state.buildInfoManager.buildNumber;
+    _state.buildInfoManager.buildVersion = buildVersion ?? _state.buildInfoManager.buildVersion;
+    _state.buildInfoManager.buildNumber = buildNumber ?? _state.buildInfoManager.buildNumber;
   }
 
   /// This will open the Ndash feedback sheet and start the feedback process.

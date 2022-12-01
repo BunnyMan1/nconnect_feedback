@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:ndash/src/common/device_info/device_info.dart';
-import 'package:ndash/src/version.dart';
 
 /// Contains all relevant feedback information, both user-provided and automatically
 /// inferred, that will be eventually sent to the nDash console.
@@ -12,11 +9,11 @@ class FeedbackItem {
     required this.message,
     required this.type,
     this.user,
-    this.sdkVersion = ndashSdkVersion,
+    required this.sdkVersion,
     required this.appVersion,
-    required this.studentAdmissionNumber,
     required this.token,
     required this.userAgent,
+    required this.appId,
   });
 
   final DeviceInfo deviceInfo;
@@ -24,11 +21,11 @@ class FeedbackItem {
   final String message;
   final int type;
   final String? user;
-  final int sdkVersion;
-  final String appVersion;
-  final String studentAdmissionNumber;
-  final String token;
-  final String userAgent;
+  final String? sdkVersion;
+  final String? appVersion;
+  final String? token;
+  final String? userAgent;
+  final int? appId;
 
   FeedbackItem.fromJson(Map<String, dynamic> json)
       : deviceInfo = DeviceInfo.fromJson(json['deviceInfo'] as Map<String, dynamic>),
@@ -36,11 +33,11 @@ class FeedbackItem {
         message = json['message'] as String,
         type = json['type'] as int,
         user = json['user'] as String?,
-        sdkVersion = json['sdkVersion'] as int,
-        appVersion = json['appVersion'] as String,
-        studentAdmissionNumber = json['studentAdmissionNumber'] as String,
-        token = json['token'] as String,
-        userAgent = json['userAgent'] as String;
+        sdkVersion = json['sdkVersion'] as String?,
+        appVersion = json['appVersion'] as String?,
+        token = json['token'] as String?,
+        appId = json['appId'] as int?,
+        userAgent = json['userAgent'] as String?;
 
   Map<String, dynamic> toJson() {
     return {
@@ -51,25 +48,9 @@ class FeedbackItem {
       'user': user,
       'sdkVersion': sdkVersion,
       'appVersion': appVersion,
-      'studentAdmissionNumber': studentAdmissionNumber,
+      'appId': appId,
       'token': token,
       'userAgent': userAgent
-    };
-  }
-
-  /// Encodes the fields for a multipart/form-data request
-  Map<String, String?> toMultipartFormFields() {
-    return {
-      'deviceInfo': json.encode(deviceInfo.toJson()),
-      'email': email,
-      'message': message,
-      'type': type.toString(),
-      'user': user,
-      'sdkVersion': sdkVersion.toString(),
-      'appVersion': appVersion,
-      'studentAdmissionNumber': studentAdmissionNumber,
-      'userAgent': userAgent,
-      'token': token,
     };
   }
 
@@ -86,7 +67,6 @@ class FeedbackItem {
           sdkVersion == other.sdkVersion &&
           token == other.token &&
           appVersion == other.appVersion &&
-          studentAdmissionNumber == other.studentAdmissionNumber &&
           userAgent == other.userAgent;
 
   @override
@@ -107,7 +87,6 @@ class FeedbackItem {
         'type: $type, '
         'user: $user, '
         'sdkVersion: $sdkVersion, '
-        'studentAdmissionNumber: $studentAdmissionNumber, '
         'token: $token, '
         'userAgent: $userAgent, '
         'appVersion: $appVersion, '

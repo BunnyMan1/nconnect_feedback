@@ -23,12 +23,6 @@ class _NdashExampleAppState extends State<NdashExampleApp> {
     /// Note: you are not required to use `MaterialApp`,
     return Ndash(
       navigatorKey: _navigatorKey,
-      token:
-          "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOTA4MyIsInVzZXJfbnVtYmVyIjoiNTAwODAwNDQ1IiwidXNlcl9zZXJpYWxfbnVtYmVyIjoiNDUwMTcwIiwidW5pcXVlX251bWJlciI6IjQwMTE4OCIsImRldmljZV9pZCI6InZzY29kZSIsImxvZ2luX3N0YXRpc3RpY19pZCI6IjM4MzUyMyIsImFwcGxpY2F0aW9uX2lkIjoiMyIsImFwcGxpY2F0aW9uX3BsYXRmb3JtX2lkIjoiMSIsImV4cCI6MTY3MjA1NTUyMiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDAwLyIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTAwMC8ifQ.okoQR8ckX8hCYvqrmCQCa3q8vHDiG-i4nLrmji8Wh-I",
-      userAgent: "some user agent",
-      appVersion: '1.0.0',
-      appId: 2,
-      studentAdmissionNumber: '12345678',
       options: NdashOptionsData(
         /// Change the locale of the Ndash UI
         locale: const Locale('en'),
@@ -64,7 +58,18 @@ class _HomePage extends StatelessWidget {
         /// Ndash.of(context).show()
         /// Since the `Ndash` widget is at the root of the widget tree this
         /// method can be accessed from anywhere in the code.
-        onPressed: Ndash.of(context)!.show,
+        onPressed: () {
+          var nd = Ndash.of(context);
+          nd?.setUserProperties(
+            appId: 2,
+            appVersion: "",
+            userAgent: "",
+            sdkVersion: "",
+            token: "",
+          );
+          nd!.show();
+        },
+
         child: const Icon(Icons.feedback_outlined),
       ),
     );

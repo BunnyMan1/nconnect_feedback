@@ -16,24 +16,14 @@ class FeedbackModel with ChangeNotifier {
     this._navigatorKey,
     this._userManager,
     this._feedbackSubmitter,
-    this._deviceInfoGenerator, {
-    required this.appId,
-    required this.appVersion,
-    required this.userAgent,
-    required this.token,
-    required this.studentAdmissionNumber,
-  });
+    this._deviceInfoGenerator);
 
   final GlobalKey<CaptureState> _captureKey;
   final GlobalKey<NavigatorState> _navigatorKey;
   final UserManager _userManager;
   final FeedbackSubmitter _feedbackSubmitter;
   final DeviceInfoGenerator _deviceInfoGenerator;
-  final String appVersion;
-  final String studentAdmissionNumber;
-  final String token;
-  final String userAgent;
-  final int appId;
+
 
   FeedbackType feedbackType = FeedbackType.bug;
   String? feedbackMessage;
@@ -81,7 +71,7 @@ class FeedbackModel with ChangeNotifier {
         });
         break;
       case FeedbackUiState.submit:
-        _sendFeedback(appId);
+        _sendFeedback();
         break;
       default:
       // do nothing
@@ -94,7 +84,7 @@ class FeedbackModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> _sendFeedback(int appId) async {
+  Future<void> _sendFeedback() async {
     loading = true;
     notifyListeners();
 
@@ -104,14 +94,15 @@ class FeedbackModel with ChangeNotifier {
       message: feedbackMessage!,
       type: feedbackType.id,
       user: _userManager.userId,
-      userAgent: userAgent,
-      studentAdmissionNumber: studentAdmissionNumber,
-      token: token,
-      appVersion: appVersion,
+      userAgent: _userManager.userAgent,
+      token: _userManager.token,
+      appVersion: _userManager.appVersion,
+      appId: _userManager.appId,
+      sdkVersion: _userManager.sdkVersion,
     );
 
     try {
-      await _feedbackSubmitter.submit(item, screenshot, appId);
+      await _feedbackSubmitter.submit(item, screenshot);
       _clearFeedback();
       _feedbackUiState = FeedbackUiState.submitted;
     } catch (e) {

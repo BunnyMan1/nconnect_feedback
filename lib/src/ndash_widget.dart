@@ -33,24 +33,24 @@ class Ndash extends StatefulWidget {
     this.options,
     this.theme,
     required this.child,
-    required this.appVersion,
-    required this.appId,
-    required this.studentAdmissionNumber,
-    required this.token,
-    required this.userAgent,
+    // required this.appVersion,
+    // required this.appId,
+    // required this.studentAdmissionNumber,
+    // required this.token,
+    // required this.userAgent,
   }) : super(key: key);
 
   /// USER AGENT for the APP (String from FkUserAgent)
-  final String userAgent;
+  // final String userAgent;
 
-  final String studentAdmissionNumber;
+  // final String studentAdmissionNumber;
 
-  final String appVersion;
+  // final String appVersion;
 
   /// Application id according to the nconnect database.
-  final int appId;
+  // final int appId;
 
-  final String token;
+  // final String token;
 
   /// Reference to the app [Navigator] to show the nDash bottom sheet
   final GlobalKey<NavigatorState> navigatorKey;
@@ -129,7 +129,7 @@ class NdashState extends State<Ndash> {
     final feedbackSubmitter = kIsWeb
         ? DirectFeedbackSubmitter(_api)
         : (RetryingFeedbackSubmitter(fileSystem, storage, _api)
-          ..submitPendingFeedbackItems(widget.appId));
+          ..submitPendingFeedbackItems());
 
     _feedbackModel = FeedbackModel(
       captureKey,
@@ -140,11 +140,7 @@ class NdashState extends State<Ndash> {
         buildInfoManager,
         widgetsBindingInstance.window,
       ),
-      userAgent: widget.userAgent,
-      appVersion: widget.appVersion,
-      studentAdmissionNumber: widget.studentAdmissionNumber,
-      token: widget.token,
-      appId: widget.appId,
+
     );
   }
 
