@@ -33,25 +33,7 @@ class Ndash extends StatefulWidget {
     this.options,
     this.theme,
     required this.child,
-    // required this.appVersion,
-    // required this.appId,
-    // required this.studentAdmissionNumber,
-    // required this.token,
-    // required this.userAgent,
   }) : super(key: key);
-
-  /// USER AGENT for the APP (String from FkUserAgent)
-  // final String userAgent;
-
-  // final String studentAdmissionNumber;
-
-  // final String appVersion;
-
-  /// Application id according to the nconnect database.
-  // final int appId;
-
-  // final String token;
-
   /// Reference to the app [Navigator] to show the nDash bottom sheet
   final GlobalKey<NavigatorState> navigatorKey;
 
