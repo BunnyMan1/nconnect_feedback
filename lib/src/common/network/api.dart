@@ -23,10 +23,12 @@ class NdashApi {
   Future<void> sendFeedback({
     required FeedbackItem feedback,
     Uint8List? screenshot,
+    required String mediaUrl,
+    required String feedbackSumbitUrl,
   }) async {
     //TODO: hardcoding the media url, change these to 2 urls and use one after other !
-    final String mediaUrl = 'http://172.40.42.57:5000/api/common/v1/media';
-    final String feedbackSumbitUrl = "http://172.40.42.57:5000/api/common/v1/feedback";
+    // final String mediaUrl = 'http://172.40.42.57:5000/api/common/v1/media';
+    // final String feedbackSumbitUrl = "http://172.40.42.57:5000/api/common/v1/feedback";
     Dio dio = Dio();
 
     dio.options.headers["Content-Type"] = "multipart/form-data";

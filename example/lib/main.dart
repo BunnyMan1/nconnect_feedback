@@ -31,6 +31,8 @@ class _NdashExampleAppState extends State<NdashExampleApp> {
         navigatorKey: _navigatorKey,
         home: const _HomePage(),
       ),
+      mediaUrl: 'http://172.40.42.57:5000/api/common/v1/media',
+      feedbackSubmitUrl: "http://172.40.42.57:5000/api/common/v1/feedback",
     );
   }
 }
@@ -62,10 +64,11 @@ class _HomePage extends StatelessWidget {
           var nd = Ndash.of(context);
           nd?.setUserProperties(
             appId: 2,
-            appVersion: "",
-            userAgent: "",
-            sdkVersion: "",
-            token: "",
+            appVersion: "1.1.1",
+            userAgent: "Ranadeep thammudu",
+            sdkVersion: "1.1",
+            token:
+                "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiODc4OTA5ODciLCJ1c2VyX251bWJlciI6IjUwMDgwMTgxNSIsInVzZXJfc2VyaWFsX251bWJlciI6IjcyNDYxNiIsInVuaXF1ZV9udW1iZXIiOiI2NjU3MzQiLCJkZXZpY2VfaWQiOiJ2c2NvZGUiLCJsb2dpbl9zdGF0aXN0aWNfaWQiOiIzODM3ODIiLCJhcHBsaWNhdGlvbl9pZCI6IjMiLCJhcHBsaWNhdGlvbl9wbGF0Zm9ybV9pZCI6IjEiLCJ1c2VyX3R5cGUiOiIyIiwiZXhwIjoxNjcyOTg5NTg2LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUwMDAvIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MDAwLyJ9.dEnj1icYNLjfpWVS9tnuDUkK3ccbq3EdxTSa1uZS44I",
           );
           nd!.show();
         },

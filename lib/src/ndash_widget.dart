@@ -28,12 +28,16 @@ class Ndash extends StatefulWidget {
   /// Creates a new [Ndash] Widget which allows users to send feedback,
   /// wishes, ratings and much more
   const Ndash({
-    Key? key,
+    Key? key,required this.mediaUrl,required this.feedbackSubmitUrl,
     required this.navigatorKey,
     this.options,
     this.theme,
     required this.child,
   }) : super(key: key);
+
+  final String mediaUrl;
+  final String feedbackSubmitUrl;
+
   /// Reference to the app [Navigator] to show the nDash bottom sheet
   final GlobalKey<NavigatorState> navigatorKey;
 
@@ -110,7 +114,7 @@ class NdashState extends State<Ndash> {
 
     final feedbackSubmitter = kIsWeb
         ? DirectFeedbackSubmitter(_api)
-        : (RetryingFeedbackSubmitter(fileSystem, storage, _api)
+        : (RetryingFeedbackSubmitter(fileSystem, storage, _api,  mediaUrl: widget.mediaUrl,feedbackSumbitUrl: widget.feedbackSubmitUrl)
           ..submitPendingFeedbackItems());
 
     _feedbackModel = FeedbackModel(
@@ -122,7 +126,8 @@ class NdashState extends State<Ndash> {
         buildInfoManager,
         widgetsBindingInstance.window,
       ),
-
+      mediaUrl: widget.mediaUrl,
+      feedbackSubmitUrl: widget.feedbackSubmitUrl
     );
   }
 
@@ -174,4 +179,5 @@ class NdashState extends State<Ndash> {
 }
 
 @visibleForTesting
-ProjectCredentialValidator debugProjectCredentialValidator = const ProjectCredentialValidator();
+ProjectCredentialValidator debugProjectCredentialValidator =
+    const ProjectCredentialValidator();
