@@ -17,11 +17,14 @@ class RetryingFeedbackSubmitter implements FeedbackSubmitter {
     this.fs,
     this._pendingFeedbackItemStorage,
     this._api,
+   { required this.mediaUrl,required this.feedbackSumbitUrl}
   );
 
   final FileSystem fs;
   final PendingFeedbackItemStorage _pendingFeedbackItemStorage;
   final NdashApi _api;
+  final String mediaUrl;
+  final String feedbackSumbitUrl;
 
   // Ensures that we're not starting multiple "submitPendingFeedbackItems()" jobs
   // in parallel.
@@ -35,7 +38,8 @@ class RetryingFeedbackSubmitter implements FeedbackSubmitter {
   ///
   /// If sending fails, uses exponential backoff and tries again up to 7 times.
   @override
-  Future<void> submit(FeedbackItem item, Uint8List? screenshot) async {
+  Future<void> submit(
+      FeedbackItem item, Uint8List? screenshot, String mediaUrl,String feedbackSubmitUrl) async {
     await _pendingFeedbackItemStorage.addPendingItem(item, screenshot);
 
     // Intentionally not "await"-ed. Since we've persisted the pending feedback
@@ -50,10 +54,11 @@ class RetryingFeedbackSubmitter implements FeedbackSubmitter {
   /// Can be called whenever there's a good time to try sending pending feedback
   /// items, such as in "initState()" of the nDash widget, or when network
   /// connection comes back online.
-  Future<void> submitPendingFeedbackItems() => _submitPendingFeedbackItems();
+  Future<void> submitPendingFeedbackItems() => _submitPendingFeedbackItems(mediaUrl: mediaUrl);
 
   Future<void> _submitPendingFeedbackItems({
     bool submittingLeftovers = false,
+    required String mediaUrl,
   }) async {
     if (_submitting) {
       _hasLeftoverItems = true;
@@ -64,7 +69,7 @@ class RetryingFeedbackSubmitter implements FeedbackSubmitter {
     final items = await _pendingFeedbackItemStorage.retrieveAllPendingItems();
 
     for (final item in items) {
-      await _submitWithRetry(item).catchError((_) {
+      await _submitWithRetry(item, mediaUrl).catchError((_) {
         // ignore when a single item couldn't be submitted
         return null;
       });
@@ -89,11 +94,12 @@ class RetryingFeedbackSubmitter implements FeedbackSubmitter {
         return;
       }
 
-      await _submitPendingFeedbackItems(submittingLeftovers: true);
+      await _submitPendingFeedbackItems(submittingLeftovers: true, mediaUrl: mediaUrl);
     }
   }
 
-  Future<void> _submitWithRetry<T>(PendingFeedbackItem item) async {
+  Future<void> _submitWithRetry<T>(
+      PendingFeedbackItem item, String mediaUrl) async {
     var attempt = 0;
 
     // ignore: literal_only_boolean_expressions
@@ -108,6 +114,8 @@ class RetryingFeedbackSubmitter implements FeedbackSubmitter {
         await _api.sendFeedback(
           feedback: item.feedbackItem,
           screenshot: screenshot,
+          mediaUrl: mediaUrl,
+          feedbackSumbitUrl: feedbackSumbitUrl
         );
         // ignore: avoid_print
         print("Feedback submitted ✌️ ${item.feedbackItem.message}");
@@ -135,12 +143,14 @@ class RetryingFeedbackSubmitter implements FeedbackSubmitter {
           await _pendingFeedbackItemStorage.clearPendingItem(item.id);
           break;
         }
-        reportNdashError(e, stack, 'Ndash server error. Will retry after app restart');
+        reportNdashError(
+            e, stack, 'Ndash server error. Will retry after app restart');
         break;
       } catch (e, stack) {
         if (attempt >= _maxAttempts) {
           // Exit after max attempts
-          reportNdashError(e, stack, 'Could not send feedback after $attempt retries');
+          reportNdashError(
+              e, stack, 'Could not send feedback after $attempt retries');
           break;
         }
 
