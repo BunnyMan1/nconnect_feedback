@@ -25,7 +25,7 @@ class ListTileButton extends StatelessWidget {
     return Semantics(
       button: true,
       child: Material(
-        elevation: 1,
+        elevation: 0.0,
         color: NdashTheme.of(context)!.primaryBackgroundColor,
         borderRadius: const BorderRadius.all(Radius.circular(8)),
         clipBehavior: Clip.antiAlias,
@@ -59,11 +59,11 @@ class ListTileButton extends StatelessWidget {
                     children: <Widget>[
                       Text(
                         title,
-                        style: NdashTheme.of(context)!.body1Style,
+                        style: NdashTheme.of(context)!.body1Style.copyWith(fontSize: 16.0),
                       ),
                       Text(
                         subtitle,
-                        style: NdashTheme.of(context)!.body2Style,
+                        style: NdashTheme.of(context)!.body2Style.copyWith(fontSize: 14.0),
                       )
                     ],
                   ),

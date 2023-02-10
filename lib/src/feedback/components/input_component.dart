@@ -60,48 +60,54 @@ class _InputComponentState extends State<InputComponent> {
     final ndashTheme = NdashTheme.of(context)!;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16),
-      child: Form(
-        key: widget.formKey,
-        child: TextFormField(
-          key: const ValueKey('ndash.sdk.text_field'),
-          controller: _textEditingController,
-          focusNode: widget.focusNode,
-          style: ndashTheme.inputTextStyle,
-          cursorColor: ndashTheme.primaryColor,
-          validator: _validateInput,
-          onSaved: _handleInput,
-          maxLines: widget.type == InputComponentType.email ? 1 : null,
-          enableInteractiveSelection: interactiveTextSelectionSupported,
-          decoration: InputDecoration(
-            errorBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: ndashTheme.errorColor, width: 2),
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Form(
+            key: widget.formKey,
+            child: TextFormField(
+              key: const ValueKey('ndash.sdk.text_field'),
+              controller: _textEditingController,
+              focusNode: widget.focusNode,
+              style: ndashTheme.inputTextStyle,
+              cursorColor: ndashTheme.primaryColor,
+              validator: _validateInput,
+              onSaved: _handleInput,
+              maxLines: widget.type == InputComponentType.email ? 1 : null,
+              enableInteractiveSelection: interactiveTextSelectionSupported,
+              decoration: InputDecoration(
+                errorBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: ndashTheme.errorColor, width: 2),
+                ),
+                focusedErrorBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: ndashTheme.errorColor, width: 2),
+                ),
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: ndashTheme.dividerColor, width: 2),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: ndashTheme.primaryColor, width: 2),
+                ),
+                icon: Icon(
+                  _getIcon(),
+                  color: ndashTheme.dividerColor,
+                  size: 20,
+                ),
+                hintText: _getHintText(),
+                hintStyle: ndashTheme.inputHintStyle,
+                errorStyle: ndashTheme.inputErrorStyle,
+                errorMaxLines: 2,
+              ),
+              maxLength: _maxInputLength,
+              maxLengthEnforcement: MaxLengthEnforcement.none,
+              buildCounter: _getCounterText,
+              textCapitalization: _getTextCapitalization(),
+              keyboardAppearance: NdashTheme.of(context)!.brightness,
+              keyboardType: _getKeyboardType(),
             ),
-            focusedErrorBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: ndashTheme.errorColor, width: 2),
-            ),
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: ndashTheme.dividerColor, width: 2),
-            ),
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: ndashTheme.primaryColor, width: 2),
-            ),
-            icon: Icon(
-              _getIcon(),
-              color: ndashTheme.dividerColor,
-              size: 20,
-            ),
-            hintText: _getHintText(),
-            hintStyle: ndashTheme.inputHintStyle,
-            errorStyle: ndashTheme.inputErrorStyle,
-            errorMaxLines: 2,
           ),
-          maxLength: _maxInputLength,
-          maxLengthEnforcement: MaxLengthEnforcement.none,
-          buildCounter: _getCounterText,
-          textCapitalization: _getTextCapitalization(),
-          keyboardAppearance: NdashTheme.of(context)!.brightness,
-          keyboardType: _getKeyboardType(),
-        ),
+        ],
       ),
     );
   }
@@ -145,7 +151,6 @@ class _InputComponentState extends State<InputComponent> {
   Widget? _getCounterText(
     /// The build context for the TextField.
     BuildContext context, {
-
     /// The length of the string currently in the input.
     required int currentLength,
 

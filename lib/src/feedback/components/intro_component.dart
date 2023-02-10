@@ -17,9 +17,11 @@ class IntroComponent extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 12, bottom: 16),
       child: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           if (options.bugReportButton) ...[
-            const SizedBox(height: 12),
+            const SizedBox(height: 18),
             ListTileButton(
               key: const ValueKey('ndash.sdk.intro.report_a_bug_button'),
               icon: NdashIcons.bug,
@@ -29,9 +31,10 @@ class IntroComponent extends StatelessWidget {
               subtitle: NdashLocalizations.of(context)!.feedbackModeBugMsg,
               onPressed: () => onModeSelectedCallback?.call(FeedbackType.bug),
             ),
+            const SizedBox(height: 18),
           ],
           if (options.featureRequestButton) ...[
-            const SizedBox(height: 12),
+            const SizedBox(height: 18),
             ListTileButton(
               icon: NdashIcons.feature,
               iconColor: const Color(0xff007cbc),
@@ -40,9 +43,10 @@ class IntroComponent extends StatelessWidget {
               subtitle: NdashLocalizations.of(context)!.feedbackModeImprovementMsg,
               onPressed: () => onModeSelectedCallback?.call(FeedbackType.improvement),
             ),
+            const SizedBox(height: 18),
           ],
           if (options.praiseButton) ...[
-            const SizedBox(height: 12),
+            const SizedBox(height: 18),
             ListTileButton(
               icon: NdashIcons.applause,
               iconColor: const Color(0xff00b779),
@@ -51,6 +55,7 @@ class IntroComponent extends StatelessWidget {
               subtitle: NdashLocalizations.of(context)!.feedbackModePraiseMsg,
               onPressed: () => onModeSelectedCallback?.call(FeedbackType.praise),
             ),
+            const SizedBox(height: 18),
           ],
         ],
       ),

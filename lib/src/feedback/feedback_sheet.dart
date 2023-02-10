@@ -11,6 +11,7 @@ import 'package:ndash/src/feedback/components/error_component.dart';
 import 'package:ndash/src/feedback/components/input_component.dart';
 import 'package:ndash/src/feedback/components/intro_component.dart';
 import 'package:ndash/src/feedback/components/loading_component.dart';
+import 'package:ndash/src/feedback/components/screenshot_options_component.dart';
 import 'package:ndash/src/feedback/components/success_component.dart';
 import 'package:ndash/src/feedback/feedback_model.dart';
 import 'package:ndash/src/ndash_provider.dart';
@@ -27,6 +28,14 @@ class _FeedbackSheetState extends State<FeedbackSheet>
   final _emailFormKey = GlobalKey<FormState>();
   final _feedbackFormKey = GlobalKey<FormState>();
 
+  int _screenShotOptionsValue = 1;
+
+  void _screenShotOptionsValueChange(int i) {
+    setState(() {
+      _screenShotOptionsValue = i;
+    });
+  }
+
   final _feedbackFocusNode = FocusNode();
   final _emailFocusNode = FocusNode();
 
@@ -42,7 +51,7 @@ class _FeedbackSheetState extends State<FeedbackSheet>
     return Align(
       alignment: Alignment.bottomCenter,
       child: Material(
-        color: NdashTheme.of(context)!.secondaryBackgroundColor,
+        color: NdashTheme.of(context)!.primaryBackgroundColor,
         borderRadius: NdashTheme.of(context)!.sheetBorderRadius,
         elevation: 8,
         clipBehavior: Clip.antiAlias,
@@ -58,39 +67,46 @@ class _FeedbackSheetState extends State<FeedbackSheet>
   }
 
   Widget _buildCardContent() {
-    return Column(
-      children: <Widget>[
-        _buildHeader(),
-        AnimatedBuilder(
-          animation: context.feedbackModel!,
-          builder: (context, _) {
-            return AnimatedProgress(
-              isLoading: context.feedbackModel!.loading,
-              value: _getProgressValue(),
-            );
-          },
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: AnimatedSize(
-            // remove when min Flutter SDK is after v2.2.0-10.1.pre
-            // ignore: deprecated_member_use
-            vsync: this,
-            alignment: Alignment.topCenter,
-            curve: Curves.fastOutSlowIn,
-            duration: const Duration(milliseconds: 350),
-            child: AnimatedBuilder(
-              animation: context.feedbackModel!,
-              builder: (context, _) => Column(
-                children: <Widget>[
-                  _getInputComponent(),
-                  _buildButtons(),
-                ],
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.75,
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: <Widget>[
+          _buildHeader(),
+          AnimatedBuilder(
+            animation: context.feedbackModel!,
+            builder: (context, _) {
+              return AnimatedProgress(
+                isLoading: context.feedbackModel!.loading,
+                value: _getProgressValue(),
+              );
+            },
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: AnimatedSize(
+                // remove when min Flutter SDK is after v2.2.0-10.1.pre
+                // ignore: deprecated_member_use
+                vsync: this,
+                alignment: Alignment.topCenter,
+                curve: Curves.fastOutSlowIn,
+                duration: const Duration(milliseconds: 350),
+                child: AnimatedBuilder(
+                  animation: context.feedbackModel!,
+                  builder: (context, _) => Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: <Widget>[
+                      Expanded(child: _getInputComponent()),
+                      _buildButtons(),
+                    ],
+                  ),
+                ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -179,6 +195,41 @@ class _FeedbackSheetState extends State<FeedbackSheet>
             ),
           ],
         );
+
+      case FeedbackUiState.screenshotOptions:
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: PreviousButton(
+                text: NdashLocalizations.of(context)!.feedbackCancel,
+                onPressed: () => state.feedbackUiState = FeedbackUiState.intro,
+              ),
+            ),
+            Expanded(
+              child: NextButton(
+                key: const ValueKey('ndash.sdk.save_feedback_button'),
+                text: NdashLocalizations.of(context)!.feedbackSave,
+                icon: NdashIcons.right,
+                onPressed: () {
+                  final feedbackModel = context.feedbackModel;
+                  final renderer = getRenderer();
+                  if (NdashOptions.of(context)!.screenshotStep &&
+                      renderer != Renderer.html &&
+                      _screenShotOptionsValue == 1) {
+                    // Start the capture process
+                    Navigator.pop(context);
+                    feedbackModel!.feedbackUiState = FeedbackUiState.capture;
+                  } else {
+                    // Don't start the screen capturing and directly continue to the
+                    // feedback form
+                    feedbackModel!.feedbackUiState = FeedbackUiState.feedback;
+                  }
+                },
+              ),
+            ),
+          ],
+        );
       case FeedbackUiState.email:
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -222,19 +273,12 @@ class _FeedbackSheetState extends State<FeedbackSheet>
     final feedbackModel = context.feedbackModel;
     feedbackModel!.feedbackType = mode;
 
+    feedbackModel.feedbackUiState = FeedbackUiState.screenshotOptions;
+
     switch (mode) {
       case FeedbackType.bug:
       case FeedbackType.improvement:
-        final renderer = getRenderer();
-        if (NdashOptions.of(context)!.screenshotStep && renderer != Renderer.html) {
-          // Start the capture process
-          Navigator.pop(context);
-          feedbackModel.feedbackUiState = FeedbackUiState.capture;
-        } else {
-          // Don't start the screen capturing and directly continue to the
-          // feedback form
-          feedbackModel.feedbackUiState = FeedbackUiState.feedback;
-        }
+        feedbackModel.feedbackUiState = FeedbackUiState.screenshotOptions;
         break;
       case FeedbackType.praise:
         // Don't start the screen capturing and directly continue to the
@@ -248,6 +292,8 @@ class _FeedbackSheetState extends State<FeedbackSheet>
     switch (context.feedbackModel!.feedbackUiState) {
       case FeedbackUiState.intro:
         return NdashLocalizations.of(context)!.feedbackStateIntroTitle;
+      case FeedbackUiState.screenshotOptions:
+        return "Screenshot Options";
       case FeedbackUiState.feedback:
         return NdashLocalizations.of(context)!.feedbackStateFeedbackTitle;
       case FeedbackUiState.email:
@@ -266,6 +312,8 @@ class _FeedbackSheetState extends State<FeedbackSheet>
     switch (context.feedbackModel!.feedbackUiState) {
       case FeedbackUiState.intro:
         return NdashLocalizations.of(context)!.feedbackStateIntroMsg;
+      case FeedbackUiState.screenshotOptions:
+        return "Select what you want to include in your feeback/input and move forward.";
       case FeedbackUiState.feedback:
         return NdashLocalizations.of(context)!.feedbackStateFeedbackMsg;
       case FeedbackUiState.email:
@@ -302,6 +350,10 @@ class _FeedbackSheetState extends State<FeedbackSheet>
     switch (uiState) {
       case FeedbackUiState.intro:
         return IntroComponent(_onFeedbackModeSelected);
+      case FeedbackUiState.screenshotOptions:
+        return ScreenshotOptionsComponent(
+            screenShotOptionsValue: _screenShotOptionsValue,
+            screenShotOptionsValueChange: _screenShotOptionsValueChange);
       case FeedbackUiState.feedback:
         return InputComponent(
           key: const ValueKey('ndash.sdk.feedback_input_field'),

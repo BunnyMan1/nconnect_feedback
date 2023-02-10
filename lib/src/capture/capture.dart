@@ -102,8 +102,7 @@ class CaptureState extends State<Capture>
 
   void _updateDimensions() {
     final window = widgetsBindingInstance.window;
-    _windowPadding = EdgeInsets.fromWindowPadding(
-        window.viewPadding, window.devicePixelRatio);
+    _windowPadding = EdgeInsets.fromWindowPadding(window.viewPadding, window.devicePixelRatio);
     _screenSize = window.physicalSize / window.devicePixelRatio;
 
     final widthRestriction = Drawer.width + _windowPadding.horizontal;
@@ -112,33 +111,30 @@ class CaptureState extends State<Capture>
     final targetContentWidth = _screenSize.width - widthRestriction;
     final targetContentHeight = _screenSize.height - heightRestriction;
 
-    _scaleFactor = math.min(targetContentWidth / _screenSize.width,
-        targetContentHeight / _screenSize.height);
+    _scaleFactor = math.min(
+        targetContentWidth / _screenSize.width, targetContentHeight / _screenSize.height);
 
     _contentBottomOffset = 80 + _windowPadding.bottom;
   }
 
   void _initAnimations() {
-    final curvedScreenAnimation = CurvedAnimation(
-        parent: _animationControllerScreen, curve: Curves.fastOutSlowIn);
+    final curvedScreenAnimation =
+        CurvedAnimation(parent: _animationControllerScreen, curve: Curves.fastOutSlowIn);
 
-    final curvedDrawerAnimation = CurvedAnimation(
-        parent: _animationControllerDrawer, curve: Curves.fastOutSlowIn);
+    final curvedDrawerAnimation =
+        CurvedAnimation(parent: _animationControllerDrawer, curve: Curves.fastOutSlowIn);
 
-    _scaleAnimation =
-        Tween(begin: 1.0, end: _scaleFactor).animate(curvedScreenAnimation);
+    _scaleAnimation = Tween(begin: 1.0, end: _scaleFactor).animate(curvedScreenAnimation);
 
-    _cornerRadiusAnimation =
-        Tween(begin: 0.0, end: 1.0).animate(curvedScreenAnimation);
+    _cornerRadiusAnimation = Tween(begin: 0.0, end: 1.0).animate(curvedScreenAnimation);
 
-    _contentSlideUpAnimation = Tween(begin: 0.0, end: _contentBottomOffset)
-        .animate(curvedScreenAnimation);
+    _contentSlideUpAnimation =
+        Tween(begin: 0.0, end: _contentBottomOffset).animate(curvedScreenAnimation);
 
-    _drawPanelSlideAnimation = Tween(begin: 0.0, end: Drawer.width * 0.4)
-        .animate(curvedDrawerAnimation);
+    _drawPanelSlideAnimation =
+        Tween(begin: 0.0, end: Drawer.width * 0.4).animate(curvedDrawerAnimation);
 
-    _masterListenable =
-        Listenable.merge([_scaleAnimation, _drawPanelSlideAnimation]);
+    _masterListenable = Listenable.merge([_scaleAnimation, _drawPanelSlideAnimation]);
   }
 
   @override
@@ -163,8 +159,7 @@ class CaptureState extends State<Capture>
 
   @override
   Widget build(BuildContext context) {
-    final directionalityFactor =
-        Directionality.of(context) == TextDirection.ltr ? 1.0 : -1.0;
+    final directionalityFactor = Directionality.of(context) == TextDirection.ltr ? 1.0 : -1.0;
     return CaptureProvider(
       captureUiState: _captureUiState,
       sketcherController: _sketcherController,
@@ -270,9 +265,12 @@ class CaptureState extends State<Capture>
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
-                child: PreviousButton(
-                  onPressed: _onBackButtonPressed,
-                  text: _getBackButtonString(),
+                child: Visibility(
+                  visible: _captureUiState.value == CaptureUiState.draw ? true : false,
+                  child: PreviousButton(
+                    onPressed: _onBackButtonPressed,
+                    text: _getBackButtonString(),
+                  ),
                 ),
               ),
               Expanded(
@@ -351,9 +349,7 @@ class CaptureState extends State<Capture>
     _animationControllerDrawer.reverse();
     _spotlightKey.currentState!.show(
       NdashIcons.spotlightMove,
-      NdashLocalizations.of(context)!
-          .captureSpotlightNavigateTitle
-          .toLowerCase(),
+      NdashLocalizations.of(context)!.captureSpotlightNavigateTitle.toLowerCase(),
       NdashLocalizations.of(context)!.captureSpotlightNavigateMsg,
     );
   }
@@ -365,9 +361,7 @@ class CaptureState extends State<Capture>
     _animationControllerDrawer.forward();
     _spotlightKey.currentState!.show(
       NdashIcons.spotlightDraw,
-      NdashLocalizations.of(context)!
-          .captureSpotlightScreenCapturedTitle
-          .toUpperCase(),
+      NdashLocalizations.of(context)!.captureSpotlightScreenCapturedTitle.toUpperCase(),
       NdashLocalizations.of(context)!.captureSpotlightScreenCapturedMsg,
     );
   }

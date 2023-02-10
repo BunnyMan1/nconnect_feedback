@@ -11,19 +11,14 @@ import 'data/feedback_item.dart';
 import 'feedback_sheet.dart';
 
 class FeedbackModel with ChangeNotifier {
-  FeedbackModel(
-    this._captureKey,
-    this._navigatorKey,
-    this._userManager,
-    this._feedbackSubmitter,
-    this._deviceInfoGenerator);
+  FeedbackModel(this._captureKey, this._navigatorKey, this._userManager,
+      this._feedbackSubmitter, this._deviceInfoGenerator);
 
   final GlobalKey<CaptureState> _captureKey;
   final GlobalKey<NavigatorState> _navigatorKey;
   final UserManager _userManager;
   final FeedbackSubmitter _feedbackSubmitter;
   final DeviceInfoGenerator _deviceInfoGenerator;
-
 
   FeedbackType feedbackType = FeedbackType.bug;
   String? feedbackMessage;
@@ -179,6 +174,7 @@ extension FeedbackTypeIds on FeedbackType {
 enum FeedbackUiState {
   hidden,
   intro,
+  screenshotOptions,
   capture,
   feedback,
   email,
