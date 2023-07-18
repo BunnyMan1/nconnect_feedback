@@ -74,10 +74,10 @@ class NdashApi {
           "attachments": [
             {
               "id": response?.data[0]['id'],
-              "display_order": response!.data[0]['display_order'],
-              "display_label": response.data[0]['display_label'],
-              "description": response.data[0]['description'],
-              "is_primary": response.data[0]['is_primary']
+              "display_order": response?.data[0]['display_order'],
+              "display_label": response?.data[0]['display_label'],
+              "description": response?.data[0]['description'],
+              "is_primary": response?.data[0]['is_primary']
             }
           ]
         };
@@ -91,8 +91,8 @@ class NdashApi {
 
         throw NdashApiException(response: response);
       }
-      if (response!.statusCode == 401) {
-        throw UnauthenticatedNdashApiException(response);
+      if (response?.statusCode == 401) {
+        throw UnauthenticatedNdashApiException(response!);
       }
 
       throw NdashApiException(response: response);
