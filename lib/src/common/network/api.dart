@@ -36,61 +36,63 @@ class NdashApi {
     // if (screenshot != null) {
     Response? response;
     try {
-      // File file = File.fromRawPath(screenshot);
-      // final tempDir = await getTemporaryDirectory();
-      // File file = await File('${tempDir.path}/image.png').create();
-      // file.writeAsBytesSync(screenshot);
-      // response = await dio.post(
-      //   mediaUrl,
-      //   data: FormData.fromMap({
-      //     'Files': await MultipartFile.fromFile(
-      //       file.path,
-      //     )
-      //   }),
-      // );
-      // if (response.statusCode == 200 || response.statusCode == 201) {
-      // success 🎉'
-      Dio dio2 = Dio();
-      dio2.options.headers['authorization'] = 'Bearer ${feedback.token}';
+      if (screenshot != null) {
+        File file = File.fromRawPath(screenshot);
+        final tempDir = await getTemporaryDirectory();
+        file = await File('${tempDir.path}/image.png').create();
+        file.writeAsBytesSync(screenshot);
+        response = await dio.post(
+          mediaUrl,
+          data: FormData.fromMap({
+            'Files': await MultipartFile.fromFile(
+              file.path,
+            )
+          }),
+        );
+      }
+      if (response!.statusCode == 200 || response.statusCode == 201) {
+        // success 🎉'
+        Dio dio2 = Dio();
+        dio2.options.headers['authorization'] = 'Bearer ${feedback.token}';
 
-      var data = {
-        "email": feedback.email,
-        "message": feedback.message,
-        "type": feedback.type,
-        "sdk_version": feedback.sdkVersion.toString(),
-        "app_version": feedback.appVersion,
-        "auth_token": feedback.token,
-        "user_agent": feedback.userAgent,
-        "application_id": feedback.appId,
-        "application_platform_id": Platform.isIOS ? 3 : 2,
-        "device_id": feedback.deviceInfo.deviceId,
-        "padding": getCSV(feedback.deviceInfo.padding),
-        "physical_size": getCSV(feedback.deviceInfo.physicalSize),
-        // "attachments": [
-        //   {
-        //     "id": response.data[0]['id'],
-        //     "display_order": response.data[0]['display_order'],
-        //     "display_label": response.data[0]['display_label'],
-        //     "description": response.data[0]['description'],
-        //     "is_primary": response.data[0]['is_primary']
-        //   }
-        // ]
-      };
-      response = await dio2.post(feedbackSumbitUrl, data: data);
-      if (response.statusCode == 201) {
-        return;
+        var data = {
+          "email": feedback.email,
+          "message": feedback.message,
+          "type": feedback.type,
+          "sdk_version": feedback.sdkVersion.toString(),
+          "app_version": feedback.appVersion,
+          "auth_token": feedback.token,
+          "user_agent": feedback.userAgent,
+          "application_id": feedback.appId,
+          "application_platform_id": Platform.isIOS ? 3 : 2,
+          "device_id": feedback.deviceInfo.deviceId,
+          "padding": getCSV(feedback.deviceInfo.padding),
+          "physical_size": getCSV(feedback.deviceInfo.physicalSize),
+          "attachments": [
+            {
+              "id": response.data[0]['id'],
+              "display_order": response.data[0]['display_order'],
+              "display_label": response.data[0]['display_label'],
+              "description": response.data[0]['description'],
+              "is_primary": response.data[0]['is_primary']
+            }
+          ]
+        };
+        response = await dio2.post(feedbackSumbitUrl, data: data);
+        if (response.statusCode == 201) {
+          return;
+        }
+        if (response.statusCode == 401) {
+          throw UnauthenticatedNdashApiException(response);
+        }
+
+        throw NdashApiException(response: response);
       }
       if (response.statusCode == 401) {
         throw UnauthenticatedNdashApiException(response);
       }
 
       throw NdashApiException(response: response);
-      // }
-      // if (response.statusCode == 401) {
-      //   throw UnauthenticatedNdashApiException(response);
-      // }
-
-      // throw NdashApiException(response: response);
     } catch (e) {
       print(" error : $e");
       if (e is DioException) {
@@ -100,9 +102,9 @@ class NdashApi {
         print("resp : ${e.response?.data}");
       }
     }
-    // }
   }
 }
+// }
 
 /// Generic error from the nDash API
 class NdashApiException implements Exception {
