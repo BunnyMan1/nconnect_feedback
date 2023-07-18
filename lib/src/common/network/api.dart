@@ -33,74 +33,74 @@ class NdashApi {
 
     dio.options.headers["Content-Type"] = "multipart/form-data";
     dio.options.headers['authorization'] = 'Bearer ${feedback.token}';
-    if (screenshot != null) {
-      Response? response;
-      try {
-        // File file = File.fromRawPath(screenshot);
-        final tempDir = await getTemporaryDirectory();
-        File file = await File('${tempDir.path}/image.png').create();
-        file.writeAsBytesSync(screenshot);
-        response = await dio.post(
-          mediaUrl,
-          data: FormData.fromMap({
-            'Files': await MultipartFile.fromFile(
-              file.path,
-            )
-          }),
-        );
-        if (response.statusCode == 200 || response.statusCode == 201) {
-          // success 🎉'
-          Dio dio2 = Dio();
-          dio2.options.headers['authorization'] = 'Bearer ${feedback.token}';
+    // if (screenshot != null) {
+    Response? response;
+    try {
+      // File file = File.fromRawPath(screenshot);
+      // final tempDir = await getTemporaryDirectory();
+      // File file = await File('${tempDir.path}/image.png').create();
+      // file.writeAsBytesSync(screenshot);
+      // response = await dio.post(
+      //   mediaUrl,
+      //   data: FormData.fromMap({
+      //     'Files': await MultipartFile.fromFile(
+      //       file.path,
+      //     )
+      //   }),
+      // );
+      // if (response.statusCode == 200 || response.statusCode == 201) {
+      // success 🎉'
+      Dio dio2 = Dio();
+      dio2.options.headers['authorization'] = 'Bearer ${feedback.token}';
 
-          var data = {
-            "email": feedback.email,
-            "message": feedback.message,
-            "type": feedback.type,
-            "sdk_version": feedback.sdkVersion.toString(),
-            "app_version": feedback.appVersion,
-            "auth_token": feedback.token,
-            "user_agent": feedback.userAgent,
-            "application_id": feedback.appId,
-            "application_platform_id": Platform.isIOS ? 3 : 2,
-            "device_id": feedback.deviceInfo.deviceId,
-            "padding": getCSV(feedback.deviceInfo.padding),
-            "physical_size": getCSV(feedback.deviceInfo.physicalSize),
-            "attachments": [
-              {
-                "id": response.data[0]['id'],
-                "display_order": response.data[0]['display_order'],
-                "display_label": response.data[0]['display_label'],
-                "description": response.data[0]['description'],
-                "is_primary": response.data[0]['is_primary']
-              }
-            ]
-          };
-          response = await dio2.post(feedbackSumbitUrl, data: data);
-          if (response.statusCode == 201) {
-            return;
-          }
-          if (response.statusCode == 401) {
-            throw UnauthenticatedNdashApiException(response);
-          }
+      var data = {
+        "email": feedback.email,
+        "message": feedback.message,
+        "type": feedback.type,
+        "sdk_version": feedback.sdkVersion.toString(),
+        "app_version": feedback.appVersion,
+        "auth_token": feedback.token,
+        "user_agent": feedback.userAgent,
+        "application_id": feedback.appId,
+        "application_platform_id": Platform.isIOS ? 3 : 2,
+        "device_id": feedback.deviceInfo.deviceId,
+        "padding": getCSV(feedback.deviceInfo.padding),
+        "physical_size": getCSV(feedback.deviceInfo.physicalSize),
+        // "attachments": [
+        //   {
+        //     "id": response.data[0]['id'],
+        //     "display_order": response.data[0]['display_order'],
+        //     "display_label": response.data[0]['display_label'],
+        //     "description": response.data[0]['description'],
+        //     "is_primary": response.data[0]['is_primary']
+        //   }
+        // ]
+      };
+      response = await dio2.post(feedbackSumbitUrl, data: data);
+      if (response.statusCode == 201) {
+        return;
+      }
+      if (response.statusCode == 401) {
+        throw UnauthenticatedNdashApiException(response);
+      }
 
-          throw NdashApiException(response: response);
-        }
-        if (response.statusCode == 401) {
-          throw UnauthenticatedNdashApiException(response);
-        }
+      throw NdashApiException(response: response);
+      // }
+      // if (response.statusCode == 401) {
+      //   throw UnauthenticatedNdashApiException(response);
+      // }
 
-        throw NdashApiException(response: response);
-      } catch (e) {
-        print(" error : $e");
-        if (e is DioError) {
-          print("url : ${e.requestOptions.uri}");
-          print("params : ${e.requestOptions.queryParameters}");
-          print("data: ${e.requestOptions.data}");
-          print("resp : ${e.response?.data}");
-        }
+      // throw NdashApiException(response: response);
+    } catch (e) {
+      print(" error : $e");
+      if (e is DioException) {
+        print("url : ${e.requestOptions.uri}");
+        print("params : ${e.requestOptions.queryParameters}");
+        print("data: ${e.requestOptions.data}");
+        print("resp : ${e.response?.data}");
       }
     }
+    // }
   }
 }
 
@@ -136,7 +136,8 @@ class UnauthenticatedNdashApiException extends NdashApiException {
   UnauthenticatedNdashApiException(
     Response response,
   ) : super(
-          message: "Request made is unauthenticated. Please check the parameters being used.",
+          message:
+              "Request made is unauthenticated. Please check the parameters being used.",
           response: response,
         );
   @override
