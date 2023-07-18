@@ -95,7 +95,7 @@ class NdashApi {
         throw UnauthenticatedNdashApiException(response!);
       }
 
-      throw NdashApiException(response: response);
+      // throw NdashApiException(response: response);
     } catch (e) {
       print(" error : $e");
       if (e is DioError) {
