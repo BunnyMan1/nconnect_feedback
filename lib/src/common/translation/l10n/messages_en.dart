@@ -23,7 +23,8 @@ class NdashLocalizedTranslations extends NdashTranslations {
   @override
   String get feedbackCancel => "Cancel";
   @override
-  String get feedbackModeBugMsg => "Let us know so we can forward this to our bug control.";
+  String get feedbackModeBugMsg =>
+      "Let us know so we can forward this to our bug control.";
   @override
   String get feedbackModeBugTitle => "Report a Bug";
   @override
@@ -47,14 +48,15 @@ class NdashLocalizedTranslations extends NdashTranslations {
   String get feedbackStateEmailTitle => "Stay in the loop 👇";
   @override
   String get feedbackStateFeedbackMsg =>
-      "We are listening. Please provide as much info as needed so we can help you.";
+      "!We are listening. Please provide as much info as needed so we can help you.";
   @override
   String get feedbackStateIntroMsg =>
       "We can’t wait to get your thoughts on our app. What would you like to do?";
   @override
   String get feedbackStateIntroTitle => "Hi there 👋";
   @override
-  String get feedbackStateSuccessCloseMsg => "Thanks for submitting your feedback!";
+  String get feedbackStateSuccessCloseMsg =>
+      "Thanks for submitting your feedback!";
   @override
   String get feedbackStateSuccessCloseTitle => "Close this Dialog";
   @override
@@ -67,7 +69,8 @@ class NdashLocalizedTranslations extends NdashTranslations {
   @override
   String get inputHintFeedback => "Your feedback";
   @override
-  String get validationHintEmail => "Please enter a valid email or leave this field blank.";
+  String get validationHintEmail =>
+      "Please enter a valid email or leave this field blank.";
   @override
   String get validationHintFeedbackEmpty => "Please provide your feedback.";
   @override
