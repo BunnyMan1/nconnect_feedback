@@ -75,7 +75,7 @@ class _FeedbackSheetState extends State<FeedbackSheet>
           child: AnimatedSize(
             // remove when min Flutter SDK is after v2.2.0-10.1.pre
             // ignore: deprecated_member_use
-            vsync: this,
+            // vsync: this,
             alignment: Alignment.topCenter,
             curve: Curves.fastOutSlowIn,
             duration: const Duration(milliseconds: 350),
@@ -131,7 +131,7 @@ class _FeedbackSheetState extends State<FeedbackSheet>
                 duration: const Duration(milliseconds: 250),
                 // remove when min Flutter SDK is after v2.2.0-10.1.pre
                 // ignore: deprecated_member_use
-                vsync: this,
+                // vsync: this,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -186,7 +186,8 @@ class _FeedbackSheetState extends State<FeedbackSheet>
             Expanded(
               child: PreviousButton(
                 text: NdashLocalizations.of(context)!.feedbackBack,
-                onPressed: () => state.feedbackUiState = FeedbackUiState.feedback,
+                onPressed: () =>
+                    state.feedbackUiState = FeedbackUiState.feedback,
               ),
             ),
             Expanded(
@@ -226,7 +227,8 @@ class _FeedbackSheetState extends State<FeedbackSheet>
       case FeedbackType.bug:
       case FeedbackType.improvement:
         final renderer = getRenderer();
-        if (NdashOptions.of(context)!.screenshotStep && renderer != Renderer.html) {
+        if (NdashOptions.of(context)!.screenshotStep &&
+            renderer != Renderer.html) {
           // Start the capture process
           Navigator.pop(context);
           feedbackModel.feedbackUiState = FeedbackUiState.capture;
