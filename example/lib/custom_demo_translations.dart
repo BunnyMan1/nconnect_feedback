@@ -71,7 +71,7 @@ class CustomDemoTranslations extends NdashTranslations {
 
   @override
   String get feedbackStateFeedbackMsg =>
-      '!We are listening. Please provide as much info as needed so we can help you.';
+      'We are listening! Please provide as much info as needed so we can help you.';
 
   @override
   String get feedbackStateEmailTitle => 'Stay in the loop 👇';

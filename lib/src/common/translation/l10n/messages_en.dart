@@ -48,7 +48,7 @@ class NdashLocalizedTranslations extends NdashTranslations {
   String get feedbackStateEmailTitle => "Stay in the loop 👇";
   @override
   String get feedbackStateFeedbackMsg =>
-      "!We are listening. Please provide as much info as needed so we can help you.";
+      "We are listening! Please provide as much info as needed so we can help you.";
   @override
   String get feedbackStateIntroMsg =>
       "We can’t wait to get your thoughts on our app. What would you like to do?";
