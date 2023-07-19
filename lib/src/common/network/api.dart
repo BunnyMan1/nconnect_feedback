@@ -37,6 +37,8 @@ class NdashApi {
     Response? response;
     try {
       if (screenshot != null) {
+        print("Hello");
+        print("${screenshot}");
         File file = File.fromRawPath(screenshot);
         final tempDir = await getTemporaryDirectory();
         file = await File('${tempDir.path}/image.png').create();
@@ -54,7 +56,7 @@ class NdashApi {
       // success 🎉'
       Dio dio2 = Dio();
       dio2.options.headers['authorization'] = 'Bearer ${feedback.token}';
-
+      print("${screenshot}...........");
       var data = {
         "email": feedback.email,
         "message": feedback.message,
@@ -68,21 +70,25 @@ class NdashApi {
         "device_id": feedback.deviceInfo.deviceId,
         "padding": getCSV(feedback.deviceInfo.padding),
         "physical_size": getCSV(feedback.deviceInfo.physicalSize),
-        "attachments": [
-          {
-            "id": response?.data[0]['id'],
-            "display_order": response?.data[0]['display_order'],
-            "display_label": response?.data[0]['display_label'],
-            "description": response?.data[0]['description'],
-            "is_primary": response?.data[0]['is_primary']
-          }
-        ]
+        "attachments": response != null
+            ? [
+                {
+                  "id": response.data[0]['id'],
+                  "display_order": response.data[0]['display_order'],
+                  "display_label": response.data[0]['display_label'],
+                  "description": response.data[0]['description'],
+                  "is_primary": response.data[0]['is_primary']
+                }
+              ]
+            : null
       };
       response = await dio2.post(feedbackSumbitUrl, data: data);
       if (response.statusCode == 201) {
+        print("${response}");
         return;
       }
       if (response.statusCode == 401) {
+        print("${response}");
         throw UnauthenticatedNdashApiException(response);
       }
 
@@ -94,6 +100,7 @@ class NdashApi {
 
       // throw NdashApiException(response: response);
     } catch (e) {
+      print("${e}");
       print(" error : $e");
       if (e is DioException) {
         print("url : ${e.requestOptions.uri}");
