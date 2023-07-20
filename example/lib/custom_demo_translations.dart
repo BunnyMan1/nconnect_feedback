@@ -33,7 +33,8 @@ class CustomDemoTranslations extends NdashTranslations {
   String get feedbackModeBugTitle => 'Report a Bug';
 
   @override
-  String get feedbackModeBugMsg => 'Let us know so we can forward this to our bug control.';
+  String get feedbackModeBugMsg =>
+      'Let us know so we can forward this to our bug control.';
 
   @override
   String get feedbackModeImprovementTitle => 'Request a Feature';
@@ -70,7 +71,7 @@ class CustomDemoTranslations extends NdashTranslations {
 
   @override
   String get feedbackStateFeedbackMsg =>
-      'We are listening. Please provide as much info as needed so we can help you.';
+      'We are listening! Please provide as much info as needed so we can help you.';
 
   @override
   String get feedbackStateEmailTitle => 'Stay in the loop 👇';
@@ -90,7 +91,8 @@ class CustomDemoTranslations extends NdashTranslations {
   String get feedbackStateSuccessCloseTitle => 'Close this Dialog';
 
   @override
-  String get feedbackStateSuccessCloseMsg => 'Thanks for submitting your feedback!';
+  String get feedbackStateSuccessCloseMsg =>
+      'Thanks for submitting your feedback!';
 
   @override
   String get inputHintFeedback => 'Your feedback';
@@ -105,7 +107,8 @@ class CustomDemoTranslations extends NdashTranslations {
   String get validationHintFeedbackLength => 'Your feedback is too long.';
 
   @override
-  String get validationHintEmail => 'Please enter a valid email or leave this field blank.';
+  String get validationHintEmail =>
+      'Please enter a valid email or leave this field blank.';
 
   @override
   String get firstPenLabel => 'A dark brown pen';
