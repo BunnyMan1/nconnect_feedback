@@ -14,11 +14,8 @@ import 'package:ndash/src/feedback/data/pending_feedback_item_storage.dart';
 /// screenshot file, retrying appropriately when sending fails.
 class RetryingFeedbackSubmitter implements FeedbackSubmitter {
   RetryingFeedbackSubmitter(
-    this.fs,
-    this._pendingFeedbackItemStorage,
-    this._api,
-   { required this.mediaUrl,required this.feedbackSumbitUrl}
-  );
+      this.fs, this._pendingFeedbackItemStorage, this._api,
+      {required this.mediaUrl, required this.feedbackSumbitUrl});
 
   final FileSystem fs;
   final PendingFeedbackItemStorage _pendingFeedbackItemStorage;
@@ -38,8 +35,8 @@ class RetryingFeedbackSubmitter implements FeedbackSubmitter {
   ///
   /// If sending fails, uses exponential backoff and tries again up to 7 times.
   @override
-  Future<void> submit(
-      FeedbackItem item, Uint8List? screenshot, String mediaUrl,String feedbackSubmitUrl) async {
+  Future<void> submit(FeedbackItem item, Uint8List? screenshot, String mediaUrl,
+      String feedbackSubmitUrl) async {
     await _pendingFeedbackItemStorage.addPendingItem(item, screenshot);
 
     // Intentionally not "await"-ed. Since we've persisted the pending feedback
@@ -54,7 +51,8 @@ class RetryingFeedbackSubmitter implements FeedbackSubmitter {
   /// Can be called whenever there's a good time to try sending pending feedback
   /// items, such as in "initState()" of the nDash widget, or when network
   /// connection comes back online.
-  Future<void> submitPendingFeedbackItems() => _submitPendingFeedbackItems(mediaUrl: mediaUrl);
+  Future<void> submitPendingFeedbackItems() =>
+      _submitPendingFeedbackItems(mediaUrl: mediaUrl);
 
   Future<void> _submitPendingFeedbackItems({
     bool submittingLeftovers = false,
@@ -94,7 +92,8 @@ class RetryingFeedbackSubmitter implements FeedbackSubmitter {
         return;
       }
 
-      await _submitPendingFeedbackItems(submittingLeftovers: true, mediaUrl: mediaUrl);
+      await _submitPendingFeedbackItems(
+          submittingLeftovers: true, mediaUrl: mediaUrl);
     }
   }
 
@@ -115,7 +114,7 @@ class RetryingFeedbackSubmitter implements FeedbackSubmitter {
           feedback: item.feedbackItem,
           screenshot: screenshot,
           mediaUrl: mediaUrl,
-          feedbackSumbitUrl: feedbackSumbitUrl
+          feedbackSumbitUrl: feedbackSumbitUrl,
         );
         // ignore: avoid_print
         print("Feedback submitted ✌️ ${item.feedbackItem.message}");

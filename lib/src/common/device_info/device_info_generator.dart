@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:ndash/src/common/build_info/build_info_manager.dart';
 import 'package:ndash/src/common/device_info/device_info.dart';
+import 'package:ndash/src/common/user/user_manager.dart';
 
 // import a dart:html or dart:io version of `createDeviceInfoGenerator`
 // if non are available the stub is used
@@ -14,14 +15,16 @@ abstract class DeviceInfoGenerator {
   factory DeviceInfoGenerator(
     BuildInfoManager buildInfo,
     SingletonFlutterWindow window,
+    AdditionalDeviceInfo deviceInfo,
   ) {
-    return createDeviceInfoGenerator(buildInfo, window);
+    return createDeviceInfoGenerator(buildInfo, window, deviceInfo);
   }
 
   /// Collection of all [DeviceInfo] shared between all platforms
   static DeviceInfo baseDeviceInfo(
     BuildInfoManager buildInfo,
     SingletonFlutterWindow window,
+    AdditionalDeviceInfo deviceInfo,
   ) {
     return DeviceInfo(
       appIsDebug: kDebugMode,
@@ -45,6 +48,12 @@ abstract class DeviceInfoGenerator {
         window.viewInsets.right,
         window.viewInsets.bottom
       ],
+      // batteryLevel: deviceInfo.batteryLevel,
+      // batteryCapacity: deviceInfo.batteryCapacity,
+      // carrierName: deviceInfo.carrierName,
+      // networkGeneration: deviceInfo.networkGeneration,
+      // deviceModel: deviceInfo.deviceModel,
+      // deviceMake: deviceInfo.deviceMake,
     );
   }
 
