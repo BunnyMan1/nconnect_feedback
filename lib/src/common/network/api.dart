@@ -57,7 +57,7 @@ class NdashApi {
         );
       }
 
-      var additionalDeviceInfo = await _loadAdditionalDeviceInfo();
+      var additionalDeviceInfo = await loadAdditionalDeviceInfo();
 
       // success 🎉'
       Dio dio2 = Dio();
@@ -77,18 +77,6 @@ class NdashApi {
         "padding": getCSV(feedback.deviceInfo.padding),
         "physical_size": getCSV(feedback.deviceInfo.physicalSize),
         "platform_version": feedback.deviceInfo.platformVersion,
-        // "battery_level": feedback.deviceInfo.batteryLevel,
-        // "battery_capacity": feedback.deviceInfo.batteryCapacity,
-        // "carrier_name": feedback.deviceInfo.carrierName,
-        // "network_generation": feedback.deviceInfo.networkGeneration,
-        // "device_model": feedback.deviceInfo.deviceModel,
-        // "device_make": feedback.deviceInfo.deviceMake,
-        // "battery_level": additionalDeviceInfo.batteryLevel,
-        // "battery_capacity": additionalDeviceInfo.batteryCapacity,
-        // "carrier_name": additionalDeviceInfo.carrierName,
-        // "network_generation": additionalDeviceInfo.networkGeneration,
-        // "device_model": additionalDeviceInfo.deviceModel,
-        // "device_make": additionalDeviceInfo.deviceMake,
         "additional_device_info": additionalDeviceInfo.toJson(),
         "attachments": response != null
             ? [
@@ -102,43 +90,6 @@ class NdashApi {
               ]
             : null
       };
-      print("App Version: ${feedback.appVersion}");
-      print("Additional Info: ${additionalDeviceInfo.toJson()}");
-      print("SDK Version: ${feedback.sdkVersion}");
-      print("data");
-      print("batteryLevel: ${additionalDeviceInfo.batteryLevel}");
-      print("batteryCapacity: ${additionalDeviceInfo.batteryCapacity}");
-      print("carrierName: ${additionalDeviceInfo.carrierName}");
-      print("networkGeneration: ${additionalDeviceInfo.networkGeneration}");
-      print("chargeTimeRemaining: ${additionalDeviceInfo.cellId}");
-      print("chargeTimeRemaining: ${additionalDeviceInfo.chargeTimeRemaining}");
-      print(
-          "chargingStatus: ${additionalDeviceInfo.chargingStatus.toString()}");
-      print("currentAverage: ${additionalDeviceInfo.currentAverage}");
-      print("carrierAllowsVOIP: ${additionalDeviceInfo.carrierAllowsVOIP}");
-      print("currentAverage: ${additionalDeviceInfo.currentAverage}");
-      print("currentNow: ${additionalDeviceInfo.currentNow}");
-      print("deviceMake: ${additionalDeviceInfo.deviceMake}");
-      print("displayName: ${additionalDeviceInfo.displayName}");
-      print("deviceModel: ${additionalDeviceInfo.deviceModel}");
-      print("health: ${additionalDeviceInfo.health}");
-      print("isoCountryCode: ${additionalDeviceInfo.isoCountryCode}");
-      print("mobileCountryCode: ${additionalDeviceInfo.mobileCountryCode}");
-      print("mobileNetworkCode: ${additionalDeviceInfo.mobileNetworkCode}");
-      print("networkCountryIso: ${additionalDeviceInfo.networkCountryIso}");
-      print("networkOperatorName: ${additionalDeviceInfo.networkOperatorName}");
-      print("phoneNumber: ${additionalDeviceInfo.phoneNumber}");
-      print("pluggedStatus: ${additionalDeviceInfo.pluggedStatus}");
-      print("present: ${additionalDeviceInfo.present}");
-      print("radioType: ${additionalDeviceInfo.radioType}");
-      print("remainingEnergy: ${additionalDeviceInfo.remainingEnergy}");
-      print("scale: ${additionalDeviceInfo.scale}");
-      print("simState: ${additionalDeviceInfo.simState}");
-      print("subscriptionId: ${additionalDeviceInfo.subscriptionId}");
-      print("technology: ${additionalDeviceInfo.technology}");
-      print("temperature: ${additionalDeviceInfo.temperature}");
-      print("voltage: ${additionalDeviceInfo.voltage}");
-
       response = await dio2.post(feedbackSumbitUrl, data: data);
       if (response.statusCode == 201) {
         return;
@@ -158,141 +109,141 @@ class NdashApi {
       }
     }
   }
-}
 
-// Load Additional Device Info.
-Future<AdditionalDeviceInfo> _loadAdditionalDeviceInfo() async {
-  int? batteryLevel,
-      batteryCapacity,
-      currentNow,
-      currentAverage,
-      chargeTimeRemaining,
-      remainingEnergy,
-      scale,
-      temperature,
-      voltage,
-      subscriptionId;
+  // Load Additional Device Info.
+  Future<AdditionalDeviceInfo> loadAdditionalDeviceInfo() async {
+    int? batteryLevel,
+        batteryCapacity,
+        currentNow,
+        currentAverage,
+        chargeTimeRemaining,
+        remainingEnergy,
+        scale,
+        temperature,
+        voltage,
+        subscriptionId;
 
-  String? carrierName,
-      networkGeneration,
-      deviceModel,
-      deviceMake,
-      health,
-      technology,
-      pluggedStatus,
-      networkCountryIso,
-      mobileCountryCode,
-      mobileNetworkCode,
-      displayName,
-      simState,
-      isoCountryCode,
-      phoneNumber,
-      radioType,
-      networkOperatorName;
+    String? carrierName,
+        networkGeneration,
+        deviceModel,
+        deviceMake,
+        health,
+        technology,
+        pluggedStatus,
+        networkCountryIso,
+        mobileCountryCode,
+        mobileNetworkCode,
+        displayName,
+        simState,
+        isoCountryCode,
+        phoneNumber,
+        radioType,
+        networkOperatorName;
 
-  bool? present, carrierAllowsVOIP;
+    bool? present, carrierAllowsVOIP;
 
-  ChargingStatus? chargingStatus;
+    ChargingStatus? chargingStatus;
 
-  CellId? cellId;
-
-  if (Platform.isAndroid) {
-    var batteryInfo = await BatteryInfoPlugin().androidBatteryInfo;
-    batteryLevel = batteryInfo?.batteryLevel;
-    batteryCapacity = batteryInfo?.batteryCapacity;
-    chargeTimeRemaining = batteryInfo?.chargeTimeRemaining;
-    currentNow = batteryInfo?.currentNow;
-    currentAverage = batteryInfo?.currentAverage;
-    remainingEnergy = batteryInfo?.remainingEnergy;
-    scale = batteryInfo?.scale;
-    voltage = batteryInfo?.voltage;
-    health = batteryInfo?.health;
-    pluggedStatus = batteryInfo?.pluggedStatus;
-    present = batteryInfo?.present;
-    chargingStatus = batteryInfo?.chargingStatus;
-    chargeTimeRemaining = batteryInfo?.chargeTimeRemaining;
-    technology = batteryInfo?.technology;
-
-    var deviceManufacturDetails = await DeviceInfoPlugin().androidInfo;
-    deviceModel = deviceManufacturDetails.model;
-    deviceMake = deviceManufacturDetails.manufacturer;
-  } else if (Platform.isIOS) {
-    var batteryInfo = await BatteryInfoPlugin().iosBatteryInfo;
-    batteryLevel = batteryInfo?.batteryLevel;
-    chargingStatus = batteryInfo?.chargingStatus;
-
-    var deviceManufacturDetails = await DeviceInfoPlugin().iosInfo;
-    deviceModel = deviceManufacturDetails.model;
-    deviceMake = deviceManufacturDetails.utsname.machine;
-  }
-
-  try {
-    await [
-      Permission.locationWhenInUse,
-      Permission.phone,
-      Permission.sms,
-    ].request();
+    CellId? cellId;
 
     if (Platform.isAndroid) {
-      var carrierInfo =
-          (await CarrierInfo.getAndroidInfo())?.telephonyInfo.first;
-      carrierName = carrierInfo?.carrierName;
-      networkGeneration = carrierInfo?.networkGeneration;
-      networkCountryIso = carrierInfo?.networkCountryIso;
-      mobileCountryCode = carrierInfo?.mobileCountryCode;
-      displayName = carrierInfo?.displayName;
-      simState = carrierInfo?.simState;
-      isoCountryCode = carrierInfo?.isoCountryCode;
-      phoneNumber = carrierInfo?.phoneNumber;
-      radioType = carrierInfo?.radioType;
-      networkOperatorName = carrierInfo?.networkOperatorName;
-      subscriptionId = carrierInfo?.subscriptionId;
-      cellId = carrierInfo?.cellId;
+      var batteryInfo = await BatteryInfoPlugin().androidBatteryInfo;
+      batteryLevel = batteryInfo?.batteryLevel;
+      batteryCapacity = batteryInfo?.batteryCapacity;
+      chargeTimeRemaining = batteryInfo?.chargeTimeRemaining;
+      currentNow = batteryInfo?.currentNow;
+      currentAverage = batteryInfo?.currentAverage;
+      remainingEnergy = batteryInfo?.remainingEnergy;
+      scale = batteryInfo?.scale;
+      voltage = batteryInfo?.voltage;
+      health = batteryInfo?.health;
+      pluggedStatus = batteryInfo?.pluggedStatus;
+      present = batteryInfo?.present;
+      chargingStatus = batteryInfo?.chargingStatus;
+      chargeTimeRemaining = batteryInfo?.chargeTimeRemaining;
+      technology = batteryInfo?.technology;
+
+      var deviceManufacturDetails = await DeviceInfoPlugin().androidInfo;
+      deviceModel = deviceManufacturDetails.model;
+      deviceMake = deviceManufacturDetails.manufacturer;
     } else if (Platform.isIOS) {
-      var carrierInfo = (await CarrierInfo.getIosInfo()).carrierData.first;
-      carrierName = carrierInfo.carrierName;
-      networkGeneration = carrierInfo.mobileNetworkCode;
-      mobileNetworkCode = carrierInfo.mobileNetworkCode;
-      mobileCountryCode = carrierInfo.mobileCountryCode;
-      isoCountryCode = carrierInfo.isoCountryCode;
-      carrierAllowsVOIP = carrierInfo.carrierAllowsVOIP;
+      var batteryInfo = await BatteryInfoPlugin().iosBatteryInfo;
+      batteryLevel = batteryInfo?.batteryLevel;
+      chargingStatus = batteryInfo?.chargingStatus;
+
+      var deviceManufacturDetails = await DeviceInfoPlugin().iosInfo;
+      deviceModel = deviceManufacturDetails.model;
+      deviceMake = deviceManufacturDetails.utsname.machine;
     }
-  } catch (e) {}
 
-  var additionalDeviceInfo = AdditionalDeviceInfo(
-    batteryLevel: batteryLevel,
-    batteryCapacity: batteryCapacity,
-    carrierName: carrierName,
-    networkGeneration: networkGeneration,
-    deviceModel: deviceModel,
-    deviceMake: deviceMake,
-    chargeTimeRemaining: chargeTimeRemaining,
-    chargingStatus: chargingStatus,
-    currentAverage: currentAverage,
-    currentNow: currentNow,
-    health: health,
-    pluggedStatus: pluggedStatus,
-    present: present,
-    remainingEnergy: remainingEnergy,
-    scale: scale,
-    technology: technology,
-    temperature: temperature,
-    voltage: voltage,
-    networkCountryIso: networkCountryIso,
-    mobileCountryCode: mobileCountryCode,
-    mobileNetworkCode: mobileNetworkCode,
-    displayName: displayName,
-    simState: simState,
-    isoCountryCode: isoCountryCode,
-    cellId: cellId,
-    phoneNumber: phoneNumber,
-    subscriptionId: subscriptionId,
-    radioType: radioType,
-    networkOperatorName: networkOperatorName,
-    carrierAllowsVOIP: carrierAllowsVOIP,
-  );
+    try {
+      await [
+        Permission.locationWhenInUse,
+        Permission.phone,
+        Permission.sms,
+      ].request();
 
-  return additionalDeviceInfo;
+      if (Platform.isAndroid) {
+        var carrierInfo =
+            (await CarrierInfo.getAndroidInfo())?.telephonyInfo.first;
+        carrierName = carrierInfo?.carrierName;
+        networkGeneration = carrierInfo?.networkGeneration;
+        networkCountryIso = carrierInfo?.networkCountryIso;
+        mobileCountryCode = carrierInfo?.mobileCountryCode;
+        displayName = carrierInfo?.displayName;
+        simState = carrierInfo?.simState;
+        isoCountryCode = carrierInfo?.isoCountryCode;
+        phoneNumber = carrierInfo?.phoneNumber;
+        radioType = carrierInfo?.radioType;
+        networkOperatorName = carrierInfo?.networkOperatorName;
+        subscriptionId = carrierInfo?.subscriptionId;
+        cellId = carrierInfo?.cellId;
+      } else if (Platform.isIOS) {
+        var carrierInfo = (await CarrierInfo.getIosInfo()).carrierData.first;
+        carrierName = carrierInfo.carrierName;
+        networkGeneration = carrierInfo.mobileNetworkCode;
+        mobileNetworkCode = carrierInfo.mobileNetworkCode;
+        mobileCountryCode = carrierInfo.mobileCountryCode;
+        isoCountryCode = carrierInfo.isoCountryCode;
+        carrierAllowsVOIP = carrierInfo.carrierAllowsVOIP;
+      }
+    } catch (e) {}
+
+    var additionalDeviceInfo = AdditionalDeviceInfo(
+      batteryLevel: batteryLevel,
+      batteryCapacity: batteryCapacity,
+      carrierName: carrierName,
+      networkGeneration: networkGeneration,
+      deviceModel: deviceModel,
+      deviceMake: deviceMake,
+      chargeTimeRemaining: chargeTimeRemaining,
+      chargingStatus: chargingStatus,
+      currentAverage: currentAverage,
+      currentNow: currentNow,
+      health: health,
+      pluggedStatus: pluggedStatus,
+      present: present,
+      remainingEnergy: remainingEnergy,
+      scale: scale,
+      technology: technology,
+      temperature: temperature,
+      voltage: voltage,
+      networkCountryIso: networkCountryIso,
+      mobileCountryCode: mobileCountryCode,
+      mobileNetworkCode: mobileNetworkCode,
+      displayName: displayName,
+      simState: simState,
+      isoCountryCode: isoCountryCode,
+      cellId: cellId,
+      phoneNumber: phoneNumber,
+      subscriptionId: subscriptionId,
+      radioType: radioType,
+      networkOperatorName: networkOperatorName,
+      carrierAllowsVOIP: carrierAllowsVOIP,
+    );
+
+    return additionalDeviceInfo;
+  }
 }
 
 /// Generic error from the nDash API

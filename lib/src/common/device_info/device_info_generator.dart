@@ -48,12 +48,6 @@ abstract class DeviceInfoGenerator {
         window.viewInsets.right,
         window.viewInsets.bottom
       ],
-      // batteryLevel: deviceInfo.batteryLevel,
-      // batteryCapacity: deviceInfo.batteryCapacity,
-      // carrierName: deviceInfo.carrierName,
-      // networkGeneration: deviceInfo.networkGeneration,
-      // deviceModel: deviceInfo.deviceModel,
-      // deviceMake: deviceInfo.deviceMake,
     );
   }
 

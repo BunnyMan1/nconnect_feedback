@@ -1,14 +1,7 @@
-import 'dart:io';
-
-import 'package:battery_info/battery_info_plugin.dart';
-import 'package:battery_info/enums/charging_status.dart';
-import 'package:carrier_info/carrier_info.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:file/local.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ndash/src/capture/capture.dart';
 import 'package:ndash/src/common/build_info/build_info_manager.dart';
@@ -116,7 +109,9 @@ class NdashState extends State<Ndash> {
     userManager = UserManager();
     buildInfoManager = BuildInfoManager(PlatformBuildInfo());
 
-    _loadAdditionalDeviceInfo().then((value) => additionalDeviceInfo = value);
+    // _api
+    //     .loadAdditionalDeviceInfo()
+    //     .then((value) => additionalDeviceInfo = value);
 
     const fileSystem = LocalFileSystem();
     final storage = PendingFeedbackItemStorage(
@@ -165,139 +160,6 @@ class NdashState extends State<Ndash> {
       _options = widget.options ?? NdashOptionsData();
       _theme = widget.theme ?? NdashThemeData();
     });
-  }
-
-  Future<AdditionalDeviceInfo> _loadAdditionalDeviceInfo() async {
-    int? batteryLevel,
-        batteryCapacity,
-        currentNow,
-        currentAverage,
-        chargeTimeRemaining,
-        remainingEnergy,
-        scale,
-        temperature,
-        voltage,
-        subscriptionId;
-
-    String? carrierName,
-        networkGeneration,
-        deviceModel,
-        deviceMake,
-        health,
-        technology,
-        pluggedStatus,
-        networkCountryIso,
-        mobileCountryCode,
-        mobileNetworkCode,
-        displayName,
-        simState,
-        isoCountryCode,
-        phoneNumber,
-        radioType,
-        networkOperatorName;
-
-    bool? present, carrierAllowsVOIP;
-
-    ChargingStatus? chargingStatus;
-    CellId? cellId;
-
-    if (Platform.isAndroid) {
-      var batteryInfo = await BatteryInfoPlugin().androidBatteryInfo;
-      batteryLevel = batteryInfo?.batteryLevel;
-      batteryCapacity = batteryInfo?.batteryCapacity;
-      chargeTimeRemaining = batteryInfo?.chargeTimeRemaining;
-      currentNow = batteryInfo?.currentNow;
-      currentAverage = batteryInfo?.currentAverage;
-      remainingEnergy = batteryInfo?.remainingEnergy;
-      scale = batteryInfo?.scale;
-      voltage = batteryInfo?.voltage;
-      health = batteryInfo?.health;
-      pluggedStatus = batteryInfo?.pluggedStatus;
-      present = batteryInfo?.present;
-      chargingStatus = batteryInfo?.chargingStatus;
-      chargeTimeRemaining = batteryInfo?.chargeTimeRemaining;
-      technology = batteryInfo?.technology;
-
-      var deviceManufacturDetails = await DeviceInfoPlugin().androidInfo;
-      deviceModel = deviceManufacturDetails.model;
-      deviceMake = deviceManufacturDetails.manufacturer;
-    } else if (Platform.isIOS) {
-      var batteryInfo = await BatteryInfoPlugin().iosBatteryInfo;
-      batteryLevel = batteryInfo?.batteryLevel;
-      chargingStatus = batteryInfo?.chargingStatus;
-
-      var deviceManufacturDetails = await DeviceInfoPlugin().iosInfo;
-      deviceModel = deviceManufacturDetails.model;
-      deviceMake = deviceManufacturDetails.utsname.machine;
-    }
-
-    try {
-      await [
-        Permission.locationWhenInUse,
-        Permission.phone,
-        Permission.sms,
-      ].request();
-
-      if (Platform.isAndroid) {
-        var carrierInfo =
-            (await CarrierInfo.getAndroidInfo())?.telephonyInfo.first;
-        carrierName = carrierInfo?.carrierName;
-        networkGeneration = carrierInfo?.networkGeneration;
-        networkCountryIso = carrierInfo?.networkCountryIso;
-        mobileCountryCode = carrierInfo?.mobileCountryCode;
-        displayName = carrierInfo?.displayName;
-        simState = carrierInfo?.simState;
-        isoCountryCode = carrierInfo?.isoCountryCode;
-        phoneNumber = carrierInfo?.phoneNumber;
-        radioType = carrierInfo?.radioType;
-        networkOperatorName = carrierInfo?.networkOperatorName;
-        subscriptionId = carrierInfo?.subscriptionId;
-        cellId = carrierInfo?.cellId;
-      } else if (Platform.isIOS) {
-        var carrierInfo = (await CarrierInfo.getIosInfo()).carrierData.first;
-        carrierName = carrierInfo.carrierName;
-        networkGeneration = carrierInfo.mobileNetworkCode;
-        mobileNetworkCode = carrierInfo.mobileNetworkCode;
-        mobileCountryCode = carrierInfo.mobileCountryCode;
-        isoCountryCode = carrierInfo.isoCountryCode;
-        carrierAllowsVOIP = carrierInfo.carrierAllowsVOIP;
-      }
-    } catch (e) {}
-
-    var additionalDeviceInfo = AdditionalDeviceInfo(
-      batteryLevel: batteryLevel,
-      batteryCapacity: batteryCapacity,
-      carrierName: carrierName,
-      networkGeneration: networkGeneration,
-      deviceModel: deviceModel,
-      deviceMake: deviceMake,
-      chargeTimeRemaining: chargeTimeRemaining,
-      chargingStatus: chargingStatus,
-      currentAverage: currentAverage,
-      currentNow: currentNow,
-      health: health,
-      pluggedStatus: pluggedStatus,
-      present: present,
-      remainingEnergy: remainingEnergy,
-      scale: scale,
-      technology: technology,
-      temperature: temperature,
-      voltage: voltage,
-      networkCountryIso: networkCountryIso,
-      mobileCountryCode: mobileCountryCode,
-      mobileNetworkCode: mobileNetworkCode,
-      displayName: displayName,
-      simState: simState,
-      isoCountryCode: isoCountryCode,
-      cellId: cellId,
-      phoneNumber: phoneNumber,
-      subscriptionId: subscriptionId,
-      radioType: radioType,
-      networkOperatorName: networkOperatorName,
-      carrierAllowsVOIP: carrierAllowsVOIP,
-    );
-
-    return additionalDeviceInfo;
   }
 
   @override
