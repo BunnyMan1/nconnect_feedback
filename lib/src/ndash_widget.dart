@@ -123,8 +123,7 @@ class NdashState extends State<Ndash> {
     final feedbackSubmitter = kIsWeb
         ? DirectFeedbackSubmitter(_api)
         : (RetryingFeedbackSubmitter(fileSystem, storage, _api,
-            mediaUrl: widget.mediaUrl,
-            feedbackSumbitUrl: widget.feedbackSubmitUrl)
+            mediaUrl: widget.mediaUrl, feedbackSumbitUrl: widget.feedbackSubmitUrl)
           ..submitPendingFeedbackItems());
 
     // _loadAdditionalDeviceInfo().then((additionalDeviceInfo) {
@@ -191,5 +190,4 @@ class NdashState extends State<Ndash> {
 }
 
 @visibleForTesting
-ProjectCredentialValidator debugProjectCredentialValidator =
-    const ProjectCredentialValidator();
+ProjectCredentialValidator debugProjectCredentialValidator = const ProjectCredentialValidator();
