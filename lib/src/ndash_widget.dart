@@ -2,6 +2,7 @@ import 'package:file/local.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ndash/src/capture/capture.dart';
 import 'package:ndash/src/common/build_info/build_info_manager.dart';
@@ -119,6 +120,7 @@ class NdashState extends State<Ndash> {
       SharedPreferences.getInstance,
       () async => (await getApplicationDocumentsDirectory()).path,
     );
+    requestPermissions();
 
     final feedbackSubmitter = kIsWeb
         ? DirectFeedbackSubmitter(_api)
@@ -140,6 +142,14 @@ class NdashState extends State<Ndash> {
         mediaUrl: widget.mediaUrl,
         feedbackSubmitUrl: widget.feedbackSubmitUrl);
     // });
+  }
+
+  void requestPermissions() async {
+    await [
+      Permission.locationWhenInUse,
+      Permission.phone,
+      Permission.sms,
+    ].request();
   }
 
   @override

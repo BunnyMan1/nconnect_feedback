@@ -9,7 +9,6 @@ import 'package:dio/dio.dart';
 import 'package:ndash/src/common/user/user_manager.dart';
 import 'package:ndash/src/feedback/data/feedback_item.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 /// API client to communicate with the nDash servers
 class NdashApi {
@@ -177,15 +176,8 @@ class NdashApi {
     }
 
     try {
-      await [
-        Permission.locationWhenInUse,
-        Permission.phone,
-        Permission.sms,
-      ].request();
-
       if (Platform.isAndroid) {
-        var carrierInfo =
-            (await CarrierInfo.getAndroidInfo())?.telephonyInfo.first;
+        var carrierInfo = (await CarrierInfo.getAndroidInfo())?.telephonyInfo.first;
         carrierName = carrierInfo?.carrierName;
         networkGeneration = carrierInfo?.networkGeneration;
         networkCountryIso = carrierInfo?.networkCountryIso;
@@ -278,8 +270,7 @@ class UnauthenticatedNdashApiException extends NdashApiException {
   UnauthenticatedNdashApiException(
     Response response,
   ) : super(
-          message:
-              "Request made is unauthenticated. Please check the parameters being used.",
+          message: "Request made is unauthenticated. Please check the parameters being used.",
           response: response,
         );
   @override
