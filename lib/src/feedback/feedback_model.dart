@@ -12,7 +12,8 @@ import 'feedback_sheet.dart';
 
 class FeedbackModel with ChangeNotifier {
   FeedbackModel(this._captureKey, this._navigatorKey, this._userManager,
-      this._feedbackSubmitter, this._deviceInfoGenerator, {required this.mediaUrl,required this.feedbackSubmitUrl});
+      this._feedbackSubmitter, this._deviceInfoGenerator,
+      {required this.mediaUrl, required this.feedbackSubmitUrl});
 
   final GlobalKey<CaptureState> _captureKey;
   final GlobalKey<NavigatorState> _navigatorKey;
@@ -99,7 +100,8 @@ class FeedbackModel with ChangeNotifier {
     );
 
     try {
-      await _feedbackSubmitter.submit(item, screenshot, mediaUrl,feedbackSubmitUrl);
+      await _feedbackSubmitter.submit(
+          item, screenshot, mediaUrl, feedbackSubmitUrl);
       _clearFeedback();
       _feedbackUiState = FeedbackUiState.submitted;
     } catch (e) {

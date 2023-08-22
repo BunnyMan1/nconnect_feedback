@@ -28,7 +28,9 @@ class Ndash extends StatefulWidget {
   /// Creates a new [Ndash] Widget which allows users to send feedback,
   /// wishes, ratings and much more
   const Ndash({
-    Key? key,required this.mediaUrl,required this.feedbackSubmitUrl,
+    Key? key,
+    required this.mediaUrl,
+    required this.feedbackSubmitUrl,
     required this.navigatorKey,
     this.options,
     this.theme,
@@ -93,6 +95,8 @@ class NdashState extends State<Ndash> {
   late NdashOptionsData _options;
   late NdashThemeData _theme;
 
+  AdditionalDeviceInfo additionalDeviceInfo = AdditionalDeviceInfo();
+
   @override
   void initState() {
     super.initState();
@@ -105,6 +109,10 @@ class NdashState extends State<Ndash> {
     userManager = UserManager();
     buildInfoManager = BuildInfoManager(PlatformBuildInfo());
 
+    // _api
+    //     .loadAdditionalDeviceInfo()
+    //     .then((value) => additionalDeviceInfo = value);
+
     const fileSystem = LocalFileSystem();
     final storage = PendingFeedbackItemStorage(
       fileSystem,
@@ -114,21 +122,24 @@ class NdashState extends State<Ndash> {
 
     final feedbackSubmitter = kIsWeb
         ? DirectFeedbackSubmitter(_api)
-        : (RetryingFeedbackSubmitter(fileSystem, storage, _api,  mediaUrl: widget.mediaUrl,feedbackSumbitUrl: widget.feedbackSubmitUrl)
+        : (RetryingFeedbackSubmitter(fileSystem, storage, _api,
+            mediaUrl: widget.mediaUrl, feedbackSumbitUrl: widget.feedbackSubmitUrl)
           ..submitPendingFeedbackItems());
 
+    // _loadAdditionalDeviceInfo().then((additionalDeviceInfo) {
     _feedbackModel = FeedbackModel(
-      captureKey,
-      navigatorKey,
-      userManager,
-      feedbackSubmitter,
-      DeviceInfoGenerator(
-        buildInfoManager,
-        widgetsBindingInstance.window,
-      ),
-      mediaUrl: widget.mediaUrl,
-      feedbackSubmitUrl: widget.feedbackSubmitUrl
-    );
+        captureKey,
+        navigatorKey,
+        userManager,
+        feedbackSubmitter,
+        DeviceInfoGenerator(
+          buildInfoManager,
+          widgetsBindingInstance.window,
+          additionalDeviceInfo,
+        ),
+        mediaUrl: widget.mediaUrl,
+        feedbackSubmitUrl: widget.feedbackSubmitUrl);
+    // });
   }
 
   @override
@@ -179,5 +190,4 @@ class NdashState extends State<Ndash> {
 }
 
 @visibleForTesting
-ProjectCredentialValidator debugProjectCredentialValidator =
-    const ProjectCredentialValidator();
+ProjectCredentialValidator debugProjectCredentialValidator = const ProjectCredentialValidator();
