@@ -20,8 +20,7 @@ class _DartHtmlDeviceInfoGenerator implements DeviceInfoGenerator {
 
   @override
   DeviceInfo generate() {
-    final base =
-        DeviceInfoGenerator.baseDeviceInfo(buildInfo, window, deviceInfo);
+    final base = DeviceInfoGenerator.baseDeviceInfo(buildInfo, window, deviceInfo);
     return base.copyWith(
       userAgent: html.window.navigator.userAgent,
     );
