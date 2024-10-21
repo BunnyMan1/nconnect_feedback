@@ -1,4 +1,3 @@
-import 'package:carrier_info/carrier_info.dart';
 import 'package:ndash/src/common/device_info/device_info.dart';
 
 class UserManager {

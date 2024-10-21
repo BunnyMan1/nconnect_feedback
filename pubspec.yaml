@@ -10,14 +10,14 @@ dependencies:
   file: "^7.0.0"
   flutter:
     sdk: flutter
-  http: "^1.2.1"
-  dio: ^5.2.0+1
-  http_parser: ^4.0.2
-  path_provider: ^2.0.15
   battery_plus: ^6.1.0
-  shared_preferences: '>=2.0.0 <3.0.0'
-  carrier_info: ^2.0.8
+  dio: ^5.2.0+1
+  http: "^1.2.1"
+  http_parser: ^4.0.2
   device_info_plus: ^10.1.0
+  path_provider: ^2.0.15
+  sim_card_info: ^1.0.2
+  shared_preferences: '>=2.0.0 <3.0.0'
 
 dev_dependencies:
   change_app_package_name: ^1.1.0

@@ -2,6 +2,15 @@ import 'package:flutter/foundation.dart';
 
 enum ChargingStatus { charging, discharging, full, unknown }
 
+class CellId {
+  int? cid;
+  int? lac;
+  CellId({
+    this.cid,
+    this.lac,
+  });
+}
+
 class DeviceInfo {
   final bool? appIsDebug;
   final String? appVersion;

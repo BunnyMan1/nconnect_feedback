@@ -1,14 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:battery_plus/battery_plus.dart';
-import 'package:carrier_info/carrier_info.dart';
 import 'package:dio/dio.dart';
 import 'package:ndash/src/common/device_info/device_info.dart';
 import 'package:ndash/src/common/user/user_manager.dart';
 import 'package:ndash/src/feedback/data/feedback_item.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:sim_card_info/sim_card_info.dart';
+import 'package:sim_card_info/sim_info.dart';
 
 /// API client to communicate with the nDash servers
 class NdashApi {
@@ -155,6 +155,18 @@ class NdashApi {
     if (status == BatteryState.unknown) chargingStatus = ChargingStatus.unknown;
 
     CellId? cellId;
+
+    final _simCardInfoPlugin = SimCardInfo();
+    List<SimInfo>? _simInfo;
+
+    _simInfo = await _simCardInfoPlugin.getSimInfo() ?? [];
+
+    if (_simInfo.length > 0) {
+      carrierName = _simInfo[0].carrierName;
+      networkCountryIso = _simInfo[0].countryIso;
+      mobileCountryCode = _simInfo[0].countryPhonePrefix;
+      displayName = _simInfo[0].displayName;
+    }
 
     var additionalDeviceInfo = AdditionalDeviceInfo(
       batteryLevel: batteryLevel,
