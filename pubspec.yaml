@@ -14,8 +14,8 @@ dependencies:
   dio: ^5.2.0+1
   http_parser: ^4.0.2
   path_provider: ^2.0.15
+  battery_plus: ^6.1.0
   shared_preferences: '>=2.0.0 <3.0.0'
-  battery_info: ^1.1.1
   carrier_info: ^2.0.8
   device_info_plus: ^10.1.0
 

@@ -1,5 +1,5 @@
-import 'package:battery_info/enums/charging_status.dart';
 import 'package:carrier_info/carrier_info.dart';
+import 'package:ndash/src/common/device_info/device_info.dart';
 
 class UserManager {
   String? userId;

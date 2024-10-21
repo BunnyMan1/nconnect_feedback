@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:battery_info/battery_info_plugin.dart';
-import 'package:battery_info/enums/charging_status.dart';
+
+import 'package:battery_plus/battery_plus.dart';
 import 'package:carrier_info/carrier_info.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
+import 'package:ndash/src/common/device_info/device_info.dart';
 import 'package:ndash/src/common/user/user_manager.dart';
 import 'package:ndash/src/feedback/data/feedback_item.dart';
 import 'package:path_provider/path_provider.dart';
@@ -143,63 +143,18 @@ class NdashApi {
 
     ChargingStatus? chargingStatus;
 
+    var battery = Battery();
+
+    batteryLevel = await battery.batteryLevel;
+
+    var status = await battery.batteryState;
+
+    if (status == BatteryState.full) chargingStatus = ChargingStatus.full;
+    if (status == BatteryState.charging) chargingStatus = ChargingStatus.charging;
+    if (status == BatteryState.discharging) chargingStatus = ChargingStatus.discharging;
+    if (status == BatteryState.unknown) chargingStatus = ChargingStatus.unknown;
+
     CellId? cellId;
-
-    if (Platform.isAndroid) {
-      var batteryInfo = await BatteryInfoPlugin().androidBatteryInfo;
-      batteryLevel = batteryInfo?.batteryLevel;
-      batteryCapacity = batteryInfo?.batteryCapacity;
-      chargeTimeRemaining = batteryInfo?.chargeTimeRemaining;
-      currentNow = batteryInfo?.currentNow;
-      currentAverage = batteryInfo?.currentAverage;
-      remainingEnergy = batteryInfo?.remainingEnergy;
-      scale = batteryInfo?.scale;
-      voltage = batteryInfo?.voltage;
-      health = batteryInfo?.health;
-      pluggedStatus = batteryInfo?.pluggedStatus;
-      present = batteryInfo?.present;
-      chargingStatus = batteryInfo?.chargingStatus;
-      chargeTimeRemaining = batteryInfo?.chargeTimeRemaining;
-      technology = batteryInfo?.technology;
-
-      var deviceManufacturDetails = await DeviceInfoPlugin().androidInfo;
-      deviceModel = deviceManufacturDetails.model;
-      deviceMake = deviceManufacturDetails.manufacturer;
-    } else if (Platform.isIOS) {
-      var batteryInfo = await BatteryInfoPlugin().iosBatteryInfo;
-      batteryLevel = batteryInfo?.batteryLevel;
-      chargingStatus = batteryInfo?.chargingStatus;
-
-      var deviceManufacturDetails = await DeviceInfoPlugin().iosInfo;
-      deviceModel = deviceManufacturDetails.model;
-      deviceMake = deviceManufacturDetails.utsname.machine;
-    }
-
-    try {
-      if (Platform.isAndroid) {
-        var carrierInfo = (await CarrierInfo.getAndroidInfo())?.telephonyInfo.first;
-        carrierName = carrierInfo?.carrierName;
-        networkGeneration = carrierInfo?.networkGeneration;
-        networkCountryIso = carrierInfo?.networkCountryIso;
-        mobileCountryCode = carrierInfo?.mobileCountryCode;
-        displayName = carrierInfo?.displayName;
-        simState = carrierInfo?.simState;
-        isoCountryCode = carrierInfo?.isoCountryCode;
-        phoneNumber = carrierInfo?.phoneNumber;
-        radioType = carrierInfo?.radioType;
-        networkOperatorName = carrierInfo?.networkOperatorName;
-        subscriptionId = carrierInfo?.subscriptionId;
-        cellId = carrierInfo?.cellId;
-      } else if (Platform.isIOS) {
-        var carrierInfo = (await CarrierInfo.getIosInfo()).carrierData.first;
-        carrierName = carrierInfo.carrierName;
-        networkGeneration = carrierInfo.mobileNetworkCode;
-        mobileNetworkCode = carrierInfo.mobileNetworkCode;
-        mobileCountryCode = carrierInfo.mobileCountryCode;
-        isoCountryCode = carrierInfo.isoCountryCode;
-        carrierAllowsVOIP = carrierInfo.carrierAllowsVOIP;
-      }
-    } catch (e) {}
 
     var additionalDeviceInfo = AdditionalDeviceInfo(
       batteryLevel: batteryLevel,

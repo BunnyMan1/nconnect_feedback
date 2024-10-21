@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 
+enum ChargingStatus { charging, discharging, full, unknown }
+
 class DeviceInfo {
   final bool? appIsDebug;
   final String? appVersion;
