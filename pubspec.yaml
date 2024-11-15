@@ -1,5 +1,8 @@
 name: ndash
 description: A new Flutter package project.
+
+publish_to: none
+
 version: 0.0.1
 
 environment:
@@ -16,7 +19,10 @@ dependencies:
   http_parser: ^4.0.2
   device_info_plus: ^10.1.0
   path_provider: ^2.0.15
-  sim_card_info: ^1.0.2
+  sim_card_info:
+    git:
+      url: https://github.com/harshgtet/sim_card_info
+      ref: detach_update
   shared_preferences: '>=2.0.0 <3.0.0'
 
 dev_dependencies:
