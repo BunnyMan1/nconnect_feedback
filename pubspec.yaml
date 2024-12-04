@@ -19,6 +19,9 @@ dependencies:
   http_parser: ^4.0.2
   device_info_plus: ^10.1.0
   path_provider: ^2.0.15
+  # override the fun onDetachedFromActivityForConfigChanges() to suppress the warning from playstore
+  # https://pub.dev/packages/sim_card_info to check for releases periodically to see if the 
+  # author includes a change to fix this in their package, then we will stop maintaining our fork.
   sim_card_info:
     git:
       url: https://github.com/harshgtet/sim_card_info
