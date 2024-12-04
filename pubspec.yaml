@@ -1,5 +1,8 @@
 name: ndash
 description: A new Flutter package project.
+
+publish_to: none
+
 version: 0.0.1
 
 environment:
@@ -16,7 +19,13 @@ dependencies:
   http_parser: ^4.0.2
   device_info_plus: ^10.1.0
   path_provider: ^2.0.15
-  sim_card_info: ^1.0.2
+  # override the fun onDetachedFromActivityForConfigChanges() to suppress the warning from playstore
+  # https://pub.dev/packages/sim_card_info to check for releases periodically to see if the 
+  # author includes a change to fix this in their package, then we will stop maintaining our fork.
+  sim_card_info:
+    git:
+      url: https://github.com/harshgtet/sim_card_info
+      ref: detach_update
   shared_preferences: '>=2.0.0 <3.0.0'
 
 dev_dependencies:
