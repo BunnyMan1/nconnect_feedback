@@ -41,18 +41,6 @@ flutter:
   assets:
     - packages/ndash/assets/images/pen.png
 
-  plugin:
-    platforms:
-      android:
-        default_package: ndash
-      ios:
-        default_package: ndash
-      linux:
-        default_package: ndash
-      macos:
-        default_package: ndash
-      web:
-        default_package: ndash
 
   fonts:
     - family: LexendDeca
