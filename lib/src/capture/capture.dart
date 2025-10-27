@@ -412,7 +412,6 @@ class CaptureState extends State<Capture>
       case CaptureUiState.draw:
         return true;
       case CaptureUiState.hidden:
-      default:
         return false;
     }
   }

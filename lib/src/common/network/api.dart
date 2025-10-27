@@ -2,13 +2,12 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:battery_plus/battery_plus.dart';
+import 'package:carrier_info/carrier_info.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
-import 'package:ndash/src/common/device_info/device_info.dart';
 import 'package:ndash/src/common/user/user_manager.dart';
 import 'package:ndash/src/feedback/data/feedback_item.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:sim_card_info/sim_card_info.dart';
-import 'package:sim_card_info/sim_info.dart';
 
 /// API client to communicate with the nDash servers
 class NdashApi {
@@ -49,9 +48,7 @@ class NdashApi {
         response = await dio.post(
           mediaUrl,
           data: FormData.fromMap({
-            'Files': await MultipartFile.fromFile(
-              file.path,
-            )
+            'Files': await MultipartFile.fromFile(file.path),
           }),
         );
       }
@@ -84,10 +81,10 @@ class NdashApi {
                   "display_order": response.data[0]['display_order'],
                   "display_label": response.data[0]['display_label'],
                   "description": response.data[0]['description'],
-                  "is_primary": response.data[0]['is_primary']
-                }
+                  "is_primary": response.data[0]['is_primary'],
+                },
               ]
-            : null
+            : null,
       };
       response = await dio2.post(feedbackSumbitUrl, data: data);
       if (response.statusCode == 201) {
@@ -111,105 +108,92 @@ class NdashApi {
 
   // Load Additional Device Info.
   Future<AdditionalDeviceInfo> loadAdditionalDeviceInfo() async {
-    try {
-      int? batteryLevel,
-          batteryCapacity,
-          currentNow,
-          currentAverage,
-          chargeTimeRemaining,
-          remainingEnergy,
-          scale,
-          temperature,
-          voltage,
-          subscriptionId;
+    int? batteryLevel, subscriptionId;
 
-      String? carrierName,
-          networkGeneration,
-          deviceModel,
-          deviceMake,
-          health,
-          technology,
-          pluggedStatus,
-          networkCountryIso,
-          mobileCountryCode,
-          mobileNetworkCode,
-          displayName,
-          simState,
-          isoCountryCode,
-          phoneNumber,
-          radioType,
-          networkOperatorName;
+    String? carrierName,
+        networkGeneration,
+        deviceModel,
+        deviceMake,
+        networkCountryIso,
+        mobileCountryCode,
+        mobileNetworkCode,
+        displayName,
+        simState,
+        isoCountryCode,
+        phoneNumber,
+        radioType,
+        networkOperatorName;
 
-      bool? present, carrierAllowsVOIP;
+    bool? carrierAllowsVOIP;
 
-      ChargingStatus? chargingStatus;
+    BatteryState? chargingStatus;
 
-      var battery = Battery();
+    CellId? cellId;
 
-      batteryLevel = await battery.batteryLevel;
+    final Battery battery = Battery();
 
-      var status = await battery.batteryState;
+    batteryLevel = await battery.batteryLevel;
+    chargingStatus = await battery.batteryState;
 
-      if (status == BatteryState.full) chargingStatus = ChargingStatus.full;
-    if (status == BatteryState.charging) chargingStatus = ChargingStatus.charging;
-    if (status == BatteryState.discharging) chargingStatus = ChargingStatus.discharging;
-    if (status == BatteryState.unknown) chargingStatus = ChargingStatus.unknown;
-
-      CellId? cellId;
-
-      final _simCardInfoPlugin = SimCardInfo();
-      List<SimInfo>? _simInfo;
-
-      try {
-        _simInfo = await _simCardInfoPlugin.getSimInfo() ?? [];
-      } catch (e) {
-        _simInfo = [];
-      }
-
-      if (_simInfo.length > 0) {
-        carrierName = _simInfo[0].carrierName;
-        networkCountryIso = _simInfo[0].countryIso;
-        mobileCountryCode = _simInfo[0].countryPhonePrefix;
-        displayName = _simInfo[0].displayName;
-      }
-
-      var additionalDeviceInfo = AdditionalDeviceInfo(
-        batteryLevel: batteryLevel,
-        batteryCapacity: batteryCapacity,
-        carrierName: carrierName,
-        networkGeneration: networkGeneration,
-        deviceModel: deviceModel,
-        deviceMake: deviceMake,
-        chargeTimeRemaining: chargeTimeRemaining,
-        chargingStatus: chargingStatus,
-        currentAverage: currentAverage,
-        currentNow: currentNow,
-        health: health,
-        pluggedStatus: pluggedStatus,
-        present: present,
-        remainingEnergy: remainingEnergy,
-        scale: scale,
-        technology: technology,
-        temperature: temperature,
-        voltage: voltage,
-        networkCountryIso: networkCountryIso,
-        mobileCountryCode: mobileCountryCode,
-        mobileNetworkCode: mobileNetworkCode,
-        displayName: displayName,
-        simState: simState,
-        isoCountryCode: isoCountryCode,
-        cellId: cellId,
-        phoneNumber: phoneNumber,
-        subscriptionId: subscriptionId,
-        radioType: radioType,
-        networkOperatorName: networkOperatorName,
-        carrierAllowsVOIP: carrierAllowsVOIP,
-      );
-
-      return additionalDeviceInfo;
-    } catch (e) {
-      throw e;
+    if (Platform.isAndroid) {
+      var deviceManufacturDetails = await DeviceInfoPlugin().androidInfo;
+      deviceModel = deviceManufacturDetails.model;
+      deviceMake = deviceManufacturDetails.manufacturer;
+    } else if (Platform.isIOS) {
+      var deviceManufacturDetails = await DeviceInfoPlugin().iosInfo;
+      deviceModel = deviceManufacturDetails.model;
+      deviceMake = deviceManufacturDetails.utsname.machine;
     }
+
+    try {
+      if (Platform.isAndroid) {
+        var carrierInfo =
+            (await CarrierInfo.getAndroidInfo())?.telephonyInfo.first;
+        carrierName = carrierInfo?.carrierName;
+        networkGeneration = carrierInfo?.networkGeneration;
+        networkCountryIso = carrierInfo?.networkCountryIso;
+        mobileCountryCode = carrierInfo?.mobileCountryCode;
+        displayName = carrierInfo?.displayName;
+        simState = carrierInfo?.simState;
+        isoCountryCode = carrierInfo?.isoCountryCode;
+        phoneNumber = carrierInfo?.phoneNumber;
+        radioType = carrierInfo?.radioType;
+        networkOperatorName = carrierInfo?.networkOperatorName;
+        subscriptionId = carrierInfo?.subscriptionId;
+        cellId = carrierInfo?.cellId;
+      } else if (Platform.isIOS) {
+        var carrierInfo = (await CarrierInfo.getIosInfo()).carrierData.first;
+        carrierName = carrierInfo.carrierName;
+        networkGeneration = carrierInfo.mobileNetworkCode;
+        mobileNetworkCode = carrierInfo.mobileNetworkCode;
+        mobileCountryCode = carrierInfo.mobileCountryCode;
+        isoCountryCode = carrierInfo.isoCountryCode;
+        carrierAllowsVOIP = carrierInfo.carrierAllowsVOIP;
+      }
+    } catch (e) {}
+
+    var additionalDeviceInfo = AdditionalDeviceInfo(
+      batteryLevel: batteryLevel,
+      carrierName: carrierName,
+      networkGeneration: networkGeneration,
+      deviceModel: deviceModel,
+      deviceMake: deviceMake,
+      chargingStatus: chargingStatus,
+      networkCountryIso: networkCountryIso,
+      mobileCountryCode: mobileCountryCode,
+      mobileNetworkCode: mobileNetworkCode,
+      displayName: displayName,
+      simState: simState,
+      isoCountryCode: isoCountryCode,
+      cellId: cellId,
+      phoneNumber: phoneNumber,
+      subscriptionId: subscriptionId,
+      radioType: radioType,
+      networkOperatorName: networkOperatorName,
+      carrierAllowsVOIP: carrierAllowsVOIP,
+    );
+
+    return additionalDeviceInfo;
   }
 }
 
@@ -242,12 +226,12 @@ class NdashApiException implements Exception {
 
 /// Thrown when the server couldn't match the project + secret to a existing project
 class UnauthenticatedNdashApiException extends NdashApiException {
-  UnauthenticatedNdashApiException(
-    Response response,
-  ) : super(
-          message: "Request made is unauthenticated. Please check the parameters being used.",
-          response: response,
-        );
+  UnauthenticatedNdashApiException(Response response)
+    : super(
+        message:
+            "Request made is unauthenticated. Please check the parameters being used.",
+        response: response,
+      );
   @override
   String toString() {
     return 'UnauthenticatedNdashApiException{$message, status code: ${response?.statusCode}';
