@@ -111,7 +111,7 @@ class _DetailsPage extends StatelessWidget {
             children: [
               Text(
                 'Details page #$index',
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 8),
               const Text('Try navigating here in feedback mode.')

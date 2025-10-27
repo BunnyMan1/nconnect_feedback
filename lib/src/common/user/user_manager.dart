@@ -1,4 +1,4 @@
-import 'package:battery_info/enums/charging_status.dart';
+import 'package:battery_plus/battery_plus.dart';
 import 'package:carrier_info/carrier_info.dart';
 
 class UserManager {
@@ -38,7 +38,7 @@ class AdditionalDeviceInfo {
   int? temperature;
   int? voltage;
   bool? present;
-  ChargingStatus? chargingStatus;
+  BatteryState? chargingStatus;
   String? networkCountryIso;
   String? mobileCountryCode;
   String? mobileNetworkCode;
@@ -115,7 +115,7 @@ class AdditionalDeviceInfo {
       'network_operator_name': networkOperatorName,
       'present': present,
       'carrier_allows_voip': carrierAllowsVOIP,
-      'charging_status': chargingStatus.toString().split('.').last,
+      'charging_status': chargingStatus?.name,
       'cell_id': cellId?.cid,
     };
   }
