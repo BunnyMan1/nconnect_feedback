@@ -12,7 +12,7 @@ environment:
 dependencies:
   battery_plus: ^7.0.0
   carrier_info: ^3.0.3
-  device_info_plus: ^13.0.0
+  device_info_plus: ^12.1.0
   dio: ^5.9.2
   file: ^7.0.1
   flutter:
