@@ -20,7 +20,7 @@ class _NdashScaffoldState extends State<NdashScaffold>
   @override
   Widget build(BuildContext context) {
     return MediaQuery(
-      data: MediaQueryData.fromWindow(widgetsBindingInstance.window),
+      data: MediaQueryData.fromView(View.of(context)),
       child: Directionality(
         textDirection: NdashOptions.of(context)!.textDirection,
         child: Container(

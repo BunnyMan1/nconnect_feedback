@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'dart:ui' show SingletonFlutterWindow;
+import 'dart:ui' show FlutterView;
 
 import 'package:ndash/src/common/build_info/build_info_manager.dart';
 import 'package:ndash/src/common/device_info/device_info.dart';
@@ -14,7 +14,7 @@ class _DartIoDeviceInfoGenerator implements DeviceInfoGenerator {
   );
 
   final BuildInfoManager buildInfo;
-  final SingletonFlutterWindow window;
+  final FlutterView window;
   final AdditionalDeviceInfo deviceInfo;
 
   @override
@@ -32,6 +32,6 @@ class _DartIoDeviceInfoGenerator implements DeviceInfoGenerator {
 
 /// Called by [DeviceInfoGenerator] factory constructor
 DeviceInfoGenerator createDeviceInfoGenerator(BuildInfoManager buildInfo,
-    SingletonFlutterWindow window, AdditionalDeviceInfo deviceInfo) {
+    FlutterView window, AdditionalDeviceInfo deviceInfo) {
   return _DartIoDeviceInfoGenerator(buildInfo, window, deviceInfo);
 }

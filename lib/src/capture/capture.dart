@@ -101,8 +101,8 @@ class CaptureState extends State<Capture>
   }
 
   void _updateDimensions() {
-    final window = widgetsBindingInstance.window;
-    _windowPadding = EdgeInsets.fromWindowPadding(
+    final window = widgetsBindingInstance.platformDispatcher.views.first;
+    _windowPadding = EdgeInsets.fromViewPadding(
         window.viewPadding, window.devicePixelRatio);
     _screenSize = window.physicalSize / window.devicePixelRatio;
 
@@ -185,11 +185,13 @@ class CaptureState extends State<Capture>
               return Transform(
                 alignment: Alignment.bottomCenter,
                 transform: Matrix4.identity()
-                  ..translate(
+                  ..translateByDouble(
                     directionalityFactor * _drawPanelSlideAnimation.value,
                     -_contentBottomOffset,
+                    0.0,
+                    1.0,
                   )
-                  ..scale(_scaleFactor),
+                  ..scaleByDouble(_scaleFactor, _scaleFactor, 1.0, 1.0),
                 child: child,
               );
             },
@@ -202,11 +204,18 @@ class CaptureState extends State<Capture>
               return Transform(
                 alignment: Alignment.bottomCenter,
                 transform: Matrix4.identity()
-                  ..translate(
+                  ..translateByDouble(
                     directionalityFactor * -_drawPanelSlideAnimation.value,
                     -_contentSlideUpAnimation.value,
+                    0.0,
+                    1.0,
                   )
-                  ..scale(_scaleAnimation.value),
+                  ..scaleByDouble(
+                    _scaleAnimation.value,
+                    _scaleAnimation.value,
+                    1.0,
+                    1.0,
+                  ),
                 child: child,
               );
             },

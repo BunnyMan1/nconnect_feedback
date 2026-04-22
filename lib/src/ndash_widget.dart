@@ -134,7 +134,7 @@ class NdashState extends State<Ndash> {
         feedbackSubmitter,
         DeviceInfoGenerator(
           buildInfoManager,
-          widgetsBindingInstance.window,
+          widgetsBindingInstance.platformDispatcher.views.first,
           additionalDeviceInfo,
         ),
         mediaUrl: widget.mediaUrl,

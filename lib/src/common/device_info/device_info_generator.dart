@@ -1,3 +1,5 @@
+import 'dart:ui' show FlutterView;
+
 import 'package:flutter/foundation.dart';
 import 'package:ndash/src/common/build_info/build_info_manager.dart';
 import 'package:ndash/src/common/device_info/device_info.dart';
@@ -14,7 +16,7 @@ abstract class DeviceInfoGenerator {
   /// optional imported createDeviceInfoGenerator function
   factory DeviceInfoGenerator(
     BuildInfoManager buildInfo,
-    SingletonFlutterWindow window,
+    FlutterView window,
     AdditionalDeviceInfo deviceInfo,
   ) {
     return createDeviceInfoGenerator(buildInfo, window, deviceInfo);
@@ -23,7 +25,7 @@ abstract class DeviceInfoGenerator {
   /// Collection of all [DeviceInfo] shared between all platforms
   static DeviceInfo baseDeviceInfo(
     BuildInfoManager buildInfo,
-    SingletonFlutterWindow window,
+    FlutterView window,
     AdditionalDeviceInfo deviceInfo,
   ) {
     return DeviceInfo(
@@ -32,7 +34,7 @@ abstract class DeviceInfoGenerator {
       buildNumber: buildInfo.buildNumber,
       buildCommit: buildInfo.buildCommit,
       deviceId: buildInfo.deviceId,
-      locale: window.locale.toString(),
+      locale: window.platformDispatcher.locale.toString(),
       padding: [
         window.padding.left,
         window.padding.top,
@@ -41,7 +43,7 @@ abstract class DeviceInfoGenerator {
       ],
       physicalSize: [window.physicalSize.width, window.physicalSize.height],
       pixelRatio: window.devicePixelRatio,
-      textScaleFactor: window.textScaleFactor,
+      textScaleFactor: window.platformDispatcher.textScaleFactor,
       viewInsets: [
         window.viewInsets.left,
         window.viewInsets.top,

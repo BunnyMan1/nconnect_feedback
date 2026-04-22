@@ -6,10 +6,10 @@ void main() {
 }
 
 class NdashExampleApp extends StatefulWidget {
-  const NdashExampleApp({Key? key}) : super(key: key);
+  const NdashExampleApp({super.key});
 
   @override
-  _NdashExampleAppState createState() => _NdashExampleAppState();
+  State<NdashExampleApp> createState() => _NdashExampleAppState();
 }
 
 class _NdashExampleAppState extends State<NdashExampleApp> {
@@ -27,18 +27,18 @@ class _NdashExampleAppState extends State<NdashExampleApp> {
         /// Change the locale of the Ndash UI
         locale: const Locale('en'),
       ),
+      mediaUrl: 'http://172.40.42.57:5000/api/common/v1/media',
+      feedbackSubmitUrl: "http://172.40.42.57:5000/api/common/v1/feedback",
       child: MaterialApp(
         navigatorKey: _navigatorKey,
         home: const _HomePage(),
       ),
-      mediaUrl: 'http://172.40.42.57:5000/api/common/v1/media',
-      feedbackSubmitUrl: "http://172.40.42.57:5000/api/common/v1/feedback",
     );
   }
 }
 
 class _HomePage extends StatelessWidget {
-  const _HomePage({Key? key}) : super(key: key);
+  const _HomePage();
 
   @override
   Widget build(BuildContext context) {
@@ -91,9 +91,8 @@ class _HomePage extends StatelessWidget {
 
 class _DetailsPage extends StatelessWidget {
   const _DetailsPage({
-    Key? key,
     required this.index,
-  }) : super(key: key);
+  });
 
   final int index;
 
