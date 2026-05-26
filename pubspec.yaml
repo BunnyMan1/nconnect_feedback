@@ -12,7 +12,7 @@ environment:
 dependencies:
   battery_plus: ^7.0.0
   carrier_info: ^3.0.3
-  device_info_plus: ^12.1.0
+  device_info_plus: ^13.1.0
   dio: ^5.9.2
   file: ^7.0.1
   flutter:
@@ -33,7 +33,7 @@ dev_dependencies:
   transparent_image: ^2.0.1
 
 dependency_overrides:
-  wakelock_plus: ^1.4.0
+  wakelock_plus: ^1.6.1
 
 flutter:
   assets:
