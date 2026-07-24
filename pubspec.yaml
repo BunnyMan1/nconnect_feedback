@@ -10,10 +10,10 @@ environment:
   flutter: ">=3.41.6 <4.0.0"
 
 dependencies:
-  battery_plus: ^7.0.0
+  battery_plus: ^7.1.1
   carrier_info: ^3.0.3
-  device_info_plus: ^13.1.0
-  dio: ^5.9.2
+  device_info_plus: ^13.2.0
+  dio: ^5.10.0
   file: ^7.0.1
   flutter:
     sdk: flutter
