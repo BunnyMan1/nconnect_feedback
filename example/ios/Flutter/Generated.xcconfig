@@ -1,6 +1,7 @@
 // This is a generated file; do not edit or check into version control.
-FLUTTER_ROOT=/Users/nspiraappscbd/Development/flutter
-FLUTTER_APPLICATION_PATH=/Users/nspiraappscbd/Documents/GitHub/nconnect_feedback/example
+FLUTTER_ROOT=/Users/ranadeepmedagone/fvm/versions/3.47.2
+FLUTTER_APPLICATION_PATH=/Users/ranadeepmedagone/Documents/GitHub/nconnect_feedback/example
+FLUTTER_FRAMEWORK_SWIFT_PACKAGE_PATH=/Users/ranadeepmedagone/Documents/GitHub/nconnect_feedback/example/ios/Flutter/ephemeral/Packages/.packages/FlutterFramework
 COCOAPODS_PARALLEL_CODE_SIGN=true
 FLUTTER_TARGET=lib/main.dart
 FLUTTER_BUILD_DIR=build

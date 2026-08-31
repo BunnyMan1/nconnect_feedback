@@ -30,3 +30,6 @@
 **/doc/api/
 .packages
 build/
+
+# FVM Version Cache
+.fvm/
