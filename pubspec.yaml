@@ -11,9 +11,14 @@ environment:
 
 dependencies:
   battery_plus: ^7.1.1
+  # TODO(KGP): carrier_info v3.0.3 is the latest version and does NOT yet support
+  # Flutter's built-in Kotlin (AGP 9+ requirement). The plugin is unmaintained upstream.
+  # Track: https://github.com/ConstantineL/carrier_info/issues
+  # Until a KGP-compatible version is released, nconnect_staff keeps
+  # android.builtInKotlin=false in gradle.properties as a documented workaround.
   carrier_info: ^3.0.3
   device_info_plus: ^13.2.0
-  dio: ^5.10.0
+  dio: ^5.11.0
   file: ^7.0.1
   flutter:
     sdk: flutter
@@ -33,7 +38,7 @@ dev_dependencies:
   transparent_image: ^2.0.1
 
 dependency_overrides:
-  wakelock_plus: ^1.6.1
+  wakelock_plus: ^1.7.0
   win32: ^6.0.1
 
 flutter:
@@ -47,4 +52,3 @@ flutter:
     - family: ndash-icons
       fonts:
         - asset: lib/assets/fonts/Ndash-Icons.ttf
-
