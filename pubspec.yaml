@@ -17,7 +17,7 @@ dependencies:
   # Until a KGP-compatible version is released, nconnect_staff keeps
   # android.builtInKotlin=false in gradle.properties as a documented workaround.
   carrier_info: ^3.0.3
-  device_info_plus: ^13.2.0
+  device_info_plus: ^12.4.0
   dio: ^5.11.0
   file: ^7.0.1
   flutter:
@@ -39,7 +39,6 @@ dev_dependencies:
 
 dependency_overrides:
   wakelock_plus: ^1.7.0
-  win32: ^6.0.1
 
 flutter:
   assets:
