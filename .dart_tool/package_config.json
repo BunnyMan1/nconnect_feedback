@@ -27,7 +27,7 @@
     },
     {
       "name": "battery_plus",
-      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/battery_plus-7.0.0",
+      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/battery_plus-7.1.1",
       "packageUri": "lib/",
       "languageVersion": "3.4"
     },
@@ -75,7 +75,7 @@
     },
     {
       "name": "code_assets",
-      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/code_assets-1.1.0",
+      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/code_assets-1.2.1",
       "packageUri": "lib/",
       "languageVersion": "3.10"
     },
@@ -93,7 +93,7 @@
     },
     {
       "name": "coverage",
-      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/coverage-1.15.0",
+      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/coverage-1.15.1",
       "packageUri": "lib/",
       "languageVersion": "3.4"
     },
@@ -105,13 +105,13 @@
     },
     {
       "name": "dbus",
-      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/dbus-0.7.13",
+      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/dbus-0.7.14",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "device_info_plus",
-      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/device_info_plus-13.1.0",
+      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/device_info_plus-13.2.0",
       "packageUri": "lib/",
       "languageVersion": "3.10"
     },
@@ -123,13 +123,13 @@
     },
     {
       "name": "dio",
-      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/dio-5.9.2",
+      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/dio-5.11.0",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "dio_web_adapter",
-      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/dio_web_adapter-2.1.2",
+      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/dio_web_adapter-2.2.0",
       "packageUri": "lib/",
       "languageVersion": "3.3"
     },
@@ -159,9 +159,9 @@
     },
     {
       "name": "flutter",
-      "rootUri": "file:///Users/ranadeepmedagone/flutter/packages/flutter",
+      "rootUri": "file:///Users/ranadeepmedagone/fvm/versions/3.47.2/packages/flutter",
       "packageUri": "lib/",
-      "languageVersion": "3.10"
+      "languageVersion": "3.11"
     },
     {
       "name": "flutter_lints",
@@ -171,15 +171,15 @@
     },
     {
       "name": "flutter_test",
-      "rootUri": "file:///Users/ranadeepmedagone/flutter/packages/flutter_test",
+      "rootUri": "file:///Users/ranadeepmedagone/fvm/versions/3.47.2/packages/flutter_test",
       "packageUri": "lib/",
-      "languageVersion": "3.10"
+      "languageVersion": "3.11"
     },
     {
       "name": "flutter_web_plugins",
-      "rootUri": "file:///Users/ranadeepmedagone/flutter/packages/flutter_web_plugins",
+      "rootUri": "file:///Users/ranadeepmedagone/fvm/versions/3.47.2/packages/flutter_web_plugins",
       "packageUri": "lib/",
-      "languageVersion": "3.10"
+      "languageVersion": "3.11"
     },
     {
       "name": "frontend_server_client",
@@ -195,7 +195,7 @@
     },
     {
       "name": "hooks",
-      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/hooks-2.0.0",
+      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/hooks-2.0.2",
       "packageUri": "lib/",
       "languageVersion": "3.10"
     },
@@ -273,9 +273,9 @@
     },
     {
       "name": "matcher",
-      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/matcher-0.12.19",
+      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/matcher-0.12.20",
       "packageUri": "lib/",
-      "languageVersion": "3.7"
+      "languageVersion": "3.10"
     },
     {
       "name": "material_color_utilities",
@@ -285,7 +285,7 @@
     },
     {
       "name": "meta",
-      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/meta-1.18.0",
+      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/meta-1.19.0",
       "packageUri": "lib/",
       "languageVersion": "3.5"
     },
@@ -315,7 +315,7 @@
     },
     {
       "name": "package_info_plus",
-      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/package_info_plus-10.1.0",
+      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/package_info_plus-10.2.1",
       "packageUri": "lib/",
       "languageVersion": "3.10"
     },
@@ -333,9 +333,9 @@
     },
     {
       "name": "path_provider",
-      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/path_provider-2.1.5",
+      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/path_provider-2.1.6",
       "packageUri": "lib/",
-      "languageVersion": "3.4"
+      "languageVersion": "3.10"
     },
     {
       "name": "path_provider_android",
@@ -351,15 +351,15 @@
     },
     {
       "name": "path_provider_linux",
-      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/path_provider_linux-2.2.1",
+      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/path_provider_linux-2.2.2",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "3.10"
     },
     {
       "name": "path_provider_platform_interface",
-      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/path_provider_platform_interface-2.1.2",
+      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/path_provider_platform_interface-2.1.3",
       "packageUri": "lib/",
-      "languageVersion": "3.0"
+      "languageVersion": "3.10"
     },
     {
       "name": "path_provider_windows",
@@ -411,9 +411,9 @@
     },
     {
       "name": "shared_preferences_android",
-      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/shared_preferences_android-2.4.23",
+      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/shared_preferences_android-2.4.27",
       "packageUri": "lib/",
-      "languageVersion": "3.9"
+      "languageVersion": "3.12"
     },
     {
       "name": "shared_preferences_foundation",
@@ -471,9 +471,9 @@
     },
     {
       "name": "sky_engine",
-      "rootUri": "file:///Users/ranadeepmedagone/flutter/bin/cache/pkg/sky_engine",
+      "rootUri": "file:///Users/ranadeepmedagone/fvm/versions/3.47.2/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
-      "languageVersion": "3.10"
+      "languageVersion": "3.11"
     },
     {
       "name": "source_map_stack_trace",
@@ -519,21 +519,21 @@
     },
     {
       "name": "test",
-      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/test-1.31.0",
+      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/test-1.31.1",
       "packageUri": "lib/",
-      "languageVersion": "3.7"
+      "languageVersion": "3.10"
     },
     {
       "name": "test_api",
-      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/test_api-0.7.11",
+      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/test_api-0.7.12",
       "packageUri": "lib/",
-      "languageVersion": "3.7"
+      "languageVersion": "3.10"
     },
     {
       "name": "test_core",
-      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/test_core-0.6.17",
+      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/test_core-0.6.18",
       "packageUri": "lib/",
-      "languageVersion": "3.7"
+      "languageVersion": "3.10"
     },
     {
       "name": "transparent_image",
@@ -555,9 +555,9 @@
     },
     {
       "name": "vector_math",
-      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/vector_math-2.2.0",
+      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/vector_math-2.4.2",
       "packageUri": "lib/",
-      "languageVersion": "3.1"
+      "languageVersion": "3.10"
     },
     {
       "name": "vm_service",
@@ -567,15 +567,15 @@
     },
     {
       "name": "wakelock_plus",
-      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/wakelock_plus-1.6.1",
+      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/wakelock_plus-1.7.0",
       "packageUri": "lib/",
-      "languageVersion": "3.10"
+      "languageVersion": "3.11"
     },
     {
       "name": "wakelock_plus_platform_interface",
-      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/wakelock_plus_platform_interface-1.5.1",
+      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/wakelock_plus_platform_interface-1.6.0",
       "packageUri": "lib/",
-      "languageVersion": "3.10"
+      "languageVersion": "3.11"
     },
     {
       "name": "watcher",
@@ -627,9 +627,9 @@
     },
     {
       "name": "xml",
-      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/xml-7.0.1",
+      "rootUri": "file:///Users/ranadeepmedagone/.pub-cache/hosted/pub.dev/xml-6.6.1",
       "packageUri": "lib/",
-      "languageVersion": "3.11"
+      "languageVersion": "3.8"
     },
     {
       "name": "yaml",
@@ -645,8 +645,8 @@
     }
   ],
   "generator": "pub",
-  "generatorVersion": "3.12.0",
-  "flutterRoot": "file:///Users/ranadeepmedagone/flutter",
-  "flutterVersion": "3.44.0",
+  "generatorVersion": "3.13.2",
+  "flutterRoot": "file:///Users/ranadeepmedagone/fvm/versions/3.47.2",
+  "flutterVersion": "3.47.2",
   "pubCache": "file:///Users/ranadeepmedagone/.pub-cache"
 }
