@@ -1,4 +1,4 @@
-import 'dart:ui' show SingletonFlutterWindow;
+import 'dart:ui' show FlutterView;
 
 import 'package:ndash/src/common/build_info/build_info_manager.dart';
 import 'package:ndash/src/common/device_info/device_info_generator.dart';
@@ -6,7 +6,7 @@ import 'package:ndash/src/common/user/user_manager.dart';
 
 DeviceInfoGenerator createDeviceInfoGenerator(
   BuildInfoManager buildInfo,
-  SingletonFlutterWindow window,
+  FlutterView window,
   AdditionalDeviceInfo deviceInfo,
 ) {
   throw UnsupportedError(

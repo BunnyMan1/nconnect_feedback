@@ -1,6 +1,4 @@
-import 'dart:ui';
-
-// import 'package:flutter/widgets.dart';
+import 'package:flutter/widgets.dart';
 import 'package:ndash/ndash.dart';
 
 class NdashOptionsData {
@@ -66,8 +64,6 @@ class NdashOptionsData {
 }
 
 Locale get _defaultLocale {
-  // Flutter 1.26 (2.0.1) returns `Locale?`, 1.27 `Locale`
-  // ignore: unnecessary_nullable_for_final_variable_declarations
-  final Locale? locale = window.locale;
-  return locale ?? const Locale('en', 'US');
+  final locale = WidgetsBinding.instance.platformDispatcher.locale;
+  return locale;
 }

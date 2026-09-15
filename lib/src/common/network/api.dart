@@ -1,8 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:battery_info/battery_info_plugin.dart';
-import 'package:battery_info/enums/charging_status.dart';
+import 'package:battery_plus/battery_plus.dart';
 import 'package:carrier_info/carrier_info.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
@@ -49,9 +48,7 @@ class NdashApi {
         response = await dio.post(
           mediaUrl,
           data: FormData.fromMap({
-            'Files': await MultipartFile.fromFile(
-              file.path,
-            )
+            'Files': await MultipartFile.fromFile(file.path),
           }),
         );
       }
@@ -84,10 +81,10 @@ class NdashApi {
                   "display_order": response.data[0]['display_order'],
                   "display_label": response.data[0]['display_label'],
                   "description": response.data[0]['description'],
-                  "is_primary": response.data[0]['is_primary']
-                }
+                  "is_primary": response.data[0]['is_primary'],
+                },
               ]
-            : null
+            : null,
       };
       response = await dio2.post(feedbackSumbitUrl, data: data);
       if (response.statusCode == 201) {
@@ -111,24 +108,12 @@ class NdashApi {
 
   // Load Additional Device Info.
   Future<AdditionalDeviceInfo> loadAdditionalDeviceInfo() async {
-    int? batteryLevel,
-        batteryCapacity,
-        currentNow,
-        currentAverage,
-        chargeTimeRemaining,
-        remainingEnergy,
-        scale,
-        temperature,
-        voltage,
-        subscriptionId;
+    int? batteryLevel, subscriptionId;
 
     String? carrierName,
         networkGeneration,
         deviceModel,
         deviceMake,
-        health,
-        technology,
-        pluggedStatus,
         networkCountryIso,
         mobileCountryCode,
         mobileNetworkCode,
@@ -139,37 +124,22 @@ class NdashApi {
         radioType,
         networkOperatorName;
 
-    bool? present, carrierAllowsVOIP;
+    bool? carrierAllowsVOIP;
 
-    ChargingStatus? chargingStatus;
+    BatteryState? chargingStatus;
 
     CellId? cellId;
 
-    if (Platform.isAndroid) {
-      var batteryInfo = await BatteryInfoPlugin().androidBatteryInfo;
-      batteryLevel = batteryInfo?.batteryLevel;
-      batteryCapacity = batteryInfo?.batteryCapacity;
-      chargeTimeRemaining = batteryInfo?.chargeTimeRemaining;
-      currentNow = batteryInfo?.currentNow;
-      currentAverage = batteryInfo?.currentAverage;
-      remainingEnergy = batteryInfo?.remainingEnergy;
-      scale = batteryInfo?.scale;
-      voltage = batteryInfo?.voltage;
-      health = batteryInfo?.health;
-      pluggedStatus = batteryInfo?.pluggedStatus;
-      present = batteryInfo?.present;
-      chargingStatus = batteryInfo?.chargingStatus;
-      chargeTimeRemaining = batteryInfo?.chargeTimeRemaining;
-      technology = batteryInfo?.technology;
+    final Battery battery = Battery();
 
+    batteryLevel = await battery.batteryLevel;
+    chargingStatus = await battery.batteryState;
+
+    if (Platform.isAndroid) {
       var deviceManufacturDetails = await DeviceInfoPlugin().androidInfo;
       deviceModel = deviceManufacturDetails.model;
       deviceMake = deviceManufacturDetails.manufacturer;
     } else if (Platform.isIOS) {
-      var batteryInfo = await BatteryInfoPlugin().iosBatteryInfo;
-      batteryLevel = batteryInfo?.batteryLevel;
-      chargingStatus = batteryInfo?.chargingStatus;
-
       var deviceManufacturDetails = await DeviceInfoPlugin().iosInfo;
       deviceModel = deviceManufacturDetails.model;
       deviceMake = deviceManufacturDetails.utsname.machine;
@@ -177,7 +147,8 @@ class NdashApi {
 
     try {
       if (Platform.isAndroid) {
-        var carrierInfo = (await CarrierInfo.getAndroidInfo())?.telephonyInfo.first;
+        var carrierInfo =
+            (await CarrierInfo.getAndroidInfo())?.telephonyInfo.first;
         carrierName = carrierInfo?.carrierName;
         networkGeneration = carrierInfo?.networkGeneration;
         networkCountryIso = carrierInfo?.networkCountryIso;
@@ -203,23 +174,11 @@ class NdashApi {
 
     var additionalDeviceInfo = AdditionalDeviceInfo(
       batteryLevel: batteryLevel,
-      batteryCapacity: batteryCapacity,
       carrierName: carrierName,
       networkGeneration: networkGeneration,
       deviceModel: deviceModel,
       deviceMake: deviceMake,
-      chargeTimeRemaining: chargeTimeRemaining,
       chargingStatus: chargingStatus,
-      currentAverage: currentAverage,
-      currentNow: currentNow,
-      health: health,
-      pluggedStatus: pluggedStatus,
-      present: present,
-      remainingEnergy: remainingEnergy,
-      scale: scale,
-      technology: technology,
-      temperature: temperature,
-      voltage: voltage,
       networkCountryIso: networkCountryIso,
       mobileCountryCode: mobileCountryCode,
       mobileNetworkCode: mobileNetworkCode,
@@ -267,12 +226,12 @@ class NdashApiException implements Exception {
 
 /// Thrown when the server couldn't match the project + secret to a existing project
 class UnauthenticatedNdashApiException extends NdashApiException {
-  UnauthenticatedNdashApiException(
-    Response response,
-  ) : super(
-          message: "Request made is unauthenticated. Please check the parameters being used.",
-          response: response,
-        );
+  UnauthenticatedNdashApiException(Response response)
+    : super(
+        message:
+            "Request made is unauthenticated. Please check the parameters being used.",
+        response: response,
+      );
   @override
   String toString() {
     return 'UnauthenticatedNdashApiException{$message, status code: ${response?.statusCode}';

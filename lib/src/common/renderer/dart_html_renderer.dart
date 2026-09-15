@@ -1,4 +1,5 @@
-import 'dart:js' as js;
+import 'dart:js_interop';
+import 'dart:js_interop_unsafe';
 
 import 'package:ndash/src/common/renderer/renderer.dart';
 
@@ -7,6 +8,9 @@ Renderer getRenderer() {
 }
 
 bool get isCanvasKitRenderer {
-  final flutterCanvasKit = js.context['flutterCanvasKit'];
-  return flutterCanvasKit != null;
+  final flutterCanvasKit =
+      globalContext.getProperty<JSAny?>('flutterCanvasKit'.toJS);
+  return flutterCanvasKit != null &&
+      !flutterCanvasKit.isUndefined &&
+      !flutterCanvasKit.isNull;
 }

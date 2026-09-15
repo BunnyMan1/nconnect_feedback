@@ -95,10 +95,12 @@ class DismissiblePageRoute<T> extends PageRoute<T> {
   ) {
     return Semantics(
       container: true,
-      child: WillPopScope(
-        onWillPop: () async {
-          onPagePopped?.call();
-          return true;
+      child: PopScope(
+        canPop: true,
+        onPopInvokedWithResult: (didPop, result) {
+          if (didPop) {
+            onPagePopped?.call();
+          }
         },
         child: Stack(
           children: <Widget>[
@@ -266,8 +268,7 @@ class _DownGestureDetectorState<T> extends State<_DownGestureDetector<T>>
     return Container(
       alignment: Alignment.bottomCenter,
       margin: EdgeInsets.only(
-        bottom: widgetsBindingInstance.window.viewInsets.bottom /
-            widgetsBindingInstance.window.devicePixelRatio,
+        bottom: MediaQuery.viewInsetsOf(context).bottom,
       ),
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 480),

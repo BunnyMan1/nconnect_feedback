@@ -108,7 +108,7 @@ class _FeedbackPenState extends State<FeedbackPen>
 class _PenNosePainter extends CustomPainter {
   _PenNosePainter(this._color)
       : _nosePaint = Paint()
-          ..color = _color.withOpacity(0.8)
+          ..color = _color.withValues(alpha: 0.8)
           ..style = PaintingStyle.fill;
 
   final Color _color;

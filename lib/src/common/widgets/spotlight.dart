@@ -76,7 +76,7 @@ class SpotlightState extends State<Spotlight>
       child: Container(
         padding: const EdgeInsets.all(32),
         alignment: Alignment.center,
-        color: const Color(0x00000000).withOpacity(0.77),
+        color: const Color(0x00000000).withValues(alpha: 0.77),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
