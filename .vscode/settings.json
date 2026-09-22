@@ -1,3 +1,26 @@
 {
-  "dart.flutterSdkPath": ".fvm/versions/3.47.4"
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "always",
+    "source.fixAll": "always"
+  },
+  "editor.detectIndentation": false,
+  "editor.formatOnSave": true,
+  "editor.insertSpaces": true,
+  "files.insertFinalNewline": true,
+  "editor.tabSize": 2,
+  "[dart]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false,
+    "editor.suggest.insertMode": "replace",
+    "editor.defaultFormatter": "Dart-Code.dart-code",
+    "editor.inlayHints.enabled": "offUnlessPressed"
+  },
+  "dart.lineLength": 96,
+  "dart.devToolsTheme": "dark",
+  "editor.trimAutoWhitespace": false,
+  "files.trimTrailingWhitespace": true,
+  "docwriter.hotkey.mac": "⌥ + .",
+  "java.configuration.updateBuildConfiguration": "disabled",
+  "dart.flutterSdkPath": ".fvm/versions/3.47.5"
 }
