@@ -1,13 +1,13 @@
 name: ndash
 description: A new Flutter package project.
+repository: https://github.com/BunnyMan1/nconnect_feedback/
 
 publish_to: none
 
 version: 0.0.1
 
 environment:
-  sdk: ">=3.9.0 <4.0.0"
-  flutter: ">=3.41.6 <4.0.0"
+  sdk: ^3.13.4
 
 dependencies:
   battery_plus: ^7.1.1
