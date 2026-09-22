@@ -1,3 +1,12 @@
+// Gradle 9 removed jcenter(), but unmaintained plugins (fk_user_agent, carrier_info)
+// still call it from their build.gradle. Map it to mavenCentral() so they can evaluate.
+allprojects { p ->
+    [p.buildscript.repositories, p.repositories].each { handler ->
+        handler.metaClass.jcenter = { -> delegate.mavenCentral() }
+        handler.metaClass.jcenter = { Closure c -> delegate.mavenCentral(c) }
+    }
+}
+
 allprojects {
     repositories {
         google()

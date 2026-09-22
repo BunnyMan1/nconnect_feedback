@@ -1,10 +1,8 @@
 name: ndash
 description: A new Flutter package project.
 repository: https://github.com/BunnyMan1/nconnect_feedback/
-
 publish_to: none
-
-version: 0.0.1
+version: 0.1.0
 
 environment:
   sdk: ^3.13.4
@@ -29,16 +27,8 @@ dependencies:
   web: ^1.1.1
 
 dev_dependencies:
-  change_app_package_name: ^1.5.0
-  fake_async: ^1.3.3
   flutter_test:
     sdk: flutter
-  lint: ^2.3.0
-  test: ^1.31.1
-  transparent_image: ^2.0.1
-
-dependency_overrides:
-  wakelock_plus: ^1.8.0
 
 flutter:
   assets:
