@@ -23,7 +23,9 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.example.example"
-    compileSdk flutter.compileSdkVersion
+    // permission_handler_android 14.1+ requires compileSdk 37; Flutter 3.47
+    // still defaults to 36. Drop this once flutter.compileSdkVersion >= 37.
+    compileSdk 37
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17

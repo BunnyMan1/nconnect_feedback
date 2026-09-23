@@ -39,6 +39,9 @@ dependencies:
   ndash:
     path: ../
   shared_preferences_web: ^2.4.3
+  carrier_info: ^3.0.3
+  carrier_info_plus: ^2.0.1
+  permission_handler: ^13.0.2
 
 dev_dependencies:
   flutter_test:

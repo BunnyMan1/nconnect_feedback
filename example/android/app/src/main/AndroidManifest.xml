@@ -1,5 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.example">
+    <!-- Used by the carrier comparison page. carrier_info fails outright
+         without READ_PHONE_NUMBERS on API 30+ targets (getLine1Number). -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
    <application
         android:label="example"
         android:name="${applicationName}"

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ndash/ndash.dart';
 
+import 'carrier_comparison_page.dart';
+
 void main() {
   runApp(const NdashExampleApp());
 }
@@ -29,10 +31,7 @@ class _NdashExampleAppState extends State<NdashExampleApp> {
       ),
       mediaUrl: 'http://172.40.42.57:5000/api/common/v1/media',
       feedbackSubmitUrl: "http://172.40.42.57:5000/api/common/v1/feedback",
-      child: MaterialApp(
-        navigatorKey: _navigatorKey,
-        home: const _HomePage(),
-      ),
+      child: MaterialApp(navigatorKey: _navigatorKey, home: const _HomePage()),
     );
   }
 }
@@ -45,6 +44,18 @@ class _HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Ndash Demo'),
+        actions: [
+          IconButton(
+            tooltip: 'Compare carrier packages',
+            icon: const Icon(Icons.sim_card_outlined),
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute<void>(
+                builder: (BuildContext context) =>
+                    const CarrierComparisonPage(),
+              ),
+            ),
+          ),
+        ],
       ),
       body: ListView.builder(
         itemBuilder: (BuildContext context, int index) {
@@ -90,18 +101,14 @@ class _HomePage extends StatelessWidget {
 }
 
 class _DetailsPage extends StatelessWidget {
-  const _DetailsPage({
-    required this.index,
-  });
+  const _DetailsPage({required this.index});
 
   final int index;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Details Page #$index'),
-      ),
+      appBar: AppBar(title: Text('Details Page #$index')),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -113,7 +120,7 @@ class _DetailsPage extends StatelessWidget {
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 8),
-              const Text('Try navigating here in feedback mode.')
+              const Text('Try navigating here in feedback mode.'),
             ],
           ),
         ),
