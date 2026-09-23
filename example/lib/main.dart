@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ndash/ndash.dart';
 
-import 'carrier_comparison_page.dart';
-
 void main() {
   runApp(const NdashExampleApp());
 }
@@ -42,21 +40,7 @@ class _HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Ndash Demo'),
-        actions: [
-          IconButton(
-            tooltip: 'Compare carrier packages',
-            icon: const Icon(Icons.sim_card_outlined),
-            onPressed: () => Navigator.of(context).push(
-              MaterialPageRoute<void>(
-                builder: (BuildContext context) =>
-                    const CarrierComparisonPage(),
-              ),
-            ),
-          ),
-        ],
-      ),
+      appBar: AppBar(title: const Text('Ndash Demo')),
       body: ListView.builder(
         itemBuilder: (BuildContext context, int index) {
           return ListTile(

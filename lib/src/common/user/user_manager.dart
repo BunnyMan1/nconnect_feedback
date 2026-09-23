@@ -1,5 +1,4 @@
 import 'package:battery_plus/battery_plus.dart';
-import 'package:carrier_info/carrier_info.dart';
 
 class UserManager {
   String? userId;
@@ -45,7 +44,7 @@ class AdditionalDeviceInfo {
   String? displayName;
   String? simState;
   String? isoCountryCode;
-  CellId? cellId;
+  int? cellId;
   String? phoneNumber;
   int? subscriptionId;
   String? radioType;
@@ -116,7 +115,7 @@ class AdditionalDeviceInfo {
       'present': present,
       'carrier_allows_voip': carrierAllowsVOIP,
       'charging_status': chargingStatus?.name,
-      'cell_id': cellId?.cid,
+      'cell_id': cellId,
     };
   }
 }

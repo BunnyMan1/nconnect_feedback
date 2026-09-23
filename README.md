@@ -34,6 +34,18 @@ const like = 'sample';
 
 ## Additional information
 
+Carrier metadata uses `carrier_info_plus`. Host apps need Android API 24+.
+On Android, declare and grant `READ_PHONE_STATE` to include subscription details;
+without it, the plugin returns the available permission-free subset. Feedback
+collection does not request permissions itself.
+
+The feedback JSON keeps the `phone_number`, `cell_id`, and `carrier_allows_voip`
+keys, but they are always null because `carrier_info_plus` does not expose them.
+`AdditionalDeviceInfo.cellId` is an `int?`. On iOS, carrier identity is
+unavailable; network generation is derived from the reported radio technologies.
+SIM identity uses the first slot, while network generation describes the fastest
+reported device connection.
+
 TODO: Tell users more about the package: where to find more information, how to 
 contribute to the package, how to file issues, what response they can expect 
 from the package authors, and more.

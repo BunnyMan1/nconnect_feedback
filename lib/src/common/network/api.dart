@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
+
 import 'package:battery_plus/battery_plus.dart';
-import 'package:carrier_info/carrier_info.dart';
+import 'package:carrier_info_plus/carrier_info_plus.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:ndash/src/common/user/user_manager.dart';
@@ -128,7 +129,7 @@ class NdashApi {
 
     BatteryState? chargingStatus;
 
-    CellId? cellId;
+    int? cellId;
 
     final Battery battery = Battery();
 
@@ -146,30 +147,51 @@ class NdashApi {
     }
 
     try {
-      if (Platform.isAndroid) {
-        var carrierInfo =
-            (await CarrierInfo.getAndroidInfo())?.telephonyInfo.first;
-        carrierName = carrierInfo?.carrierName;
-        networkGeneration = carrierInfo?.networkGeneration;
-        networkCountryIso = carrierInfo?.networkCountryIso;
-        mobileCountryCode = carrierInfo?.mobileCountryCode;
-        displayName = carrierInfo?.displayName;
-        simState = carrierInfo?.simState;
-        isoCountryCode = carrierInfo?.isoCountryCode;
-        phoneNumber = carrierInfo?.phoneNumber;
-        radioType = carrierInfo?.radioType;
-        networkOperatorName = carrierInfo?.networkOperatorName;
-        subscriptionId = carrierInfo?.subscriptionId;
-        cellId = carrierInfo?.cellId;
-      } else if (Platform.isIOS) {
-        var carrierInfo = (await CarrierInfo.getIosInfo()).carrierData.first;
-        carrierName = carrierInfo.carrierName;
-        networkGeneration = carrierInfo.mobileNetworkCode;
-        mobileNetworkCode = carrierInfo.mobileNetworkCode;
-        mobileCountryCode = carrierInfo.mobileCountryCode;
-        isoCountryCode = carrierInfo.isoCountryCode;
-        carrierAllowsVOIP = carrierInfo.carrierAllowsVOIP;
-      }
+      final carrierInfo = await CarrierInfoPlus.get();
+      final sim = carrierInfo.primarySim;
+      final network = carrierInfo.network;
+      carrierName = sim?.carrierName;
+      mobileCountryCode = sim?.mobileCountryCode;
+      mobileNetworkCode = sim?.mobileNetworkCode;
+      displayName = sim?.displayName;
+      isoCountryCode = sim?.countryIso;
+      subscriptionId = sim?.subscriptionId;
+      simState = switch (sim?.state) {
+        null => null,
+        SimState.unknown => 'SIM_STATE_UNKNOWN',
+        SimState.absent => 'SIM_STATE_ABSENT',
+        SimState.pinRequired => 'SIM_STATE_PIN_REQUIRED',
+        SimState.pukRequired => 'SIM_STATE_PUK_REQUIRED',
+        SimState.networkLocked => 'SIM_STATE_NETWORK_LOCKED',
+        SimState.ready => 'SIM_STATE_READY',
+        SimState.notReady => 'SIM_STATE_NOT_READY',
+        SimState.permanentlyDisabled => 'SIM_STATE_PERM_DISABLED',
+        SimState.cardIoError => 'SIM_STATE_CARD_IO_ERROR',
+        SimState.cardRestricted => 'SIM_STATE_CARD_RESTRICTED',
+      };
+      networkGeneration = switch (network.generation) {
+        NetworkGeneration.unknown => null,
+        NetworkGeneration.twoG => '2G',
+        NetworkGeneration.threeG => '3G',
+        NetworkGeneration.fourG => '4G',
+        NetworkGeneration.fiveG => '5G',
+      };
+      networkCountryIso = network.countryIso;
+      networkOperatorName = network.operatorName;
+      radioType = switch (network.radioTechnologies.firstOrNull) {
+        null || RadioAccessTechnology.unknown => null,
+        RadioAccessTechnology.oneXrtt => '1xRTT',
+        RadioAccessTechnology.ehrpd => 'eHRPD',
+        RadioAccessTechnology.evdo0 => 'EVDO rev. 0',
+        RadioAccessTechnology.evdoA => 'EVDO rev. A',
+        RadioAccessTechnology.evdoB => 'EVDO rev. B',
+        RadioAccessTechnology.hspap => 'HSPA+',
+        RadioAccessTechnology.iden => 'iDen',
+        RadioAccessTechnology.tdScdma => 'TD SCDMA',
+        final technology => technology.name.toUpperCase(),
+      };
+      // carrier_info_plus does not expose phone numbers, cell IDs or VoIP
+      // allowance.
     } catch (e) {}
 
     var additionalDeviceInfo = AdditionalDeviceInfo(
@@ -228,8 +250,7 @@ class NdashApiException implements Exception {
 class UnauthenticatedNdashApiException extends NdashApiException {
   UnauthenticatedNdashApiException(Response response)
     : super(
-        message:
-            "Request made is unauthenticated. Please check the parameters being used.",
+        message: "Request made is unauthenticated. Please check the parameters being used.",
         response: response,
       );
   @override
