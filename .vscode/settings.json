@@ -22,5 +22,5 @@
   "files.trimTrailingWhitespace": true,
   "docwriter.hotkey.mac": "⌥ + .",
   "java.configuration.updateBuildConfiguration": "disabled",
-  "dart.flutterSdkPath": ".fvm/versions/3.47.5"
+  "dart.flutterSdkPath": ".fvm/versions/3.47.6"
 }
