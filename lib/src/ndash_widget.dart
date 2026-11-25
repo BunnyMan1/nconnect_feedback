@@ -1,8 +1,6 @@
 import 'package:file/local.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:ndash/src/capture/capture.dart';
 import 'package:ndash/src/common/build_info/build_info_manager.dart';
 import 'package:ndash/src/common/device_info/device_info_generator.dart';
@@ -23,6 +21,8 @@ import 'package:ndash/src/feedback/data/retrying_feedback_submitter.dart';
 import 'package:ndash/src/feedback/feedback_model.dart';
 import 'package:ndash/src/ndash_controller.dart';
 import 'package:ndash/src/ndash_provider.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Ndash extends StatefulWidget {
   /// Creates a new [Ndash] Widget which allows users to send feedback,
@@ -122,23 +122,28 @@ class NdashState extends State<Ndash> {
 
     final feedbackSubmitter = kIsWeb
         ? DirectFeedbackSubmitter(_api)
-        : (RetryingFeedbackSubmitter(fileSystem, storage, _api,
-            mediaUrl: widget.mediaUrl, feedbackSumbitUrl: widget.feedbackSubmitUrl)
-          ..submitPendingFeedbackItems());
+        : (RetryingFeedbackSubmitter(
+            fileSystem,
+            storage,
+            _api,
+            mediaUrl: widget.mediaUrl,
+            feedbackSumbitUrl: widget.feedbackSubmitUrl,
+          )..submitPendingFeedbackItems());
 
     // _loadAdditionalDeviceInfo().then((additionalDeviceInfo) {
     _feedbackModel = FeedbackModel(
-        captureKey,
-        navigatorKey,
-        userManager,
-        feedbackSubmitter,
-        DeviceInfoGenerator(
-          buildInfoManager,
-          widgetsBindingInstance.platformDispatcher.views.first,
-          additionalDeviceInfo,
-        ),
-        mediaUrl: widget.mediaUrl,
-        feedbackSubmitUrl: widget.feedbackSubmitUrl);
+      captureKey,
+      navigatorKey,
+      userManager,
+      feedbackSubmitter,
+      DeviceInfoGenerator(
+        buildInfoManager,
+        widgetsBindingInstance.platformDispatcher.views.first,
+        additionalDeviceInfo,
+      ),
+      mediaUrl: widget.mediaUrl,
+      feedbackSubmitUrl: widget.feedbackSubmitUrl,
+    );
     // });
   }
 

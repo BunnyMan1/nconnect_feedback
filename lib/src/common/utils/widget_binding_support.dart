@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 
 /// Returns a non-null instance of [WidgetsBinding] on all Flutter versions
 ///

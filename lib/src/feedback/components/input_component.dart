@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:ndash/src/common/theme/ndash_theme.dart';
 import 'package:ndash/src/common/translation/ndash_localizations.dart';
 import 'package:ndash/src/common/utils/email_validator.dart';
@@ -85,11 +85,7 @@ class _InputComponentState extends State<InputComponent> {
             focusedBorder: UnderlineInputBorder(
               borderSide: BorderSide(color: ndashTheme.primaryColor, width: 2),
             ),
-            icon: Icon(
-              _getIcon(),
-              color: ndashTheme.dividerColor,
-              size: 20,
-            ),
+            icon: Icon(_getIcon(), color: ndashTheme.dividerColor, size: 20),
             hintText: _getHintText(),
             hintStyle: ndashTheme.inputHintStyle,
             errorStyle: ndashTheme.inputErrorStyle,

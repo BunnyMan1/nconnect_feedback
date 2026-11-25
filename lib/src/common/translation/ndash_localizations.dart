@@ -1,13 +1,10 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
+import 'package:ndash/ndash.dart';
 import 'package:ndash/src/common/options/ndash_options.dart';
 import 'package:ndash/src/common/translation/l10n/messages_en.dart';
-import 'package:ndash/ndash.dart';
 
 class NdashLocalizations extends StatelessWidget {
-  const NdashLocalizations({
-    Key? key,
-    required this.child,
-  }) : super(key: key);
+  const NdashLocalizations({Key? key, required this.child}) : super(key: key);
 
   final Widget child;
 
@@ -22,8 +19,8 @@ class NdashLocalizations extends StatelessWidget {
 
   static NdashTranslations? of(BuildContext context) {
     final options = NdashOptions.of(context);
-    final _InheritedNdashTranslation? inheritedTranslation =
-        context.dependOnInheritedWidgetOfExactType<_InheritedNdashTranslation>();
+    final _InheritedNdashTranslation? inheritedTranslation = context
+        .dependOnInheritedWidgetOfExactType<_InheritedNdashTranslation>();
     return inheritedTranslation?.translation(options?.currentLocale);
   }
 
@@ -41,9 +38,7 @@ class NdashLocalizations extends StatelessWidget {
 
   /// List of currently supported locales by nDash
   static List<Locale> get supportedLocales {
-    return const <Locale>[
-      Locale.fromSubtags(languageCode: 'en'),
-    ];
+    return const <Locale>[Locale.fromSubtags(languageCode: 'en')];
   }
 }
 

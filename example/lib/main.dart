@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:ndash/ndash.dart';
 
 void main() {
@@ -99,10 +99,7 @@ class _DetailsPage extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
-                'Details page #$index',
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
+              Text('Details page #$index', style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 8),
               const Text('Try navigating here in feedback mode.'),
             ],

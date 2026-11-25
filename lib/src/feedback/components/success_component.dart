@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:ndash/src/common/translation/ndash_localizations.dart';
 import 'package:ndash/src/common/widgets/list_tile_button.dart';
 import 'package:ndash/src/common/widgets/ndash_icons.dart';
@@ -7,10 +7,7 @@ import 'package:ndash/src/common/widgets/ndash_icons.dart';
 class SuccessComponent extends StatelessWidget {
   final VoidCallback? onClosedCallback;
 
-  const SuccessComponent(
-    this.onClosedCallback, {
-    Key? key,
-  }) : super(key: key);
+  const SuccessComponent(this.onClosedCallback, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

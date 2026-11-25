@@ -1,14 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:ndash/src/common/theme/ndash_theme.dart';
 import 'package:ndash/src/common/widgets/animated_fade_in.dart';
 
 class PreviousButton extends StatelessWidget {
-  const PreviousButton({
-    Key? key,
-    required this.onPressed,
-    required this.text,
-  }) : super(key: key);
+  const PreviousButton({Key? key, required this.onPressed, required this.text})
+    : super(key: key);
 
   final VoidCallback onPressed;
   final String text;
@@ -37,12 +34,8 @@ class PreviousButton extends StatelessWidget {
 }
 
 class NextButton extends StatelessWidget {
-  const NextButton({
-    Key? key,
-    required this.onPressed,
-    required this.text,
-    this.icon,
-  }) : super(key: key);
+  const NextButton({Key? key, required this.onPressed, required this.text, this.icon})
+    : super(key: key);
 
   final VoidCallback onPressed;
   final String text;
@@ -71,12 +64,8 @@ class NextButton extends StatelessWidget {
           if (icon != null)
             Padding(
               padding: const EdgeInsets.only(left: 4, bottom: 2),
-              child: Icon(
-                icon,
-                size: 12,
-                color: theme.primaryColor,
-              ),
-            )
+              child: Icon(icon, size: 12, color: theme.primaryColor),
+            ),
         ],
       ),
     );
@@ -84,12 +73,8 @@ class NextButton extends StatelessWidget {
 }
 
 class _Wrapper extends StatelessWidget {
-  const _Wrapper({
-    Key? key,
-    required this.text,
-    required this.onPressed,
-    required this.child,
-  }) : super(key: key);
+  const _Wrapper({Key? key, required this.text, required this.onPressed, required this.child})
+    : super(key: key);
 
   final String text;
   final VoidCallback onPressed;
@@ -105,10 +90,7 @@ class _Wrapper extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 8),
           constraints: const BoxConstraints(minHeight: 48),
-          child: AnimatedFadeIn(
-            changeKey: ValueKey(text),
-            child: child,
-          ),
+          child: AnimatedFadeIn(changeKey: ValueKey(text), child: child),
         ),
       ),
     );

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:ndash/src/common/options/ndash_options.dart';
 import 'package:ndash/src/common/renderer/renderer.dart';
 import 'package:ndash/src/common/theme/ndash_theme.dart';
@@ -78,12 +78,8 @@ class _FeedbackSheetState extends State<FeedbackSheet>
             duration: const Duration(milliseconds: 350),
             child: AnimatedBuilder(
               animation: context.feedbackModel!,
-              builder: (context, _) => Column(
-                children: <Widget>[
-                  _getInputComponent(),
-                  _buildButtons(),
-                ],
-              ),
+              builder: (context, _) =>
+                  Column(children: <Widget>[_getInputComponent(), _buildButtons()]),
             ),
           ),
         ),
@@ -99,7 +95,7 @@ class _FeedbackSheetState extends State<FeedbackSheet>
           end: AlignmentDirectional.bottomEnd,
           colors: [
             NdashTheme.of(context)!.primaryColor,
-            NdashTheme.of(context)!.secondaryColor
+            NdashTheme.of(context)!.secondaryColor,
           ],
         ),
       ),
@@ -113,10 +109,7 @@ class _FeedbackSheetState extends State<FeedbackSheet>
             child: Material(
               shape: const StadiumBorder(),
               color: NdashTheme.of(context)!.dividerColor,
-              child: const SizedBox(
-                height: 4,
-                width: 56,
-              ),
+              child: const SizedBox(height: 4, width: 56),
             ),
           ),
           const SizedBox(height: 24),
@@ -129,15 +122,9 @@ class _FeedbackSheetState extends State<FeedbackSheet>
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
-                      _getTitle(),
-                      style: NdashTheme.of(context)!.titleStyle,
-                    ),
+                    Text(_getTitle(), style: NdashTheme.of(context)!.titleStyle),
                     const SizedBox(height: 4),
-                    Text(
-                      _getSubtitle(),
-                      style: NdashTheme.of(context)!.subtitleStyle,
-                    ),
+                    Text(_getSubtitle(), style: NdashTheme.of(context)!.subtitleStyle),
                   ],
                 ),
               ),
@@ -180,8 +167,7 @@ class _FeedbackSheetState extends State<FeedbackSheet>
             Expanded(
               child: PreviousButton(
                 text: NdashLocalizations.of(context)!.feedbackBack,
-                onPressed: () =>
-                    state.feedbackUiState = FeedbackUiState.feedback,
+                onPressed: () => state.feedbackUiState = FeedbackUiState.feedback,
               ),
             ),
             Expanded(
@@ -221,8 +207,7 @@ class _FeedbackSheetState extends State<FeedbackSheet>
       case FeedbackType.bug:
       case FeedbackType.improvement:
         final renderer = getRenderer();
-        if (NdashOptions.of(context)!.screenshotStep &&
-            renderer != Renderer.html) {
+        if (NdashOptions.of(context)!.screenshotStep && renderer != Renderer.html) {
           // Start the capture process
           Navigator.pop(context);
           feedbackModel.feedbackUiState = FeedbackUiState.capture;
@@ -319,12 +304,10 @@ class _FeedbackSheetState extends State<FeedbackSheet>
       case FeedbackUiState.submit:
         return const LoadingComponent();
       case FeedbackUiState.submitted:
-        return SuccessComponent(
-          () {
-            context.feedbackModel!.feedbackUiState = FeedbackUiState.hidden;
-            Navigator.pop(context);
-          },
-        );
+        return SuccessComponent(() {
+          context.feedbackModel!.feedbackUiState = FeedbackUiState.hidden;
+          Navigator.pop(context);
+        });
       case FeedbackUiState.submissionError:
         return ErrorComponent(
           onRetry: () {

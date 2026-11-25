@@ -1,15 +1,12 @@
 import 'dart:math' show pi;
 
-import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:ndash/src/common/theme/ndash_theme.dart';
 import 'package:ndash/src/common/translation/ndash_localizations.dart';
 
 class FeedbackPen extends StatefulWidget {
-  const FeedbackPen({
-    Key? key,
-    required this.color,
-  }) : super(key: key);
+  const FeedbackPen({Key? key, required this.color}) : super(key: key);
 
   final Color color;
 
@@ -17,8 +14,7 @@ class FeedbackPen extends StatefulWidget {
   _FeedbackPenState createState() => _FeedbackPenState();
 }
 
-class _FeedbackPenState extends State<FeedbackPen>
-    with SingleTickerProviderStateMixin {
+class _FeedbackPenState extends State<FeedbackPen> with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<Offset> _slideAnimation;
 
@@ -31,26 +27,24 @@ class _FeedbackPenState extends State<FeedbackPen>
     _currentColor = widget.color;
     _nextColor = widget.color;
 
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 150),
-    )..addStatusListener((status) {
-        if (status == AnimationStatus.completed) {
-          setState(() {
-            _currentColor = _nextColor;
-            _animationController.reverse();
+    _animationController =
+        AnimationController(vsync: this, duration: const Duration(milliseconds: 150))
+          ..addStatusListener((status) {
+            if (status == AnimationStatus.completed) {
+              setState(() {
+                _currentColor = _nextColor;
+                _animationController.reverse();
+              });
+            }
           });
-        }
-      });
 
-    _slideAnimation = Tween<Offset>(
-      begin: Offset.zero,
-      end: const Offset(0, 1),
-    ).animate(CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.easeOut,
-      reverseCurve: Curves.easeIn,
-    ));
+    _slideAnimation = Tween<Offset>(begin: Offset.zero, end: const Offset(0, 1)).animate(
+      CurvedAnimation(
+        parent: _animationController,
+        curve: Curves.easeOut,
+        reverseCurve: Curves.easeIn,
+      ),
+    );
   }
 
   @override
@@ -107,9 +101,9 @@ class _FeedbackPenState extends State<FeedbackPen>
 
 class _PenNosePainter extends CustomPainter {
   _PenNosePainter(this._color)
-      : _nosePaint = Paint()
-          ..color = _color.withValues(alpha: 0.8)
-          ..style = PaintingStyle.fill;
+    : _nosePaint = Paint()
+        ..color = _color.withValues(alpha: 0.8)
+        ..style = PaintingStyle.fill;
 
   final Color _color;
   final Paint _nosePaint;
@@ -126,6 +120,5 @@ class _PenNosePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_PenNosePainter oldDelegate) =>
-      oldDelegate._color != _color;
+  bool shouldRepaint(_PenNosePainter oldDelegate) => oldDelegate._color != _color;
 }

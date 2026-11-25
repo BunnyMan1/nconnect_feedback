@@ -48,9 +48,7 @@ class NdashApi {
         file.writeAsBytesSync(screenshot);
         response = await dio.post(
           mediaUrl,
-          data: FormData.fromMap({
-            'Files': await MultipartFile.fromFile(file.path),
-          }),
+          data: FormData.fromMap({'Files': await MultipartFile.fromFile(file.path)}),
         );
       }
 
